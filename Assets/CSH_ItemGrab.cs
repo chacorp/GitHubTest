@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class CSH_ItemGrab : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // 아이템을 잡아올 속도
+    public float grabSpeed = 10;
+
+    // 아이템이 끌려올 위치
+    public Transform itmeHolder;
+
     void Start()
     {
         //ㅇㅇㅇㅇㅇ
     }
 
-    // Update is called once per frame
     void Update()
     {
         
