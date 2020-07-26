@@ -1,13 +1,39 @@
 ﻿using UnityEngine;
 
+// ========================================================================
+// 키패드 1, 2, 3, 4, 5 를 누르면 
+// 1. 아이템을 바꾼다.---------------------------------------------------[ ]
+// 2. 퀵 메뉴를 띄웠다가 다시 내린다. ------------------------------------[O]
+// ========================================================================
+
 public class CSH_QuickMenu : MonoBehaviour
 {        
+    // 퀵 메뉴 보여줄 속도
     public float moveSpeed = 200f;
+
+    // UI 트랜스폼
     RectTransform RT;
+
+    // UI 올라올 위치
     float Ypos = 540f;
+
+    // UI 현재 위치
     float Ypos_D;
+
+    // 타이머
     float timer;
-    bool showQM;
+    public float SetTimer
+    {
+        set 
+        {
+            timer = value;
+        }
+    }
+
+    // 퀵 메뉴 온/오프 여부
+    public bool showQM;
+    public bool QM_Control;
+
     void Start()
     {
         // 퀵 메뉴 보여주기
@@ -22,14 +48,8 @@ public class CSH_QuickMenu : MonoBehaviour
         showQM = true;
     }
 
-    void Update()
+    void Show_QuickMenu()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            showQM = true;
-            timer = 0;
-        }
-
         if (showQM)
         {
             // 천천히 올리기
@@ -39,6 +59,8 @@ public class CSH_QuickMenu : MonoBehaviour
             if (RT.anchoredPosition.y >= Ypos)
             {
                 RT.anchoredPosition = new Vector2(RT.anchoredPosition.x, Ypos);
+                if (QM_Control) return;
+
                 timer += Time.deltaTime;
                 if (timer > 2)
                 {
@@ -55,5 +77,18 @@ public class CSH_QuickMenu : MonoBehaviour
                 RT.anchoredPosition = new Vector2(RT.anchoredPosition.x, Ypos_D);
             }
         }
+    }
+
+    void Update()
+    {
+        // 1,2,3,4,5 중에 하나라도 누르면
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            showQM = true;
+            timer = 0;
+        }
+
+        // 퀵 메뉴 보여주기
+        Show_QuickMenu();
     }
 }

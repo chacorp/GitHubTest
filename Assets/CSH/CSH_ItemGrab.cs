@@ -88,6 +88,10 @@ public class CSH_ItemGrab : MonoBehaviour
             // 그냥 [아이템]이라면,
             else
             {
+                // 아이템의 csh_itemselect한테  <잡힌 상태> 라고 알려주기
+                // => 아웃라인 끄기
+                itemSelect.isGrabed = true;
+
                 // 아이템의 rigidbody 물리엔진 끄기
                 itemRB.isKinematic = true;
 
@@ -103,8 +107,6 @@ public class CSH_ItemGrab : MonoBehaviour
                     // = [아이템]을 (this)의 자식으로 가져오기
                     selectedItem.transform.SetParent(transform);
 
-                    // 아이템의 csh_itemselect한테  <잡힌 상태> 라고 알려주기
-                    itemSelect.isGrabed = true;
 
                     // 현재 [아이템]을 갖고 있다!
                     hasItem = true;
@@ -123,7 +125,7 @@ public class CSH_ItemGrab : MonoBehaviour
         float my = Input.GetAxis("Mouse Y");
 
         // 마우스 인풋값으로 [아이템] 돌리기
-        pointingItem.transform.localEulerAngles += new Vector3(my, -mx, 0);
+        pointingItem.transform.localEulerAngles += new Vector3(my, -mx);
     }
 
     void Throw_item()
@@ -158,17 +160,23 @@ public class CSH_ItemGrab : MonoBehaviour
     void Show_PressE()
     {
         // 현재 [아이템]을 잡고 있다면, 패쓰!
-        if (hasItem) return;
+        if (hasItem) PressE.SetActive(false);
 
-        // 가리키는 [아이템]이 있다면, 텍스트 보여주기
-        if(pointingItem) PressE.SetActive(true);
+        else
+        {
+            // 가리키는 [아이템]이 있다면, 텍스트 보여주기
+            if (pointingItem) PressE.SetActive(true);
 
-        // 가리키는 [아이템]이 없다면, 텍스트 가리기
-        else PressE.SetActive(false);
+            // 가리키는 [아이템]이 없다면, 텍스트 가리기
+            else PressE.SetActive(false);
+        }
     }
 
     private void Update()
     {
+        // " Press E " 띄우기
+        Show_PressE();
+
         // -------------------------------------< [E] 키를 누르면 아이템 눈 앞으로 가져오기 >
         // 1. 커서로 가리키는 아이템이 있고   &또한&   현재 아이템을 잡고 있지 않다면,
         if (!hasItem)
@@ -183,8 +191,6 @@ public class CSH_ItemGrab : MonoBehaviour
                     grabing = true;
                 }
             }
-            // " Press E " 띄우기
-            Show_PressE();
 
             // 잡기 함수 실행!
             Grab_item();
@@ -196,10 +202,10 @@ public class CSH_ItemGrab : MonoBehaviour
             // 현재 잡고 있는 아이템을 자기 자식으로 가져온 아이템으로 고정하기
             pointingItem = transform.GetChild(0).gameObject;
 
-            //   :: 이렇게 하는 이유 ::
+            //                      :: 이렇게 하는 이유 ::
             //
-            //   CSH_ItemSelect 때문에 아이템 위에 커서가 없으면,
-            //   아이템을 잡고 있음에도, pointingItem이 계속 null이 떠버린다!!!
+            //          CSH_ItemSelect 때문에 아이템 위에 커서가 없으면,
+            //       아이템을 잡고 있어도, pointingItem이 계속 null이 된다!!!
 
 
 
