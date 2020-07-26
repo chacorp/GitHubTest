@@ -3,12 +3,19 @@ using UnityEngine;
 
 // ===========================================================================
 // 마우스 커서를 아이템에 갖다 대면,
-// 1. 화면에 안내 메시지 띄우기 ---------------------------------------------[ ]
-// 2. [E] 키를 누르면 아이템 눈 앞으로 가져오기 ------------------------------[O]
+// 1. 화면에 [E] 메시지 띄우기 ----------------------------------------------[O]
+//
+// 2. [E] 키를 눌렀을때,   *만약 당겨오는 경로에 물체가 있다면 낑기기* --------[ ] <-----++++++???????????????
+//       
+//    - A. 그냥 [아이템]이면, 눈 앞으로 가져오기 -----------------------------[O]
+//      +
+//      A-1. 마우스 우클릭을 하고 마우스를 움직이면 아이템 회전하기 -----------[O]
+//      A-2. 마우스 좌클릭을 하면 아이템 던져버리기!! ------------------------[O]
 
-// 아이템을 가져온 상태에서,
-// 1. 마우스 우클릭을 하고 마우스를 움직이면 아이템 회전하기 ------------------[O]
-// 2. 마우스 좌클릭을 하면 아이템 던져버리기!! -------------------------------[O]
+
+//    - B. 만약 [특수 템]이면, 바로 인벤토리에 넣기 --------------------------[O]
+//                               퀵 메뉴가 비어있으면 퀵 메뉴에도 넣기 -------[ ] +++++++++++< CSH_UIManager.cs >+++++++++++
+
 // ===========================================================================
 
 public class CSH_ItemGrab : MonoBehaviour
@@ -73,11 +80,30 @@ public class CSH_ItemGrab : MonoBehaviour
         if (grabing)
         {
             // [특수 템]이라면,
-            if (itemSelect.isSpecial)
+            if (itemSelect.isSpecialItem)
             {
                 // 인벤토리 리스트에 추가하기
                 invntry.Add(pointingItem);
                 selectedItem.transform.SetParent(inventory);
+
+
+                // 아이콘의 위치 옮기기
+                // => 자식 컴포넌트 가져오리가서 부모 옮기기보다 먼저 해야함
+                // 1. CSH_UIManager의 아이템 박스 리스트 < I_Box > 속에서
+                // [ iBoxCount ] 번째 위치를 가져온다.
+                Vector2 iconRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
+                selectedItem.transform.GetComponentInChildren<RectTransform>().position = iconRT;
+
+                // 부모 옮기기
+                selectedItem.transform.GetChild(0).SetParent(CSH_UIManager.Instance.item_icons);
+
+                // 아이템 카운터 ++
+                CSH_UIManager.Instance.iBoxCount++;
+
+
+                // [E] 키 안내문 끄기
+                PressE.SetActive(false);
+
                 // 비활성화하기
                 selectedItem.SetActive(false);
 
@@ -106,7 +132,6 @@ public class CSH_ItemGrab : MonoBehaviour
                     // [아이템]의 부모를 (this)로 설정하기
                     // = [아이템]을 (this)의 자식으로 가져오기
                     selectedItem.transform.SetParent(transform);
-
 
                     // 현재 [아이템]을 갖고 있다!
                     hasItem = true;

@@ -11,7 +11,7 @@ public class CSH_ItemSelect : MonoBehaviour
     public bool isGrabed;
 
     // 이 [아이템]이 [특수 템]인가?
-    public bool isSpecial;
+    public bool isSpecialItem;
 
     // 아웃라인 온/오프 머티리얼
     [Header("Shader")]
