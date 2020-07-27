@@ -29,7 +29,12 @@ public class CSH_ItemSelect : MonoBehaviour
     private void OnMouseOver()
     {
         // 플레이어가 [아이템]을 잡고 있는 상태라면, 아웃라인 만들지 않기
-        if (isGrabed) { return; }
+        if (isGrabed)
+        {
+            // 아웃라인 제거하기
+            GetComponent<Renderer>().material = nonBorder;
+            return; 
+        }
         GetComponent<Renderer>().material = border;
 
         // 현재 가리키는 [아이템]으로 두기
