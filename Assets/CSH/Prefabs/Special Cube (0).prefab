@@ -110,8 +110,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGrabed: 0
   isSpecialItem: 1
-  border: {fileID: 2100000, guid: 5460c8366f4096549a6c2560e0723982, type: 2}
-  nonBorder: {fileID: 2100000, guid: 947c2bb6202f60848919faf24150c816, type: 2}
+  border: {fileID: 2100000, guid: a88dbcd3e8a247f478d564bd242eb92f, type: 2}
+  nonBorder: {fileID: 2100000, guid: e8d91bc76997e2d458bc2a1080b26456, type: 2}
 --- !u!54 &8584715285559334546
 Rigidbody:
   m_ObjectHideFlags: 0
