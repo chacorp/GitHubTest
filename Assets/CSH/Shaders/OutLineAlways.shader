@@ -1,4 +1,4 @@
-﻿Shader "Custom/OutLine"
+﻿Shader "Custom/OutLineAlways"
 {
     Properties
     {
@@ -24,6 +24,7 @@
 
             ZWrite Off
 
+            ZTest Always// =Zread
             //  쉐이더와 그래픽 카드 간에 통역
             CGPROGRAM
 
@@ -78,8 +79,11 @@
         {
             Name "Object"
 
+            ZTest Always// =Zread
+
             //  쉐이더와 그래픽 카드 간에 통역
             CGPROGRAM
+
 
             // 빌드 형태, 모양
             #pragma vertex vert
