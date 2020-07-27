@@ -471,8 +471,11 @@ MonoBehaviour:
   - {fileID: 326680089}
   - {fileID: 2036001766}
   - {fileID: 1844040450}
-  spiderL: {fileID: 3847424950803560643, guid: fbc0858aba64454438fa8590ad6d35db, type: 3}
-  enemyObjectPool: []
+  enemies:
+  - {fileID: 1487482624757262977, guid: 609ed3634c9128249815cdec2647132a, type: 3}
+  - {fileID: 1112336799913114, guid: 0f7fb21877ed7fb47a7d41525ef7ae51, type: 3}
+  - {fileID: 3847424950803560643, guid: fbc0858aba64454438fa8590ad6d35db, type: 3}
+  - {fileID: 1982225166119452, guid: 5ab50b188b7f0964eb111e68783cccfc, type: 3}
   poolSize: 10
 --- !u!4 &1029088114
 Transform:

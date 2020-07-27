@@ -6,13 +6,15 @@ using UnityEngine;
 // 필요 속성 : 생성위치, Enemy 프리팹, Object Pool
 public class ObjectManager : MonoBehaviour
 {
+    #region EnemyList
     [SerializeField] Transform[] spawnPoints;
-    [SerializeField] GameObject spiderL;
+    [SerializeField] GameObject[] enemies;
 
-    public List<GameObject> enemyObjectPool = new List<GameObject>();
+    #endregion
+    public List<GameObject>[] enemyObjectPools = new List<GameObject>[] {new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>() };
     [SerializeField] int poolSize = 10;
-    
-    
+
+
     void Start()
     {
         InitPool(poolSize);
@@ -22,19 +24,38 @@ public class ObjectManager : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
-            // createNewObject 함수에서 생성된 프리팹을 오브젝트 풀에 넣는다.
-            enemyObjectPool.Add(createNewObject());
+            // spiderS1을 오브젝트 풀 리스트에 넣어준다
+            GameObject spiderS1 = Instantiate(enemies[0]);
+            spiderS1.SetActive(false);
+            enemyObjectPools[0].Add(spiderS1);
+        }
+
+        for (int i = 0; i < size; i++)
+        {
+            // spiderS1을 오브젝트 풀 리스트에 넣어준다
+            GameObject spiderS2 = Instantiate(enemies[1]);
+            spiderS2.SetActive(false);
+            enemyObjectPools[1].Add(spiderS2);
+        }
+
+        for (int i = 0; i < size; i++)
+        {
+            // spiderL를 오브젝트 풀 리스트에 넣어준다
+            GameObject spiderL = Instantiate(enemies[2]);
+            spiderL.SetActive(false);
+            enemyObjectPools[2].Add(spiderL);
+        }
+
+        for (int i = 0; i < size; i++)
+        {
+            // spiderL를 오브젝트 풀 리스트에 넣어준다
+            GameObject beetle = Instantiate(enemies[3]);
+            beetle.SetActive(false);
+            enemyObjectPools[3].Add(beetle);
         }
     }
 
-    private GameObject createNewObject()
-    {
-        GameObject newObj = Instantiate(spiderL);
-        newObj.SetActive(false);
-        return newObj;
-    }
-
-    public GameObject GetObject()
+    public GameObject GetObject(List<GameObject> enemyObjectPool)
     {
         if (enemyObjectPool.Count > 0)
         {
@@ -48,18 +69,11 @@ public class ObjectManager : MonoBehaviour
             return obj;
         }
         else return null;
-        //else
-        //{
-        //    GameObject newObj = createNewObject();
-        //    newObj.SetActive(true);
-        //    return newObj;
-        //}
-
     }
 
-    public void ReturnObject(GameObject obj)
+    public void ReturnObject(GameObject enemy, List<GameObject> enemyObjectPool)
     {
-        obj.SetActive(false);
-        enemyObjectPool.Add(obj);
+        enemy.SetActive(false);
+        enemyObjectPool.Add(enemy);
     }
 }

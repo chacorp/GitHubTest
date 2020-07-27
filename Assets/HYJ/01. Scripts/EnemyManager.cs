@@ -11,20 +11,6 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] ObjectManager obMgr;
     [SerializeField] float maxCreatTime = 5.0f;
 
-    int _hp = 3;
-
-    public int HP
-    {
-        get { return _hp; }
-        set
-        {
-            _hp = value;
-            if (_hp <= 0) Destroy(gameObject);
-        }
-    }
-
-    GameObject obj;
-
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -35,7 +21,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             StartCoroutine(CreateEnemy());
         }
@@ -44,9 +30,10 @@ public class EnemyManager : MonoBehaviour
     IEnumerator CreateEnemy()
     {
         float rand = Random.Range(0, maxCreatTime);
+        int randNum = Random.Range(0, 4);
 
         yield return new WaitForSeconds(rand);
-        obMgr.GetObject();
+        obMgr.GetObject(obMgr.enemyObjectPools[randNum]);
 
     }
 }

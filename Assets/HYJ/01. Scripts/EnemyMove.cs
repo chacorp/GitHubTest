@@ -11,9 +11,11 @@ public class EnemyMove : MonoBehaviour
     private GameObject[] destinations;
     private Vector3[] targetVectors;
     private NavMeshAgent spiderAgent;
+    private Animator animSpider;
 
     void Start()
     {
+        animSpider = GetComponent<Animator>();
         spiderAgent = this.GetComponent<NavMeshAgent>();
         targetVectors = new Vector3[destinationLength];
         destinations = GameObject.FindGameObjectsWithTag("Destination");
@@ -47,7 +49,7 @@ public class EnemyMove : MonoBehaviour
             }
 
             spiderAgent.SetDestination(targetVectors[0] + transform.position);
-            Debug.Log(targetVectors[0]);
+            animSpider.SetTrigger("IsMoving");
 
         }
     }
