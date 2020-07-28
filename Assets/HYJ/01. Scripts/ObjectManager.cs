@@ -32,7 +32,7 @@ public class ObjectManager : MonoBehaviour
 
         for (int i = 0; i < size; i++)
         {
-            // spiderS1을 오브젝트 풀 리스트에 넣어준다
+            // spiderS2을 오브젝트 풀 리스트에 넣어준다
             GameObject spiderS2 = Instantiate(enemies[1]);
             spiderS2.SetActive(false);
             enemyObjectPools[1].Add(spiderS2);

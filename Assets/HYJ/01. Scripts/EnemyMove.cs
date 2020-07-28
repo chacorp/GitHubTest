@@ -11,16 +11,28 @@ public class EnemyMove : MonoBehaviour
     private GameObject[] destinations;
     private Vector3[] targetVectors;
     private NavMeshAgent spiderAgent;
-    private Animator animSpider;
+    public Animator animSpider;
+    public Vector3 dest;
 
     void Start()
     {
-        animSpider = GetComponent<Animator>();
         spiderAgent = this.GetComponent<NavMeshAgent>();
         targetVectors = new Vector3[destinationLength];
         destinations = GameObject.FindGameObjectsWithTag("Destination");
+
+
         if (spiderAgent == null) Debug.Log("The nav mesh agent component is no attched to " + gameObject.name);
-        else SetDestination();
+        else
+        {
+            spiderAgent.Warp(transform.position);
+            SetDestination();
+        }
+
+        if (animSpider == null)
+        {
+            animSpider = GetComponent<Animator>();
+        }
+
     }
 
     private void SetDestination()
@@ -47,8 +59,8 @@ public class EnemyMove : MonoBehaviour
                     }
                 }
             }
-
-            spiderAgent.SetDestination(targetVectors[0] + transform.position);
+            dest = (targetVectors[0] + transform.position);
+            spiderAgent.destination = dest;
             animSpider.SetTrigger("IsMoving");
 
         }
