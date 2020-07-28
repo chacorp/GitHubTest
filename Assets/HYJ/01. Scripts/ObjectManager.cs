@@ -11,7 +11,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject[] enemies;
 
     #endregion
-    public List<GameObject>[] enemyObjectPools = new List<GameObject>[] {new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>() };
+    [SerializeField] public List<GameObject>[] enemyObjectPools = new List<GameObject>[] { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>() };
     [SerializeField] int poolSize = 10;
 
 

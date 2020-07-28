@@ -22,10 +22,10 @@ public class ClipboardAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isSwinging)
         {
             isSwinging = true;
-            
+
         }
 
-        if(isSwinging)
+        if (isSwinging)
         {
             SwingClipboard();
         }
@@ -38,12 +38,12 @@ public class ClipboardAttack : MonoBehaviour
     void SwingClipboard()
     {
         swingTimer += Time.deltaTime;
-        
+
 
         if (swingTimer < swingDuration * 0.5f)
         {
             motionRatio += Time.deltaTime;
-            transform.localEulerAngles = Vector3.Lerp(startRot, targetAngle, motionRatio * 2 * (1.0f/ swingDuration));
+            transform.localEulerAngles = Vector3.Lerp(startRot, targetAngle, motionRatio * 2 * (1.0f / swingDuration));
         }
 
         else if (swingTimer > swingDuration * 0.5f && swingTimer < swingDuration)
@@ -58,5 +58,11 @@ public class ClipboardAttack : MonoBehaviour
             motionRatio = 0;
             isSwinging = false;
         }
+    }
+
+    private void OnCollisionEnter(Collision col)
+    {
+        Enemy enemy = col.gameObject.GetComponent<Enemy>();
+        enemy.OnDamageProcess();
     }
 }
