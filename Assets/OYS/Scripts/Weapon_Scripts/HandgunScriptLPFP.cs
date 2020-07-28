@@ -9,14 +9,14 @@ public class HandgunScriptLPFP : MonoBehaviour {
 	Animator anim;
 
 	[Header("Gun Camera")]
-	//Main gun camera
+	// 총만 따로 그리는 카메라
 	public Camera gunCamera;
 
 	[Header("Gun Camera Options")]
-	//How fast the camera field of view changes when aiming 
+	// 조준 중에 시야각 변하는 속도
 	[Tooltip("How fast the camera field of view changes when aiming.")]
 	public float fovSpeed = 15.0f;
-	//Default camera field of view
+	// 기본 카메라 시야각
 	[Tooltip("Default value for camera field of view (40 is recommended).")]
 	public float defaultFov = 40.0f;
 
