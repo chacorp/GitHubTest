@@ -8,6 +8,7 @@ TagManager:
   - Special
   - Destination
   - Target
+  - Bullet
   layers:
   - Default
   - TransparentFX
