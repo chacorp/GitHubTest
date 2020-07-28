@@ -76,7 +76,7 @@ namespace FPSControllerLPFP
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             _collider = GetComponent<CapsuleCollider>();
             _audioSource = GetComponent<AudioSource>();
-			arms = AssignCharactersCamera();
+			//arms = AssignCharactersCamera();
             _audioSource.clip = walkingSound;
             _audioSource.loop = true;
             _rotationX = new SmoothRotation(RotationXRaw);
