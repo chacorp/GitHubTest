@@ -571,6 +571,7 @@ MonoBehaviour:
   pointingItem: {fileID: 0}
   PressE: {fileID: 1354768666}
   inventory: {fileID: 1529982797}
+  fpcController: {fileID: 114352005552888634}
   throwSpeed: 15
   grabSpeed: 100
   hasItem: 0
@@ -6179,6 +6180,7 @@ MonoBehaviour:
     strafe: Vertical
     run: Fire3
     jump: Jump
+  hasGrabed: 0
 --- !u!136 &136351756933723380
 CapsuleCollider:
   m_ObjectHideFlags: 0

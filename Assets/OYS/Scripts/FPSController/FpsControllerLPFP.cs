@@ -66,6 +66,9 @@ namespace FPSControllerLPFP
         private SmoothVelocity _velocityZ;
         private bool _isGrounded;
 
+        [Tooltip("아이템 잡고 있을때의 카메라 움직임 조정하는 용도 "), SerializeField]
+        public bool hasGrabed = false;
+
         private readonly RaycastHit[] _groundCastResults = new RaycastHit[8];
         private readonly RaycastHit[] _wallCastResults = new RaycastHit[8];
 
@@ -151,6 +154,8 @@ namespace FPSControllerLPFP
 
         private void RotateCameraAndCharacter()
         {
+            if (hasGrabed)  return;  
+
             var rotationX = _rotationX.Update(RotationXRaw, rotationSmoothness);
             var rotationY = _rotationY.Update(RotationYRaw, rotationSmoothness);
             var clampedY = RestrictVerticalRotation(rotationY);

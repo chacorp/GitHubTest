@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FPSControllerLPFP;
+using System.Collections.Generic;
 using UnityEngine;
 
 // ===========================================================================
@@ -47,7 +48,7 @@ public class CSH_ItemGrab : MonoBehaviour
     Rigidbody itemRB;
 
 
-
+    public FpsControllerLPFP fpcController;
 
     [Header("Properties")]
     // 던져버릴 속도
@@ -93,7 +94,8 @@ public class CSH_ItemGrab : MonoBehaviour
                 // [ iBoxCount ] 번째 위치를 가져온다.
                 Vector2 iconRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
                 // 아이콘의 위치를 [ iBoxCount ] 번째 위치로 바꾼다
-                selectedItem.transform.GetComponentInChildren<RectTransform>().position = iconRT;
+                RectTransform selectedIcon = selectedItem.transform.GetComponentInChildren<RectTransform>();
+                selectedIcon.position = iconRT;
 
                 // 부모 옮기기
                 selectedItem.transform.GetChild(0).SetParent(CSH_UIManager.Instance.item_icons);
@@ -241,6 +243,14 @@ public class CSH_ItemGrab : MonoBehaviour
             {
                 // 2. 마우스를 움직이면 아이템 회전하기
                 Spin_item();
+
+                // 3. 마우스 우클릭 중엔 카메라 회전 안하기
+                fpcController.hasGrabed = true;
+            }
+            else
+            {
+                // 3. 마우스 우클릭 중엔 카메라 회전 안하기
+                fpcController.hasGrabed = false;
             }
 
             // -------------------------------------< 마우스 좌클릭을 하면 아이템 던져버리기!! >

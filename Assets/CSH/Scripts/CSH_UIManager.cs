@@ -15,6 +15,7 @@ using UnityEngine;
 
 public class CSH_UIManager : MonoBehaviour
 {
+    // 싱글톤으로 만들기
     public static CSH_UIManager Instance;
     CSH_UIManager()
     {
@@ -37,6 +38,7 @@ public class CSH_UIManager : MonoBehaviour
 
     // 인벤토리 아이템 상자
     public List<Vector2> I_Box = new List<Vector2>();
+
     // 퀵 메뉴 아이템 상자
     List<Vector2> QM_Box = new List<Vector2>();
 
@@ -44,14 +46,15 @@ public class CSH_UIManager : MonoBehaviour
 
     void Start()
     {
-        // 퀵 메뉴 컴포넌트 가져오기
+        // 퀵 메뉴 스크립트 가져오기
         CSH_QM = quickMenuUI.GetComponent<CSH_QuickMenu>();
 
-        // 리스트에 아이템 상자들의 위치 값 넣어두기
+        // 리스트에 인벤토리 네모들의 위치 값 넣어두기
         for (int i = 0; i < inventoryMenuUI.transform.childCount; i++)
         {
             I_Box.Add(inventoryMenuUI.transform.GetChild(i).GetComponent<RectTransform>().position);
         }
+        // 리스트에 퀵 메뉴 네모들의 위치 값 넣어두기
         for (int i = 0; i < quickMenuUI.transform.childCount; i++)
         {
             QM_Box.Add(quickMenuUI.transform.GetChild(i).GetComponent<RectTransform>().position);
@@ -59,7 +62,10 @@ public class CSH_UIManager : MonoBehaviour
 
         // 시작할때 미리 꺼두기
         isInventoryOn = false;
+        // 인벤토리 메뉴
         inventoryMenuUI.SetActive(false);
+        // 아이콘 담아두는 곳
+        item_icons.gameObject.SetActive(false);
     }
 
     void Open_Inventory()
@@ -67,6 +73,10 @@ public class CSH_UIManager : MonoBehaviour
         // 켜져있으면 끄고, 꺼져있으면 킨다
         inventoryMenuUI.SetActive(!inventoryMenuUI.activeSelf);
         isInventoryOn = !isInventoryOn;
+
+        // 켜고 끄기를, 인벤토리 메뉴랑 똑같이 적용한다!
+        item_icons.gameObject.SetActive(inventoryMenuUI.activeSelf);
+                
 
         // 인벤토리에 따라 퀵메뉴 온/오프 콘트롤하기
         CSH_QM.QM_Control = isInventoryOn;
