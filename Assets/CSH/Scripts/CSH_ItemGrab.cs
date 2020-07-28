@@ -17,6 +17,7 @@ using UnityEngine;
 //    - B. 만약 [특수 템]이면, 바로 인벤토리에 넣기 --------------------------[O]
 //                               퀵 메뉴가 비어있으면 퀵 메뉴에도 넣기 -------[ ] <<<<<<<<<<<<<<    CSH_UIManager.cs 
 
+// 3.  1,2,3,4,5 번으로 활성화 무기 바꾸기 ----------------------------------[O] <<<<<<<<<<<<<<    CSH_ItemSwitch.cs 
 // ===========================================================================
 
 public class CSH_ItemGrab : MonoBehaviour
@@ -26,7 +27,6 @@ public class CSH_ItemGrab : MonoBehaviour
     {
         Instance = this;
     }
-
 
 
     [Header("Interacting Object")]
@@ -40,8 +40,19 @@ public class CSH_ItemGrab : MonoBehaviour
     public GameObject PressE;
 
     // [특수 템]을 위한 인벤토리
+    // 걍 무기 담아두는 곳
     public Transform inventory;
     List<GameObject> invntry = new List<GameObject>();
+
+    // 무기 잡고 있는 곳
+    public Transform Holder;
+
+    // 현재 쓸 수 있는 무기의 리스트
+    public List<GameObject> activeItems = new List<GameObject>();
+
+    // 갖고 있는 아이템 갯수를 보내주기 위해 
+    // 스크립트 가져옴
+    public CSH_ItemSwitch itemSwitch;
 
     // 아이템의 컴포넌트를 담아둘 전역변수
     CSH_ItemSelect itemSelect;
@@ -66,6 +77,15 @@ public class CSH_ItemGrab : MonoBehaviour
         hasItem = false;
 
         PressE.SetActive(false);
+
+        // 홀더에 있는 아이템들 모두 꺼놓기
+        // 판자 제외
+        for(int i = 1; i < Holder.childCount; i++)
+        {
+            Holder.GetChild(i).gameObject.SetActive(false);
+        }
+
+        activeItems.Add(Holder.GetChild(0).gameObject); // ------------------------------클립보드 야매로 리스트에 넣음
     }
 
     void Grab_item()
@@ -80,22 +100,34 @@ public class CSH_ItemGrab : MonoBehaviour
         // 잡기 시작
         if (grabing)
         {
-            // [특수 템]이라면,
+            // [특수 템]이라면, --------------------------------------------------< 이렇게 하지 말고, 플레이어가 다 갖고 있다가 활성화하는 방식으로 하자!>
             if (itemSelect.isSpecialItem)
             {
+                // 이름 가져오기
+                string itemName = selectedItem.name;
+
                 // 인벤토리 리스트에 추가하기
                 invntry.Add(pointingItem);
                 selectedItem.transform.SetParent(inventory);
 
+                // 아이템의 rigidbody 물리엔진 끄기
+                itemRB.isKinematic = true;
+
+                // 아이템의 Collider 끄기 => 안끄면 플레이어와 충돌나서 뒤로 밀린다!
+                Collider itemCol = selectedItem.GetComponent<Collider>();
+                itemCol.enabled = false;
+
 
                 // 아이콘의 위치 옮기기
                 // => 자식 컴포넌트 가져오리가서 부모 옮기기보다 먼저 해야함
-                // 1. CSH_UIManager의 아이템 박스 리스트 < I_Box > 속에서
-                // [ iBoxCount ] 번째 위치를 가져온다.
+                // CSH_UIManager의 아이템 박스 리스트 < I_Box > 속에서
+                //                          [ iBoxCount ] 번째 위치를 가져온다.
                 Vector2 iconRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
                 // 아이콘의 위치를 [ iBoxCount ] 번째 위치로 바꾼다
                 RectTransform selectedIcon = selectedItem.transform.GetComponentInChildren<RectTransform>();
                 selectedIcon.position = iconRT;
+
+
 
                 // 부모 옮기기
                 selectedItem.transform.GetChild(0).SetParent(CSH_UIManager.Instance.item_icons);
@@ -103,6 +135,23 @@ public class CSH_ItemGrab : MonoBehaviour
                 // 아이템 카운터 ++
                 CSH_UIManager.Instance.iBoxCount++;
 
+
+                // Holder에서 이름이 같은 오브젝트 켜기
+                for (int i = 0; i < Holder.childCount; i++)
+                {
+                    if(Holder.GetChild(i).name.Contains(itemName))
+                    {
+                        Holder.GetChild(i).gameObject.SetActive(true);
+                        // 활성화된 리스트에도 넣기--------------------------------- 최초 1번이라서 중복 안될듯
+                        activeItems.Add(Holder.GetChild(i).gameObject);
+                        // 갖고 있는 아이템 갯수 +1
+                        itemSwitch.HolderCount++;
+                    }
+                    else
+                    {
+                        Holder.GetChild(i).gameObject.SetActive(false);
+                    }
+                }
 
                 // [E] 키 안내문 끄기
                 PressE.SetActive(false);
@@ -245,12 +294,15 @@ public class CSH_ItemGrab : MonoBehaviour
                 Spin_item();
 
                 // 3. 마우스 우클릭 중엔 카메라 회전 안하기
-                fpcController.hasGrabed = true;
+                if (fpcController != null)
+                    fpcController.hasGrabed = true;
+                
             }
             else
             {
                 // 3. 마우스 우클릭 중엔 카메라 회전 안하기
-                fpcController.hasGrabed = false;
+                if (fpcController != null)
+                    fpcController.hasGrabed = false;
             }
 
             // -------------------------------------< 마우스 좌클릭을 하면 아이템 던져버리기!! >
