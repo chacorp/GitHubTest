@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4053056889727406}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: small pincer left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4280682064003598}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mid leg left 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4029437880034710}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hind leg left 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4109382141438952}
   - component: {fileID: 137329798304907042}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beetle_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4856935602326558}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: antenna right 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4002345541489220}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hind leg right 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4915559856098040}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front leg right 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4310711571951100}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mid leg left 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4220187202653062}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hind leg left 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4838260958808906}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: large pincer right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4962215922876002}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mid leg right 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4523447265882858}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: antenna right 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4885733161794328}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hind leg left 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4281915460571788}
   - component: {fileID: 137447843037841424}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beetle_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -614,7 +614,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4176872798797400}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mid leg left 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +645,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4108739475593848}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mid leg right 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4478598472685208}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: antenna left 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,7 +706,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4982433008758556}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front leg left 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -737,7 +737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4347678574112786}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front leg left 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -767,7 +767,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4032726042916974}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: small antenna left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -797,7 +797,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4023464638241662}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: antenna right 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -828,7 +828,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4535918726790058}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hind leg right 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -858,7 +858,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4063680334848474}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: antenna left 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -888,7 +888,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4245223699490116}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front leg right 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -919,7 +919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4289978338804222}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front leg left 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +950,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4964449592794742}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: small pincer right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -980,7 +980,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4201349164314422}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front leg right 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1011,7 +1011,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4537452288092134}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hind leg left 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1042,7 +1042,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4452092539666402}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: small antenna right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1072,7 +1072,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4338264386837608}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mid leg right 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1103,7 +1103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4066089870106598}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hind leg right 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1134,7 +1134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4552495015267682}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: antenna left 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1165,7 +1165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4190526310682736}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hind leg right 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1197,7 +1197,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4770761618098344}
   - component: {fileID: 137772171946464764}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: beetle_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1315,7 +1315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4268738630208160}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1359,7 +1359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4223702023096704}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mid leg left 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1389,7 +1389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4180763366956466}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front leg left 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1420,7 +1420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4543563916874224}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mid leg right 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1451,7 +1451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4651677311328446}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front leg right 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1482,7 +1482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4866634455718468}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: large pincer left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1514,7 +1514,9 @@ GameObject:
   - component: {fileID: 4307874443502250}
   - component: {fileID: 5148772952401157235}
   - component: {fileID: 6348750812013390260}
-  m_Layer: 0
+  - component: {fileID: 1341047441504198056}
+  - component: {fileID: 9213873221333522410}
+  m_Layer: 9
   m_Name: Beetle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1548,9 +1550,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc62499a51fbe8b4f93ea2148e018ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   destinationLength: 2
   animSpider: {fileID: 5192223996325402377}
-  dest: {x: 0, y: 0, z: 0}
+  objMgr: {fileID: 0}
+  speed: 3
+  sprintSpeed: 5
+  reactionRange: 4
+  currentTime: 0
+  damageDelayTIme: 1
+  squeezeSpeed: 0.3
 --- !u!195 &6348750812013390260
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1573,6 +1582,35 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &1341047441504198056
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982225166119452}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13812888, y: 0.10082495, z: 0.3321023}
+  m_Center: {x: -0.0010852516, y: 0.051234186, z: 0.04999888}
+--- !u!54 &9213873221333522410
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982225166119452}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5285840442306945507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,8 +1622,7 @@ GameObject:
   - component: {fileID: 5283660038018986325}
   - component: {fileID: 5192223996325402377}
   - component: {fileID: 5442448995741105655}
-  - component: {fileID: 5311445042179110421}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Beetle_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1656,16 +1693,3 @@ LODGroup:
     renderers:
     - renderer: {fileID: 137447843037841424}
   m_Enabled: 1
---- !u!65 &5311445042179110421
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285840442306945507}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.52, y: 0.42, z: 1.46}
-  m_Center: {x: 0, y: 0.21, z: 0.28}
