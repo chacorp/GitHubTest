@@ -92,6 +92,7 @@ public class CSH_ItemGrab : MonoBehaviour
                 // 1. CSH_UIManager의 아이템 박스 리스트 < I_Box > 속에서
                 // [ iBoxCount ] 번째 위치를 가져온다.
                 Vector2 iconRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
+                // 아이콘의 위치를 [ iBoxCount ] 번째 위치로 바꾼다
                 selectedItem.transform.GetComponentInChildren<RectTransform>().position = iconRT;
 
                 // 부모 옮기기
@@ -206,7 +207,7 @@ public class CSH_ItemGrab : MonoBehaviour
         // 1. 커서로 가리키는 아이템이 있고   &또한&   현재 아이템을 잡고 있지 않다면,
         if (!hasItem)
         {
-            if (pointingItem)
+            if (pointingItem != null)
             {
                 // 2. [E] 키를 눌러서 아이템 가져오기
                 if (Input.GetKeyDown(KeyCode.E))
