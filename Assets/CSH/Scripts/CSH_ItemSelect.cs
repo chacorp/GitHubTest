@@ -28,6 +28,7 @@ public class CSH_ItemSelect : MonoBehaviour
     // [아이템] 위에 커서를 올리면, 아웃라인 만들기
     private void OnMouseOver()
     {
+        Debug.Log("MO");
         // 플레이어가 [아이템]을 잡고 있는 상태라면, 아웃라인 만들지 않기
         if (isGrabed)
         {

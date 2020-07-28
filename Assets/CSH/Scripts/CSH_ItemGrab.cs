@@ -125,7 +125,8 @@ public class CSH_ItemGrab : MonoBehaviour
                 Vector2 iconRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
                 // 아이콘의 위치를 [ iBoxCount ] 번째 위치로 바꾼다
                 RectTransform selectedIcon = selectedItem.transform.GetComponentInChildren<RectTransform>();
-                selectedIcon.position = iconRT;
+                if(selectedIcon != null)
+                    selectedIcon.position = iconRT;
 
 
 
