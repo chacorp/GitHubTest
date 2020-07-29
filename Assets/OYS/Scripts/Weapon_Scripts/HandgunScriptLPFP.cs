@@ -50,9 +50,9 @@ public class HandgunScriptLPFP : MonoBehaviour
     private bool isReloading;
 
     //Holstering weapon
-    private bool hasBeenHolstered = false;
-    //If weapon is holstered
-    private bool holstered;
+    //private bool hasBeenHolstered = false;
+    ////If weapon is holstered
+    //private bool holstered;
     //Check if running
     private bool isRunning;
     //Check if aiming
@@ -63,7 +63,7 @@ public class HandgunScriptLPFP : MonoBehaviour
     private bool isInspecting;
 
     //How much ammo is currently left
-    private int currentAmmo;
+    public int currentAmmo;
     //Totalt amount of ammo
     [Tooltip("How much ammo the weapon should have.")]
     public int ammo;
