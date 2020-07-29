@@ -3,9 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 
 // ----- Low Poly FPS Pack Free Version -----
-public class HandgunScriptLPFP : MonoBehaviour
+public class CSH_HandGun : MonoBehaviour
 {
-
     //Animator component attached to weapon
     Animator anim;
 
@@ -80,8 +79,6 @@ public class HandgunScriptLPFP : MonoBehaviour
     [Tooltip("The bullet model inside the mag, not used for all weapons.")]
     public SkinnedMeshRenderer bulletInMagRenderer;
 
-    [Header("Grenade Settings")]
-    public float grenadeSpawnDelay = 0.35f;
 
     [Header("Muzzleflash Settings")]
     public bool randomMuzzleflash = false;
@@ -106,7 +103,7 @@ public class HandgunScriptLPFP : MonoBehaviour
         [Header("Prefabs")]
         public Transform bulletPrefab;
         public Transform casingPrefab;
-        public Transform grenadePrefab;
+
     }
     public prefabs Prefabs;
 
@@ -119,8 +116,6 @@ public class HandgunScriptLPFP : MonoBehaviour
         public Transform casingSpawnPoint;
         //Bullet prefab spawn from this point
         public Transform bulletSpawnPoint;
-        //Grenade prefab spawn from this point
-        public Transform grenadeSpawnPoint;
     }
     public spawnpoints Spawnpoints;
 
@@ -158,6 +153,7 @@ public class HandgunScriptLPFP : MonoBehaviour
         initialSwayPosition = transform.localPosition;
 
         //Set the shoot sound to audio source
+        if(SoundClips.shootSound != null)
         shootAudioSource.clip = SoundClips.shootSound;
     }
 
@@ -184,40 +180,11 @@ public class HandgunScriptLPFP : MonoBehaviour
 
     private void Update()
     {
-
-        //Aiming
-        //Toggle camera FOV when right click is held down
-        //if (Input.GetButton("Fire2") && !isReloading && !isRunning && !isInspecting)
-        //{
-        //    isAiming = true;
-
-        //    anim.SetBool("Aim", true);
-
-        //    if (!soundHasPlayed)
-        //    {
-        //        mainAudioSource.clip = SoundClips.aimSound;
-        //        mainAudioSource.Play();
-
-        //        soundHasPlayed = true;
-        //    }
-        //}
-        //else
-        //{
-        //    //When right click is released
-
-
-        //    isAiming = false;
-
-        //    anim.SetBool("Aim", false);
-        //}
-        //Aiming end
-
         //If randomize muzzleflash is true, genereate random int values
         if (randomMuzzleflash == true)
         {
             randomMuzzleflashValue = Random.Range(minRandomValue, maxRandomValue);
         }
-
 
 
         //Set current ammo text from ammo int
@@ -226,25 +193,6 @@ public class HandgunScriptLPFP : MonoBehaviour
         //Continosuly check which animation 
         //is currently playing
         AnimationCheck();
-
-        //Play knife attack 1 animation when Q key is pressed
-        //if (Input.GetKeyDown(KeyCode.Q) && !isInspecting)
-        //{
-        //    anim.Play("Knife Attack 1", 0, 0f);
-        //}
-        ////Play knife attack 2 animation when F key is pressed
-        //if (Input.GetKeyDown(KeyCode.F) && !isInspecting)
-        //{
-        //    anim.Play("Knife Attack 2", 0, 0f);
-        //}
-
-        ////Throw grenade when pressing G key
-        //if (Input.GetKeyDown(KeyCode.G) && !isInspecting)
-        //{
-        //    StartCoroutine(GrenadeSpawnDelay());
-        //    //Play grenade throw animation
-        //    anim.Play("GrenadeThrow", 0, 0.0f);
-        //}
 
         //If out of ammo
         if (currentAmmo == 0)
@@ -320,35 +268,34 @@ public class HandgunScriptLPFP : MonoBehaviour
         }
 
         //Toggle weapon holster when pressing E key
-        // 무기 바꾸기
-        //if (Input.GetKeyDown(KeyCode.E) && !hasBeenHolstered)
-        //{
-        //    holstered = true;
+        if (Input.GetKeyDown(KeyCode.E) && !hasBeenHolstered)
+        {
+            holstered = true;
 
-        //    mainAudioSource.clip = SoundClips.holsterSound;
-        //    mainAudioSource.Play();
+            mainAudioSource.clip = SoundClips.holsterSound;
+            mainAudioSource.Play();
 
-        //    hasBeenHolstered = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.E) && hasBeenHolstered)
-        //{
-        //    holstered = false;
+            hasBeenHolstered = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && hasBeenHolstered)
+        {
+            holstered = false;
 
-        //    mainAudioSource.clip = SoundClips.takeOutSound;
-        //    mainAudioSource.Play();
+            mainAudioSource.clip = SoundClips.takeOutSound;
+            mainAudioSource.Play();
 
-        //    hasBeenHolstered = false;
-        //}
+            hasBeenHolstered = false;
+        }
 
         //Holster anim toggle
-        //if (holstered == true)
-        //{
-        //    anim.SetBool("Holster", true);
-        //}
-        //else
-        //{
-        //    anim.SetBool("Holster", false);
-        //}
+        if (holstered == true)
+        {
+            anim.SetBool("Holster", true);
+        }
+        else
+        {
+            anim.SetBool("Holster", false);
+        }
 
         //Reload 
         if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isInspecting)
@@ -409,16 +356,9 @@ public class HandgunScriptLPFP : MonoBehaviour
         hasStartedSliderBack = false;
     }
 
-    private IEnumerator GrenadeSpawnDelay()
-    {
-        //Wait for set amount of time before spawning grenade
-        yield return new WaitForSeconds(grenadeSpawnDelay);
-        //Spawn grenade prefab at spawnpoint
-        Instantiate(Prefabs.grenadePrefab,
-            Spawnpoints.grenadeSpawnPoint.transform.position,
-            Spawnpoints.grenadeSpawnPoint.transform.rotation);
-    }
 
+
+    // 자동장전
     private IEnumerator AutoReload()
     {
 
@@ -455,6 +395,7 @@ public class HandgunScriptLPFP : MonoBehaviour
     }
 
     //Reload
+    // 장전
     private void Reload()
     {
 
@@ -498,6 +439,7 @@ public class HandgunScriptLPFP : MonoBehaviour
     }
 
     //Enable bullet in mag renderer after set amount of time
+    // 탄창
     private IEnumerator ShowBulletInMag()
     {
         //Wait set amount of time before showing bullet in mag
@@ -508,6 +450,7 @@ public class HandgunScriptLPFP : MonoBehaviour
 
 
     //Check current animation playing
+    // 애니메이션
     private void AnimationCheck()
     {
         //Check if reloading
@@ -533,4 +476,3 @@ public class HandgunScriptLPFP : MonoBehaviour
         }
     }
 }
-// ----- Low Poly FPS Pack Free Version -----
