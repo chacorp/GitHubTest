@@ -6694,12 +6694,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e526978b64d55e4392bcdd9d9f720cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swingDuration: 0.2
-  swingSpeed: 0.45
+  swingDuration: 0.5
   swingTimer: 0
   isSwinging: 0
   startRot: {x: 0, y: 0, z: 0}
   startPos: {x: 0, y: 0, z: 0}
+  targetAngle: {x: -30.5, y: 210, z: 13}
+  targetPos1: {x: 0.224, y: -0.085, z: 0.4}
+  targetPos2: {x: 0.216, y: -0.585, z: 0.515}
 --- !u!65 &1685343192516905
 BoxCollider:
   m_ObjectHideFlags: 0
