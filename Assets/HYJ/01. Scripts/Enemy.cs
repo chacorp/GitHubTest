@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] int destinationLength = 2;
     private GameObject[] destinations;
     private Vector3[] targetVectors;
-    private Vector3 dest;
+    [SerializeField] private Vector3 dest;
 
     private NavMeshAgent spiderAgent;
     public Animator animSpider;
@@ -50,6 +50,8 @@ public class Enemy : MonoBehaviour
         spiderAgent = GetComponent<NavMeshAgent>();
         spiderAgent.speed = speed;
         spiderAgent.enabled = false;
+        //spiderAgent.enabled = true;
+        //spiderAgent.SetDestination(GameObject.Find("Dest2").transform.position);
         if (animSpider == null) animSpider = GetComponentInChildren<Animator>();
         objMgr = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
     }
@@ -85,17 +87,21 @@ public class Enemy : MonoBehaviour
     private void Move()
     {
         // 네브매쉬 에이전트 활성화
-        if (spiderAgent.enabled == false) spiderAgent.enabled = true;
+        if (spiderAgent.enabled == false)
+        {
+            spiderAgent.Warp(transform.position);
+            spiderAgent.enabled = true;
+        }
 
         // 목적지 변수 배열 초기화 & Destination 오브젝트 검색
         targetVectors = new Vector3[destinationLength];
         destinations = GameObject.FindGameObjectsWithTag("Destination");
 
-        spiderAgent.Warp(transform.position);
+        
         SetDestination();
 
         // 에너미의 위치가 목적지에 도달하게 되면 상태를 IDle로 변경한다.
-        if (transform.position == dest) state = EnemyState.Idle;
+        if (Vector3.Distance(transform.position , dest) <= spiderAgent.stoppingDistance) state = EnemyState.Idle;
     }
 
     private void Damage()
@@ -141,7 +147,8 @@ public class Enemy : MonoBehaviour
             dest = (targetVectors[0] + transform.position);
             animSpider.SetTrigger("IsMoving");
             spiderAgent.SetDestination(dest);
-
+            spiderAgent.autoBraking = false;
+            spiderAgent.stoppingDistance = 1.0f;
         }
     }
 
