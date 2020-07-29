@@ -64,6 +64,7 @@ public class ObjectManager : MonoBehaviour
 
             int rand = Random.Range(0, spawnPoints.Length);
             obj.transform.position = spawnPoints[rand].position;
+            obj.transform.localScale = Vector3.one;
 
             enemyObjectPool.RemoveAt(0);
             return obj;

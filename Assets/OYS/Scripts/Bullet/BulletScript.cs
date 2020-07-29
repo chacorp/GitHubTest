@@ -27,6 +27,7 @@ public class BulletScript : MonoBehaviour
     //If the bullet collides with anything
     private void OnCollisionEnter(Collision collision)
     {
+        print(collision.gameObject.name);
         //If destroy on impact is false, start 
         //coroutine with random destroy timer
         if (!destroyOnImpact)
@@ -71,7 +72,7 @@ public class BulletScript : MonoBehaviour
             Destroy(gameObject);
         }
         Enemy enemy = collision.transform.GetComponent<Enemy>();
-        if(enemy)
+        if (enemy)
         {
             Debug.Log($"{collision.gameObject.name} is attacked!");
             enemy.OnDamageProcess();

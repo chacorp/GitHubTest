@@ -4030,7 +4030,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578378538}
   m_LocalRotation: {x: 0.06978393, y: -0.023839116, z: -0.08517923, w: 0.9936329}
-  m_LocalPosition: {x: 0.063, y: -0.095, z: 0.039}
+  m_LocalPosition: {x: 0.063, y: -0.095, z: 0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4795267472848353}
@@ -6368,8 +6368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e526978b64d55e4392bcdd9d9f720cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swingDuration: 0.3
-  swingSpeed: 0.22
+  swingDuration: 0.2
+  swingSpeed: 0.45
   swingTimer: 0
   isSwinging: 0
   startRot: {x: 0, y: 0, z: 0}
@@ -6381,11 +6381,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1685343192516903}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5676697, y: 0.26140743, z: 2.796486}
-  m_Center: {x: -0.32383543, y: 0.036875285, z: -2.128284}
+  m_Size: {x: 0.96435404, y: 0.26140743, z: 1.5487984}
+  m_Center: {x: -0.022180015, y: 0.036878254, z: -1.5044513}
 --- !u!1 &1739403973820048
 GameObject:
   m_ObjectHideFlags: 0
@@ -7771,7 +7771,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.2
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

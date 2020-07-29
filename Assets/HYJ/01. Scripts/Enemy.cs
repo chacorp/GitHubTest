@@ -97,11 +97,11 @@ public class Enemy : MonoBehaviour
         targetVectors = new Vector3[destinationLength];
         destinations = GameObject.FindGameObjectsWithTag("Destination");
 
-        
+
         SetDestination();
 
         // 에너미의 위치가 목적지에 도달하게 되면 상태를 IDle로 변경한다.
-        if (Vector3.Distance(transform.position , dest) <= spiderAgent.stoppingDistance) state = EnemyState.Idle;
+        if (Vector3.Distance(transform.position, dest) <= spiderAgent.stoppingDistance) state = EnemyState.Idle;
     }
 
     private void Damage()
@@ -155,6 +155,11 @@ public class Enemy : MonoBehaviour
     // 에너미가 피격되면 호출되는 함수, 다른 클래스에서 적용시키기 위해 public으로 수식
     public void OnDamageProcess()
     {
+        if (state == EnemyState.Die)
+        {
+            return;
+        }
+
         currentHp--;
         if (currentHp > 0)
         {
@@ -173,25 +178,36 @@ public class Enemy : MonoBehaviour
     {
         // 게임 오브젝트의 Y 스케일 값을 작게 만들고 싶다.
         spiderAgent.enabled = false;
-        float x = transform.localScale.x;
-        float y = transform.localScale.y;
-        float z = transform.localScale.z;
 
-
-        while (transform.localScale.y > transform.localScale.y * 0.3f)
+        float t = 0;
+        Vector3 start = transform.localScale;
+        Vector3 end = new Vector3(1, 0.1f, 1);
+        while (t <= 1)
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(x, y * 0.3f, z), squeezeSpeed * Time.fixedDeltaTime);
-            yield return new WaitForFixedUpdate();
+            transform.localScale = Vector3.Lerp(start, end, t);
+            t += Time.deltaTime;
+            yield return 0;
         }
+        DetectName(gameObject);
 
-        DetectName();
     }
 
-    private void DetectName()
+    private void DetectName(GameObject gameObject)
     {
-        if (gameObject.name.Contains("SpiderS")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[0]);
+        Debug.Log($"DetectName() is called");
         if (gameObject.name.Contains("SpiderS2")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[1]);
-        if (gameObject.name.Contains("SpiderL")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[2]);
-        if (gameObject.name.Contains("Beetle")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[3]);
+        else if (gameObject.name.Contains("SpiderS")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[0]);
+        else if (gameObject.name.Contains("SpiderL")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[2]);
+        else if (gameObject.name.Contains("Beetle")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[3]);
     }
 }
+
+//    private void OnCollisionEnter(Collision collision)
+//    {
+//        if (!collision.gameObject.tag.Contains("Enemy"))
+//        {
+//            OnDamageProcess();
+//            Debug.Log("Enemy is under attck!");
+//        }
+//    }
+//}
