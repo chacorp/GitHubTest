@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class CSH_OutlineController : MonoBehaviour
 {
-    MeshRenderer renderer;
+    MeshRenderer rdrr;
     public float maxOutlineWidth;
     public Color OutlineColor;
 
     void Start()
     {
-    renderer = GetComponent<MeshRenderer>();    
+    rdrr = GetComponent<MeshRenderer>();    
     }
 
     public void ShowOutline()
     {
-        renderer.material.SetFloat("_Outline", maxOutlineWidth);
-        renderer.material.SetColor("_OutlineColor", OutlineColor);
+        rdrr.material.SetFloat("_Outline", maxOutlineWidth);
+        rdrr.material.SetColor("_OutlineColor", OutlineColor);
     }
 
     public void HideOutline()
     {
-        renderer.material.SetFloat("_Outline", 0f);
+        rdrr.material.SetFloat("_Outline", 0f);
     }
 
 }

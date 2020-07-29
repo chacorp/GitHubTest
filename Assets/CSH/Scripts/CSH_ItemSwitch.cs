@@ -26,12 +26,15 @@ public class CSH_ItemSwitch : MonoBehaviour
             // i번째의 아이템이 null이 아닐때,
             // => i번째 아이템이 있을때!
             // 리스트의 길이는 0보다 커야한다
+
             if (CSH_ItemGrab.Instance.activeItems[i] != null)
             {
+                // 리스트에 있는 아이템과 선택한 단축키 번호가 같을때
                 if (i == select_current)
                 {
                     CSH_ItemGrab.Instance.activeItems[i].SetActive(true);
                 }
+                // 리스트에 있는 아이템과 선택한 단축키 번호가 다를때
                 else
                 {
                     CSH_ItemGrab.Instance.activeItems[i].SetActive(false);
@@ -68,7 +71,7 @@ public class CSH_ItemSwitch : MonoBehaviour
         }
 
         // 만약 현재 선택한 값이 이전에 선택한 값과 다르면, 함수 발동!
-        if(select_current != select_before)
+        if (select_current != select_before)
         {
             Switch_item();
 
