@@ -70,6 +70,11 @@ public class BulletScript : MonoBehaviour
             //Destroy bullet object
             Destroy(gameObject);
         }
+        Enemy enemy = collision.transform.GetComponent<Enemy>();
+        if(enemy)
+        {
+            enemy.OnDamageProcess();
+        }
     }
 
     private IEnumerator DestroyTimer()

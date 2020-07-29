@@ -62,8 +62,11 @@ public class ClipboardAttack : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        Enemy enemy = col.gameObject.GetComponent<Enemy>();
-        Debug.Log($"{col.gameObject.name} is attacked!");
-        enemy.OnDamageProcess();
+        Enemy enemy = col.transform.GetComponent<Enemy>();
+        if (enemy)
+        {
+            Debug.Log($"{col.gameObject.name} is attacked!");
+            enemy.OnDamageProcess();
+        }
     }
 }
