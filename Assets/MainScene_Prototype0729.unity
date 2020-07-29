@@ -904,6 +904,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 842047564}
     m_Modifications:
+    - target: {fileID: 2242855630590601981, guid: 1bc4f573555ccad42835ee2984d1984d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2242855630590601981, guid: 1bc4f573555ccad42835ee2984d1984d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2242855630590601981, guid: 1bc4f573555ccad42835ee2984d1984d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8584715285559334545, guid: 1bc4f573555ccad42835ee2984d1984d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18498,7 +18513,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bbc7f16ea01d6a24dbd9948a2f1f7846, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6e4dc2ab496ac845a119b14c5abbb91, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
