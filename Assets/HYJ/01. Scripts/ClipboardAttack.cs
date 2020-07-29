@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class ClipboardAttack : MonoBehaviour
 {
-   // [SerializeField] private float swingDuration = 0.5f;
-   // [SerializeField] private float swingSpeed = 0.22f;
+    // [SerializeField] private float swingDuration = 0.5f;
+    // [SerializeField] private float swingSpeed = 0.22f;
     [SerializeField] private float swingDuration = 0.2f;
     [SerializeField] private float swingSpeed = 0.45f;
 
     [SerializeField] private float swingTimer = 0.0f;
     [SerializeField] private bool isSwinging = false;
     [SerializeField] private Vector3 startRot;
+    [SerializeField] private Vector3 startPos;
 
     void Start()
     {
         startRot = transform.localEulerAngles;
+        startPos = transform.transform.localPosition;
     }
 
     // Update is called once per frame
@@ -34,8 +36,10 @@ public class ClipboardAttack : MonoBehaviour
 
     }
 
- //   Vector3 targetAngle = new Vector3(13.5f, 205.0f, 10.0f);
-    Vector3 targetAngle = new Vector3(-30.5f, 210.0f, 13.0f);
+    //   Vector3 targetAngle = new Vector3(13.5f, 205.0f, 10.0f);
+    [SerializeField] Vector3 targetAngle = new Vector3(-30.5f, 210.0f, 13.0f);
+    [SerializeField] Vector3 targetPos1 = new Vector3(0.224f, -0.085f, 0.4f);
+    [SerializeField] Vector3 targetPos2 = new Vector3(0.216f, -0.585f, 0.515f);
     float motionRatio = 0;
 
     void SwingClipboard()
@@ -43,10 +47,16 @@ public class ClipboardAttack : MonoBehaviour
         swingTimer += Time.deltaTime;
 
 
-        if (swingTimer < swingDuration * 0.5f)
+        if (swingTimer < swingDuration * 0.33f)
         {
             motionRatio += Time.deltaTime;
             transform.localEulerAngles = Vector3.Lerp(startRot, targetAngle, motionRatio * 2 * (1.0f / swingDuration));
+
+        }
+
+        else if (swingTimer > swingDuration * 0.33f && swingTimer < swingDuration * 0.66f)
+        {
+
         }
 
         else if (swingTimer > swingDuration * 0.5f && swingTimer < swingDuration)
