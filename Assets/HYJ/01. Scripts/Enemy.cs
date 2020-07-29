@@ -148,7 +148,7 @@ public class Enemy : MonoBehaviour
             animSpider.SetTrigger("IsMoving");
             spiderAgent.SetDestination(dest);
             spiderAgent.autoBraking = false;
-            spiderAgent.stoppingDistance = 1.0f;
+            spiderAgent.stoppingDistance = 2.5f;
         }
     }
 
