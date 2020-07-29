@@ -279,7 +279,8 @@ public class HandgunScriptLPFP : MonoBehaviour
         {
             anim.Play("Fire", 0, 0f);
 
-
+            StartCoroutine(BulletSpawnDelay());
+            StartCoroutine(CasingSpawnDelay());
 
             //Remove 1 bullet from ammo
             currentAmmo -= 1;
@@ -417,6 +418,31 @@ public class HandgunScriptLPFP : MonoBehaviour
         Instantiate(Prefabs.grenadePrefab,
             Spawnpoints.grenadeSpawnPoint.transform.position,
             Spawnpoints.grenadeSpawnPoint.transform.rotation);
+    }
+
+    private IEnumerator BulletSpawnDelay()
+    {
+        //Wait for set amount of time before spawning grenade
+        yield return new WaitForSeconds(0);
+        //Spawn grenade prefab at spawnpoint
+        Transform bullet = Instantiate(Prefabs.bulletPrefab,
+            Spawnpoints.bulletSpawnPoint.transform.position,
+            Spawnpoints.bulletSpawnPoint.transform.rotation);
+
+        Rigidbody brb = bullet.GetComponent<Rigidbody>();
+        if(brb != null)
+        {
+            brb.AddForce(bullet.forward * bulletForce, ForceMode.VelocityChange);
+        }
+    }
+    private IEnumerator CasingSpawnDelay()
+    {
+        //Wait for set amount of time before spawning grenade
+        yield return new WaitForSeconds(0);
+        //Spawn grenade prefab at spawnpoint
+        Transform casing = Instantiate(Prefabs.casingPrefab,
+            Spawnpoints.casingSpawnPoint.transform.position,
+            Spawnpoints.casingSpawnPoint.transform.rotation);
     }
 
     private IEnumerator AutoReload()
