@@ -7,7 +7,6 @@ public class ClipboardAttack : MonoBehaviour
     // [SerializeField] private float swingDuration = 0.5f;
     // [SerializeField] private float swingSpeed = 0.22f;
     [SerializeField] private float swingDuration = 0.2f;
-    [SerializeField] private float swingSpeed = 0.45f;
 
     [SerializeField] private float swingTimer = 0.0f;
     [SerializeField] private bool isSwinging = false;
@@ -41,6 +40,8 @@ public class ClipboardAttack : MonoBehaviour
     [SerializeField] Vector3 targetPos1 = new Vector3(0.224f, -0.085f, 0.4f);
     [SerializeField] Vector3 targetPos2 = new Vector3(0.216f, -0.585f, 0.515f);
     float motionRatio = 0;
+    float motionRatio2 = 0;
+    float motionRatio3 = 0;
 
     void SwingClipboard()
     {
@@ -50,25 +51,31 @@ public class ClipboardAttack : MonoBehaviour
         if (swingTimer < swingDuration * 0.33f)
         {
             motionRatio += Time.deltaTime;
-            transform.localEulerAngles = Vector3.Lerp(startRot, targetAngle, motionRatio * 2 * (1.0f / swingDuration));
+            transform.localPosition = Vector3.Lerp(startPos, targetPos1, motionRatio * 3 * (1.0f / swingDuration));
 
         }
 
         else if (swingTimer > swingDuration * 0.33f && swingTimer < swingDuration * 0.66f)
         {
+            motionRatio2 += Time.deltaTime;
+            transform.localEulerAngles = Vector3.Lerp(startRot, targetAngle, motionRatio2 * 3 * (1.0f / swingDuration));
+            transform.localPosition = Vector3.Lerp(targetPos1, targetPos2, motionRatio2 * 3 * (1.0f / swingDuration));
 
         }
 
-        else if (swingTimer > swingDuration * 0.5f && swingTimer < swingDuration)
+        else if (swingTimer > swingDuration * 0.66f && swingTimer < swingDuration)
         {
             motionRatio -= Time.deltaTime;
-            transform.localEulerAngles = Vector3.Lerp(startRot, targetAngle, motionRatio * 2 * (1.0f / swingDuration));
+            motionRatio3 += Time.deltaTime;
+            transform.localEulerAngles = Vector3.Lerp(startRot, targetAngle, motionRatio * 3 * (1.0f / swingDuration));
+            transform.localPosition = Vector3.Lerp(targetPos2, startPos, motionRatio3 * 3 * (1.0f / swingDuration));
         }
 
         else if (swingTimer >= swingDuration)
         {
             swingTimer = 0.0f;
             motionRatio = 0;
+            motionRatio2 = 0;
             isSwinging = false;
         }
     }
