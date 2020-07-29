@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ClipboardAttack : MonoBehaviour
 {
-    [SerializeField] private float swingDuration = 0.5f;
-    [SerializeField] private float swingSpeed = 0.22f;
+   // [SerializeField] private float swingDuration = 0.5f;
+   // [SerializeField] private float swingSpeed = 0.22f;
+    [SerializeField] private float swingDuration = 0.2f;
+    [SerializeField] private float swingSpeed = 0.45f;
 
     [SerializeField] private float swingTimer = 0.0f;
     [SerializeField] private bool isSwinging = false;
@@ -32,7 +34,8 @@ public class ClipboardAttack : MonoBehaviour
 
     }
 
-    Vector3 targetAngle = new Vector3(13.5f, 205.0f, 10.0f);
+ //   Vector3 targetAngle = new Vector3(13.5f, 205.0f, 10.0f);
+    Vector3 targetAngle = new Vector3(-30.5f, 210.0f, 13.0f);
     float motionRatio = 0;
 
     void SwingClipboard()
