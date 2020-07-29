@@ -56,9 +56,9 @@ public class HandgunScriptLPFP : MonoBehaviour
     //Check if running
     private bool isRunning;
     //Check if aiming
-    private bool isAiming;
+    //private bool isAiming;
     //Check if walking
-    private bool isWalking;
+    //private bool isWalking;
     //Check if inspecting weapon
     private bool isInspecting;
 
@@ -136,7 +136,7 @@ public class HandgunScriptLPFP : MonoBehaviour
     }
     public soundClips SoundClips;
 
-    private bool soundHasPlayed = false;
+    //private bool soundHasPlayed = false;
 
     private void Awake()
     {
@@ -288,29 +288,29 @@ public class HandgunScriptLPFP : MonoBehaviour
             shootAudioSource.Play();
 
 
-            if (!isAiming) //if not aiming
-            {
-                anim.Play("Fire", 0, 0f);
+            //if (!isAiming) //if not aiming
+            //{
+            //    anim.Play("Fire", 0, 0f);
 
 
 
 
-            }
-            else //if aiming
-            {
-                anim.Play("Aim Fire", 0, 0f);
+            //}
+            //else //if aiming
+            //{
+            //    anim.Play("Aim Fire", 0, 0f);
 
-                //If random muzzle is false
-                if (!randomMuzzleflash)
-                {
+            //    //If random muzzle is false
+            //    if (!randomMuzzleflash)
+            //    {
 
-                    //If random muzzle is true
-                }
-                else if (randomMuzzleflash == true)
-                {
+            //        //If random muzzle is true
+            //    }
+            //    else if (randomMuzzleflash == true)
+            //    {
 
-                }
-            }
+            //    }
+            //}
         }
 
         //Inspect weapon when pressing T key

@@ -132,7 +132,9 @@ public class CSH_ItemGrab : MonoBehaviour
 
 
                 // 부모 옮기기
-                selectedItem.transform.GetChild(0).SetParent(CSH_UIManager.Instance.item_icons);
+                Transform iconT = selectedItem.transform.GetChild(0);
+                if(iconT != null)
+                    iconT.SetParent(CSH_UIManager.Instance.item_icons);
 
                 // 아이템 카운터 ++
                 CSH_UIManager.Instance.iBoxCount++;
