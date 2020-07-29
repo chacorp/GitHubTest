@@ -73,6 +73,7 @@ public class BulletScript : MonoBehaviour
         Enemy enemy = collision.transform.GetComponent<Enemy>();
         if(enemy)
         {
+            Debug.Log($"{collision.gameObject.name} is attacked!");
             enemy.OnDamageProcess();
         }
     }
