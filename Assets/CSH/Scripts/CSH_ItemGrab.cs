@@ -101,6 +101,9 @@ public class CSH_ItemGrab : MonoBehaviour
         // 잡기 시작
         if (grabing)
         {
+            // [E] 키 안내문 끄기
+            PressE.SetActive(false);
+
             // [특수 템]이라면, --------------------------------------------------< 이렇게 하지 말고, 플레이어가 다 갖고 있다가 활성화하는 방식으로 하자!>
             if (itemSelect.isSpecialItem)
             {
@@ -109,7 +112,7 @@ public class CSH_ItemGrab : MonoBehaviour
 
                 // 인벤토리 리스트에 추가하기
                 invntry.Add(pointingItem);
-                selectedItem.transform.SetParent(inventory);
+                //selectedItem.transform.SetParent(inventory);
 
                 // 아이템의 rigidbody 물리엔진 끄기
                 itemRB.isKinematic = true;
@@ -132,9 +135,12 @@ public class CSH_ItemGrab : MonoBehaviour
 
 
                 // 부모 옮기기
-                Transform iconT = selectedItem.transform.GetChild(0);
-                if(iconT != null)
-                    iconT.SetParent(CSH_UIManager.Instance.item_icons);
+                if (selectedItem.transform.childCount >= 1)
+                {
+                    Transform iconT = selectedItem.transform.GetChild(0);
+                    if (iconT != null)
+                        iconT.SetParent(CSH_UIManager.Instance.item_icons);
+                }
 
                 // 아이템 카운터 ++
                 CSH_UIManager.Instance.iBoxCount++;
@@ -156,9 +162,6 @@ public class CSH_ItemGrab : MonoBehaviour
                         Holder.GetChild(i).gameObject.SetActive(false);
                     }
                 }
-
-                // [E] 키 안내문 끄기
-                PressE.SetActive(false);
 
                 // 비활성화하기
                 selectedItem.SetActive(false);

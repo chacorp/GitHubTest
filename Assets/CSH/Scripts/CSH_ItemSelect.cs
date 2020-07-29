@@ -51,4 +51,15 @@ public class CSH_ItemSelect : MonoBehaviour
         // 현재 가리키는 [아이템]에서 빼기
         CSH_ItemGrab.Instance.pointingItem = null;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("collide");
+        Enemy enemy = other.gameObject.GetComponent<Enemy>();
+        if (enemy)
+        {
+            Debug.Log($"{other.gameObject.name} is attacked!");
+            enemy.OnDamageProcess();
+        }
+    }
 }

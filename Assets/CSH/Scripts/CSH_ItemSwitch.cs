@@ -44,6 +44,9 @@ public class CSH_ItemSwitch : MonoBehaviour
     }
     void Update()
     {
+        // -1 0 1
+        //float a = Input.GetAxis("Mouse ScrollWheel");
+
         // 1번 누를때
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
