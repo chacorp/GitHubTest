@@ -60,6 +60,7 @@ public class CSH_ItemGrab : MonoBehaviour
 
 
     public FpsControllerLPFP fpcController;
+    public HandgunScriptLPFP handGun;
 
     [Header("Properties")]
     // 던져버릴 속도
@@ -259,6 +260,10 @@ public class CSH_ItemGrab : MonoBehaviour
         // 1. 커서로 가리키는 아이템이 있고   &또한&   현재 아이템을 잡고 있지 않다면,
         if (!hasItem)
         {
+            // Handgun 스크립트 활성화
+            if (handGun != null)
+                handGun.enabled = true;
+
             if (pointingItem != null)
             {
                 // 2. [E] 키를 눌러서 아이템 가져오기
@@ -277,6 +282,10 @@ public class CSH_ItemGrab : MonoBehaviour
         // 현재 [아이템]을 잡고 있다면
         if (hasItem)
         {
+            // Handgun 스크립트 비활성화
+            if (handGun != null)
+                handGun.enabled = false;
+
             // 현재 잡고 있는 아이템을 자기 자식으로 가져온 아이템으로 고정하기
             pointingItem = transform.GetChild(0).gameObject;
 
@@ -297,7 +306,6 @@ public class CSH_ItemGrab : MonoBehaviour
                 // 3. 마우스 우클릭 중엔 카메라 회전 안하기
                 if (fpcController != null)
                     fpcController.hasGrabed = true;
-                
             }
             else
             {

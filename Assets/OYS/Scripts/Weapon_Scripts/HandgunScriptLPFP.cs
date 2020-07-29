@@ -184,7 +184,6 @@ public class HandgunScriptLPFP : MonoBehaviour
 
     private void Update()
     {
-
         //Aiming
         //Toggle camera FOV when right click is held down
         //if (Input.GetButton("Fire2") && !isReloading && !isRunning && !isInspecting)
@@ -430,7 +429,7 @@ public class HandgunScriptLPFP : MonoBehaviour
             Spawnpoints.bulletSpawnPoint.transform.rotation);
 
         Rigidbody brb = bullet.GetComponent<Rigidbody>();
-        if(brb != null)
+        if (brb != null)
         {
             brb.AddForce(bullet.forward * bulletForce, ForceMode.VelocityChange);
         }
