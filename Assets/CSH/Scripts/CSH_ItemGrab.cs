@@ -1,6 +1,7 @@
 ﻿using FPSControllerLPFP;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 // ===========================================================================
 // 마우스 커서를 아이템에 갖다 대면,
@@ -59,7 +60,7 @@ public class CSH_ItemGrab : MonoBehaviour
     Rigidbody itemRB;
 
 
-    public FpsControllerLPFP fpcController;
+    public FirstPersonController fpcController;
     public HandgunScriptLPFP handGun;
 
     [Header("Properties")]
