@@ -38,7 +38,7 @@ public class CSH_ItemGrab : MonoBehaviour
     GameObject selectedItem;
 
     // 텍스트 UI
-    public GameObject PressE;
+    public GameObject lookingImage;
 
     // [특수 템]을 위한 인벤토리
     // 걍 무기 담아두는 곳
@@ -78,7 +78,7 @@ public class CSH_ItemGrab : MonoBehaviour
         grabing = false;
         hasItem = false;
 
-        PressE.SetActive(false);
+        lookingImage.SetActive(false);
 
         // 홀더에 있는 아이템들 모두 꺼놓기
         // 판자 제외
@@ -103,7 +103,7 @@ public class CSH_ItemGrab : MonoBehaviour
         if (grabing)
         {
             // [E] 키 안내문 끄기
-            PressE.SetActive(false);
+            lookingImage.SetActive(true);
 
             // [특수 템]이라면, --------------------------------------------------< 이렇게 하지 말고, 플레이어가 다 갖고 있다가 활성화하는 방식으로 하자!>
             if (itemSelect.isSpecialItem)
@@ -245,15 +245,15 @@ public class CSH_ItemGrab : MonoBehaviour
     void Show_PressE()
     {
         // 현재 [아이템]을 잡고 있다면, 패쓰!
-        if (hasItem) PressE.SetActive(false);
+        if (hasItem) lookingImage.SetActive(true);
 
         else
         {
             // 가리키는 [아이템]이 있다면, 텍스트 보여주기
-            if (pointingItem) PressE.SetActive(true);
+            if (pointingItem) lookingImage.SetActive(false);
 
             // 가리키는 [아이템]이 없다면, 텍스트 가리기
-            else PressE.SetActive(false);
+            else lookingImage.SetActive(false);
         }
     }
 

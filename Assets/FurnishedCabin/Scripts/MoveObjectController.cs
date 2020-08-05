@@ -36,7 +36,7 @@ public class MoveObjectController : MonoBehaviour
 
 		//the layer used to mask raycast for interactable objects only
 		LayerMask iRayLM = LayerMask.NameToLayer("InteractRaycast");
-		rayLayerMask = 1 << iRayLM.value;  
+		rayLayerMask = 1 << iRayLM.value;
 
 		//setup GUI style settings for user prompts
 		setupGui();
@@ -91,7 +91,7 @@ public class MoveObjectController : MonoBehaviour
 					bool isOpen = anim.GetBool(animBoolNameNum);	//need current state for message.
 					msg = getGuiMsg(isOpen);
 
-					if (Input.GetKeyUp(KeyCode.E) || Input.GetButtonDown("Fire1"))
+					if (Input.GetKeyUp(KeyCode.E))
 					{
 						anim.enabled = true;
 						anim.SetBool(animBoolNameNum,!isOpen);
@@ -162,10 +162,10 @@ public class MoveObjectController : MonoBehaviour
 		string rtnVal;
 		if (isOpen)
 		{
-			rtnVal = "Press E/Fire1 to Close";
+			rtnVal = "Press E to Close";
 		}else
 		{
-			rtnVal = "Press E/Fire1 to Open";
+			rtnVal = "Press E to Open";
 		}
 
 		return rtnVal;
