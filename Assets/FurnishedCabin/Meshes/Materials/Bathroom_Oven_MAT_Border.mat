@@ -7,20 +7,20 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fireplace_KitchenBench_MAT
-  m_Shader: {fileID: 4800000, guid: cc36aa0258426264eaa35bbcd9d50ff0, type: 3}
+  m_Name: Bathroom_Oven_MAT_Border
+  m_Shader: {fileID: 4800000, guid: 239682e249bc085409bc29c4f8d2911f, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _EMISSION _METALLICGLOSSMAP _NORMALMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: a9d1cff538c683444860a0ab10174b92, type: 3}
+        m_Texture: {fileID: 2800000, guid: 45a2629f55ba89444a2efe66a8f98d93, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -40,15 +40,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f6b64e018a17d214a9a658953858a66b, type: 3}
+        m_Texture: {fileID: 2800000, guid: edbd792a813003e44b097b5481cfd907, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 98ea345f7a8d0814fb5c98db1bffdcde, type: 3}
+        m_Texture: {fileID: 2800000, guid: f16bc5c4ac032cf48ab877cf8b1db7a3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: e7010990b519d84448876b961b3cec77, type: 3}
+        m_Texture: {fileID: 2800000, guid: 15b433f97379cec47842d404579a611e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -57,15 +61,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _Cutoff: 0.333
+    - _Cutoff: 0.28
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _GlossMapScale: 1
+    - _GlossMapScale: 0.494
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 1
-    - _OcclusionStrength: 0.31
+    - _OcclusionStrength: 0.77
+    - _OutlineWidth: 1.05
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -75,3 +80,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.5, g: 1, b: 0.5, a: 1}

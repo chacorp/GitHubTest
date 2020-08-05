@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Doors_TVStand_MAT_Boarder
+  m_Name: Doors_TVStand_MAT_Border
   m_Shader: {fileID: 4800000, guid: 239682e249bc085409bc29c4f8d2911f, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP
   m_LightmapFlags: 1

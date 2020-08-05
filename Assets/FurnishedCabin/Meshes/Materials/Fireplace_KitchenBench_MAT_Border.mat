@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fireplace_KitchenBench_MAT
-  m_Shader: {fileID: 4800000, guid: cc36aa0258426264eaa35bbcd9d50ff0, type: 3}
+  m_Name: Fireplace_KitchenBench_MAT_Border
+  m_Shader: {fileID: 4800000, guid: 239682e249bc085409bc29c4f8d2911f, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _EMISSION _METALLICGLOSSMAP _NORMALMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -51,6 +51,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: e7010990b519d84448876b961b3cec77, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _OutlineTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -66,6 +70,7 @@ Material:
     - _Metallic: 0
     - _Mode: 1
     - _OcclusionStrength: 0.31
+    - _OutlineWidth: 1.05
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -75,3 +80,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.5, g: 1, b: 0.5, a: 1}
