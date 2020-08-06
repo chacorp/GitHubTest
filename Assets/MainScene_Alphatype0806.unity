@@ -656,6 +656,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  clipboard: {fileID: 95092961067648487}
   hasGrabed: 0
 --- !u!124 &339485705
 Behaviour:
@@ -4507,6 +4508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1578378539}
+  - component: {fileID: 1578378540}
   m_Layer: 0
   m_Name: Holder
   m_TagString: Untagged
@@ -4531,6 +4533,26 @@ Transform:
   m_Father: {fileID: 1371207483}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 7.7370005, y: -3.4290001, z: -10.031}
+--- !u!114 &1578378540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578378538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e526978b64d55e4392bcdd9d9f720cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swingDuration: 0.5
+  swingTimer: 0
+  isSwinging: 0
+  startRot: {x: 7.736535, y: 356.57126, z: 349.9687}
+  targetAngle: {x: 50.543, y: 338.152, z: 315.522}
+  startPos: {x: 0.063, y: -0.095, z: 0.13}
+  targetPos1: {x: 0.063, y: 0.3, z: 0.13}
+  targetPos2: {x: 0.063, y: -0.5, z: 0.13}
 --- !u!1001 &1580283486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9701,8 +9723,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4795267472848353}
   - component: {fileID: 95092961067648487}
-  - component: {fileID: 1685343192516904}
   - component: {fileID: 1685343192516905}
+  - component: {fileID: 1685343192516904}
   m_Layer: 11
   m_Name: Clipboard
   m_TagString: Untagged
@@ -9719,17 +9741,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1685343192516903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e526978b64d55e4392bcdd9d9f720cf, type: 3}
+  m_Script: {fileID: 11500000, guid: d2c59bf88386e6748b788b9d6066616c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swingDuration: 0.5
-  swingTimer: 0
-  isSwinging: 0
-  startRot: {x: 0, y: 0, z: 0}
-  startPos: {x: 0, y: 0, z: 0}
-  targetAngle: {x: -30.5, y: 210, z: 13}
-  targetPos1: {x: 0.224, y: -0.085, z: 0.4}
-  targetPos2: {x: 0.216, y: -0.585, z: 0.515}
+  clipBoard: {fileID: 95092961067648487}
+  cc: {fileID: 341328271}
 --- !u!65 &1685343192516905
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18164,7 +18180,7 @@ Animator:
   m_GameObject: {fileID: 1685343192516903}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: da1d9f4dc2a121747a3c82d392f61812, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25cc9d542f0b7c7458304192899d73af, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class ClipboardAttack : MonoBehaviour
 {
-    // [SerializeField] private float swingDuration = 0.5f;
-    // [SerializeField] private float swingSpeed = 0.22f;
     [SerializeField] private float swingDuration = 0.2f;
-
     [SerializeField] private float swingTimer = 0.0f;
     [SerializeField] private bool isSwinging = false;
     [SerializeField] private Vector3 startRot;
+    [SerializeField] Vector3 targetAngle = new Vector3(50.543f, -21.848f, -44.478f);
     [SerializeField] private Vector3 startPos;
+    [SerializeField] Vector3 targetPos1 = new Vector3(0.063f, 0.001f, 0.13f);
+    [SerializeField] Vector3 targetPos2 = new Vector3(0.063f, -0.5f, 0.13f);
+    float motionRatio = 0;
+    float motionRatio2 = 0;
+    float motionRatio3 = 0;
+
 
     void Start()
     {
@@ -20,28 +24,21 @@ public class ClipboardAttack : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (Input.GetMouseButtonDown(0) && !isSwinging)
         {
             isSwinging = true;
-
         }
 
         if (isSwinging)
         {
             SwingClipboard();
         }
-
     }
 
     //   Vector3 targetAngle = new Vector3(13.5f, 205.0f, 10.0f);
-    [SerializeField] Vector3 targetAngle = new Vector3(-30.5f, 210.0f, 13.0f);
-    [SerializeField] Vector3 targetPos1 = new Vector3(0.224f, -0.085f, 0.4f);
-    [SerializeField] Vector3 targetPos2 = new Vector3(0.216f, -0.585f, 0.515f);
-    float motionRatio = 0;
-    float motionRatio2 = 0;
-    float motionRatio3 = 0;
+
 
     void SwingClipboard()
     {
