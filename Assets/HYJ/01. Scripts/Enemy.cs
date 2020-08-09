@@ -205,7 +205,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Weapon") || other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
         {
             Debug.Log($"{gameObject.name} is attacked!");
             OnDamageProcess();
