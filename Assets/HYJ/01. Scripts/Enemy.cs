@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -50,8 +49,6 @@ public class Enemy : MonoBehaviour
         spiderAgent = GetComponent<NavMeshAgent>();
         spiderAgent.speed = speed;
         spiderAgent.enabled = false;
-        //spiderAgent.enabled = true;
-        //spiderAgent.SetDestination(GameObject.Find("Dest2").transform.position);
         if (animSpider == null) animSpider = GetComponentInChildren<Animator>();
         objMgr = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
     }
@@ -81,6 +78,7 @@ public class Enemy : MonoBehaviour
         if (distance.magnitude < reactionRange)
         {
             state = EnemyState.Move;
+
         }
     }
 
@@ -145,10 +143,11 @@ public class Enemy : MonoBehaviour
                 }
             }
             dest = (targetVectors[0] + transform.position);
+            Debug.Log($"목적지의 좌표 : {dest}");
             animSpider.SetTrigger("IsMoving");
             spiderAgent.SetDestination(dest);
             spiderAgent.autoBraking = false;
-            spiderAgent.stoppingDistance = 2.5f;
+            spiderAgent.stoppingDistance = 0.3f;
         }
     }
 
@@ -200,6 +199,7 @@ public class Enemy : MonoBehaviour
         else if (gameObject.name.Contains("SpiderL")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[2]);
         else if (gameObject.name.Contains("Beetle")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[3]);
     }
+
 }
 
 //    private void OnCollisionEnter(Collision collision)

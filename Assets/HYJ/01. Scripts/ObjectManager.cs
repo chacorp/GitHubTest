@@ -38,21 +38,21 @@ public class ObjectManager : MonoBehaviour
             enemyObjectPools[1].Add(spiderS2);
         }
 
-        for (int i = 0; i < size; i++)
-        {
-            // spiderL를 오브젝트 풀 리스트에 넣어준다
-            GameObject spiderL = Instantiate(enemies[2]);
-            spiderL.SetActive(false);
-            enemyObjectPools[2].Add(spiderL);
-        }
+        //for (int i = 0; i < size; i++)
+        //{
+        //    // spiderL를 오브젝트 풀 리스트에 넣어준다
+        //    GameObject spiderL = Instantiate(enemies[2]);
+        //    spiderL.SetActive(false);
+        //    enemyObjectPools[2].Add(spiderL);
+        //}
 
-        for (int i = 0; i < size; i++)
-        {
-            // spiderL를 오브젝트 풀 리스트에 넣어준다
-            GameObject beetle = Instantiate(enemies[3]);
-            beetle.SetActive(false);
-            enemyObjectPools[3].Add(beetle);
-        }
+        //for (int i = 0; i < size; i++)
+        //{
+        //    // spiderL를 오브젝트 풀 리스트에 넣어준다
+        //    GameObject beetle = Instantiate(enemies[3]);
+        //    beetle.SetActive(false);
+        //    enemyObjectPools[3].Add(beetle);
+        //}
     }
 
     public GameObject GetObject(List<GameObject> enemyObjectPool)

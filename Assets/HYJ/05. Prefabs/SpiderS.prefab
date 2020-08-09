@@ -48,13 +48,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  destinationLength: 2
+  destinationLength: 4
   dest: {x: 0, y: 0, z: 0}
   animSpider: {fileID: 7189953414260949266}
   objMgr: {fileID: 0}
-  speed: 3
-  sprintSpeed: 5
-  reactionRange: 4
+  speed: 2
+  sprintSpeed: 4
+  reactionRange: 1.5
   currentTime: 0
   damageDelayTIme: 1
   squeezeSpeed: 0.3
@@ -67,7 +67,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1487482624757262977}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.15
+  m_Radius: 0.04
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -76,7 +76,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.12
+  m_Height: 0.03
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -91,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.20258027, y: 0.10250366, z: 0.27929503}
-  m_Center: {x: -0.0038774163, y: 0.052648365, z: -0.01646258}
+  m_Size: {x: 0.03372063, y: 0.027986437, z: 0.0720582}
+  m_Center: {x: -0.0015747752, y: 0.013920113, z: 0.003493622}
 --- !u!54 &2008881040639202298
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2284,8 +2284,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7189953414253572962}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.068}
-  m_LocalScale: {x: 0.4629, y: 0.4629, z: 0.4629}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0081}
+  m_LocalScale: {x: 0.08473207, y: 0.08473207, z: 0.08473207}
   m_Children:
   - {fileID: 1487482624757692177}
   - {fileID: 1487482624757692259}
