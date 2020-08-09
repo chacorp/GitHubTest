@@ -39,6 +39,7 @@ public class CSH_ItemGrab : MonoBehaviour
 
     // 텍스트 UI
     public GameObject pressE;
+    public GameObject Looking;
 
     // [특수 템]을 위한 인벤토리
     // 걍 무기 담아두는 곳
@@ -79,10 +80,11 @@ public class CSH_ItemGrab : MonoBehaviour
         hasItem = false;
 
         pressE.SetActive(false);
+        Looking.SetActive(false);
 
         // 홀더에 있는 아이템들 모두 꺼놓기
         // 판자 제외
-        for(int i = 1; i < Holder.childCount; i++)
+        for (int i = 1; i < Holder.childCount; i++)
         {
             Holder.GetChild(i).gameObject.SetActive(false);
         }
@@ -104,6 +106,9 @@ public class CSH_ItemGrab : MonoBehaviour
         {
             // [E] 키 안내문 끄기
             pressE.SetActive(false);
+
+            // 살펴보기 안내문 켜기
+            Looking.SetActive(true);
 
             // [특수 템]이라면, --------------------------------------------------< 이렇게 하지 말고, 플레이어가 다 갖고 있다가 활성화하는 방식으로 하자!>
             if (itemSelect.isSpecialItem)
@@ -130,7 +135,7 @@ public class CSH_ItemGrab : MonoBehaviour
                 Vector2 iconRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
                 // 아이콘의 위치를 [ iBoxCount ] 번째 위치로 바꾼다
                 RectTransform selectedIcon = selectedItem.transform.GetComponentInChildren<RectTransform>();
-                if(selectedIcon != null)
+                if (selectedIcon != null)
                     selectedIcon.position = iconRT;
 
 
@@ -150,7 +155,7 @@ public class CSH_ItemGrab : MonoBehaviour
                 // Holder에서 이름이 같은 오브젝트 켜기
                 for (int i = 0; i < Holder.childCount; i++)
                 {
-                    if(Holder.GetChild(i).name.Contains(itemName))
+                    if (Holder.GetChild(i).name.Contains(itemName))
                     {
                         Holder.GetChild(i).gameObject.SetActive(true);
                         // 활성화된 리스트에도 넣기--------------------------------- 최초 1번이라서 중복 안될듯
@@ -244,16 +249,38 @@ public class CSH_ItemGrab : MonoBehaviour
 
     void Show_PressE()
     {
-        // 현재 [아이템]을 잡고 있다면, 패쓰!
-        if (hasItem) pressE.SetActive(false);
+        // 현재 [아이템]을 잡고 있다면, 
+        if (hasItem)
+        {
+            // [E] 안내문 끄기
+            pressE.SetActive(false);
 
+            // 살펴보기 안내문 켜기
+            Looking.SetActive(true);
+        }
+
+        // 현재 [아이템]이 없다면, 
         else
         {
             // 가리키는 [아이템]이 있다면, 텍스트 보여주기
-            if (pointingItem) pressE.SetActive(true);
+            if (pointingItem)
+            {
+                // [E] 안내문 켜기
+                pressE.SetActive(true);
+
+                // 살펴보기 안내문 끄기
+                Looking.SetActive(false);
+            }
 
             // 가리키는 [아이템]이 없다면, 텍스트 가리기
-            else pressE.SetActive(false);
+            else
+            {
+                // [E] 안내문 끄기
+                pressE.SetActive(false);
+
+                // 살펴보기 안내문 끄기
+                Looking.SetActive(false);
+            }
         }
     }
 
@@ -277,6 +304,7 @@ public class CSH_ItemGrab : MonoBehaviour
                 {
                     // 커서로 가리킨 [아이템]을 선택한 [아이템]으로 설정한다
                     selectedItem = pointingItem;
+                    pointingItem = null;
                     grabing = true;
                 }
             }
