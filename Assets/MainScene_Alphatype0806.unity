@@ -866,7 +866,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1847
+    m_Bits: 5943
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -20771,7 +20771,7 @@ MonoBehaviour:
   autoReloadDelay: 0.15
   currentAmmo: 0
   ammo: 9
-  bulletForce: 200
+  bulletForce: 50
   showBulletInMagDelay: 0.6
   bulletInMagRenderer: {fileID: 137618897731500522}
   grenadeSpawnDelay: 0.35
