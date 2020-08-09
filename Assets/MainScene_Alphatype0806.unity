@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointingItem: {fileID: 0}
-  lookingImage: {fileID: 1354768666}
+  pressE: {fileID: 1354768666}
   inventory: {fileID: 1529982797}
   Holder: {fileID: 1578378539}
   activeItems: []
@@ -1187,7 +1187,7 @@ PrefabInstance:
     - target: {fileID: 2242855630590601980, guid: 1bc4f573555ccad42835ee2984d1984d,
         type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2242855630590601981, guid: 1bc4f573555ccad42835ee2984d1984d,
         type: 3}
@@ -1212,7 +1212,7 @@ PrefabInstance:
     - target: {fileID: 8584715285559334545, guid: 1bc4f573555ccad42835ee2984d1984d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 2.793
       objectReference: {fileID: 0}
     - target: {fileID: 8584715285559334545, guid: 1bc4f573555ccad42835ee2984d1984d,
         type: 3}
@@ -1282,8 +1282,13 @@ PrefabInstance:
     - target: {fileID: 8584715285559334548, guid: 1bc4f573555ccad42835ee2984d1984d,
         type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8584715285559334551, guid: 1bc4f573555ccad42835ee2984d1984d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8d91bc76997e2d458bc2a1080b26456, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bc4f573555ccad42835ee2984d1984d, type: 3}
 --- !u!1 &433828098
@@ -5034,7 +5039,6 @@ MonoBehaviour:
   targetPos2: {x: 0.063, y: -0.7, z: 0.13}
   swingSound: {fileID: 8300000, guid: 732a12575547cdc4a81c11e0e00a354a, type: 3}
   clipboardAudio: {fileID: 1685343192516906}
-  clipboard: {fileID: 1685343192516903}
   maxDistance: 100
 --- !u!1001 &1580283486
 PrefabInstance:
@@ -31124,14 +31128,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6841952352632911948}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.621, y: 0.954, z: -0.679}
+  m_LocalRotation: {x: 0, y: 0, z: 0.3703143, w: 0.92890656}
+  m_LocalPosition: {x: 0.557, y: 1.7755756, z: 7.391}
   m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children:
   - {fileID: 9096892729125239185}
   m_Father: {fileID: 842047564}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 43.47}
 --- !u!1001 &8584715286917317028
 PrefabInstance:
   m_ObjectHideFlags: 0
