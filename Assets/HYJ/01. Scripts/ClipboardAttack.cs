@@ -14,6 +14,7 @@ public class ClipboardAttack : MonoBehaviour
     [SerializeField] Vector3 targetPos2 = new Vector3(0.063f, -0.5f, 0.13f);
     [SerializeField] AudioClip swingSound;
     [SerializeField] AudioSource clipboardAudio;
+    [SerializeField] GameObject clipboard;
     #region 충돌체크를 위한 변수
     Ray ray;
     RaycastHit rayhit;
@@ -36,7 +37,7 @@ public class ClipboardAttack : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (Input.GetMouseButtonDown(0) && !isSwinging)
+        if (Input.GetMouseButtonDown(0) && !isSwinging && clipboard.activeSelf)
         {
             isSwinging = true;
             clipboardAudio.PlayOneShot(swingSound);
