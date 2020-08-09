@@ -217,8 +217,8 @@ MonoBehaviour:
   dest: {x: 0, y: 0, z: 0}
   animSpider: {fileID: 9216002082066054914}
   objMgr: {fileID: 0}
-  speed: 2
-  sprintSpeed: 4
+  speed: 1.2
+  sprintSpeed: 2
   reactionRange: 1.5
   currentTime: 0
   damageDelayTIme: 1
@@ -2284,8 +2284,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9130133816096043136}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0031}
-  m_LocalScale: {x: 0.087951005, y: 0.087951005, z: 0.087951005}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0103}
+  m_LocalScale: {x: 0.11533895, y: 0.11533895, z: 0.11533895}
   m_Children:
   - {fileID: 4612560590841574}
   - {fileID: 4755038469773696}

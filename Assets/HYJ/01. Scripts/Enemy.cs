@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -47,7 +46,6 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("Player");
         spiderAgent = GetComponent<NavMeshAgent>();
-        spiderAgent.speed = speed;
         spiderAgent.enabled = false;
         if (animSpider == null) animSpider = GetComponentInChildren<Animator>();
         objMgr = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
@@ -73,7 +71,8 @@ public class Enemy : MonoBehaviour
     private void Idle()
     {
         Vector3 distance = player.transform.position - transform.position;
-        spiderAgent.speed = speed;
+        spiderAgent.speed = Random.Range(speed - 1.0f, speed);
+        animSpider.SetBool("IsMoving", false);
 
         if (distance.magnitude < reactionRange)
         {
@@ -113,7 +112,8 @@ public class Enemy : MonoBehaviour
         else if (damageDelayTIme <= currentTime)
         {
             state = EnemyState.Move;
-            spiderAgent.speed = sprintSpeed;
+            animSpider.SetBool("Flinched", false);
+            spiderAgent.speed = Random.Range(sprintSpeed - 0.2f, sprintSpeed);
             currentTime = 0;
         }
     }
@@ -144,7 +144,7 @@ public class Enemy : MonoBehaviour
             }
             dest = (targetVectors[0] + transform.position);
             Debug.Log($"목적지의 좌표 : {dest}");
-            animSpider.SetTrigger("IsMoving");
+            animSpider.SetBool("IsMoving", true);
             spiderAgent.SetDestination(dest);
             spiderAgent.autoBraking = false;
             spiderAgent.stoppingDistance = 0.3f;
@@ -163,11 +163,14 @@ public class Enemy : MonoBehaviour
         if (currentHp > 0)
         {
             state = EnemyState.Damage;
+            animSpider.SetBool("IsMoving", false);
+            animSpider.SetBool("Flinched", true);
         }
         else
         {
             state = EnemyState.Die;
             StartCoroutine(Die());
+            animSpider.SetTrigger("IsDying");
         }
     }
 
@@ -202,7 +205,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Weapon") || other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
         {
             Debug.Log($"{gameObject.name} is attacked!");
             OnDamageProcess();
