@@ -132,11 +132,15 @@ public class CSH_ItemGrab : MonoBehaviour
                 // => 자식 컴포넌트 가져오리가서 부모 옮기기보다 먼저 해야함
                 // CSH_UIManager의 아이템 박스 리스트 < I_Box > 속에서
                 //                          [ iBoxCount ] 번째 위치를 가져온다.
-                Vector2 iconRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
+                Vector2 iconBoxRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
+
                 // 아이콘의 위치를 [ iBoxCount ] 번째 위치로 바꾼다
                 RectTransform selectedIcon = selectedItem.transform.GetComponentInChildren<RectTransform>();
                 if (selectedIcon != null)
-                    selectedIcon.position = iconRT;
+                {
+                    selectedIcon.position = iconBoxRT;
+                    selectedIcon.rotation = Quaternion.Euler(0,0,0);
+                }
 
 
 
