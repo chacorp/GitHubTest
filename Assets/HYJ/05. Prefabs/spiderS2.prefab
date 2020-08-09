@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 3166040946511110147}
   - component: {fileID: 5548345228335153635}
   m_Layer: 9
-  m_Name: spiderS2
+  m_Name: SpiderS2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,8 +256,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.06506461, y: 0.13242973, z: 0.06891492}
-  m_Center: {x: 0.0017751828, y: 0.06710429, z: -0.0044960827}
+  m_Size: {x: 0.06506461, y: 0.03412591, z: 0.06891492}
+  m_Center: {x: 0.0017751828, y: 0.017952375, z: -0.0044960827}
 --- !u!54 &5548345228335153635
 Rigidbody:
   m_ObjectHideFlags: 0
