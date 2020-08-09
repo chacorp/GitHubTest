@@ -12,6 +12,8 @@ public class ClipboardAttack : MonoBehaviour
     [SerializeField] private Vector3 startPos;
     [SerializeField] Vector3 targetPos1 = new Vector3(0.063f, 0.001f, 0.13f);
     [SerializeField] Vector3 targetPos2 = new Vector3(0.063f, -0.5f, 0.13f);
+    [SerializeField] AudioClip swingSound;
+    [SerializeField] AudioSource clipboardAudio;
     float motionRatio = 0;
     float motionRatio2 = 0;
     float motionRatio3 = 0;
@@ -21,6 +23,8 @@ public class ClipboardAttack : MonoBehaviour
     {
         startRot = transform.localEulerAngles;
         startPos = transform.transform.localPosition;
+        clipboardAudio = GetComponentInChildren<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -29,6 +33,7 @@ public class ClipboardAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isSwinging)
         {
             isSwinging = true;
+            clipboardAudio.PlayOneShot(swingSound);
         }
 
         if (isSwinging)
@@ -88,8 +93,4 @@ public class ClipboardAttack : MonoBehaviour
         }
     }
 
-    //private void OnTrigger(Collision col)
-    //{
-    //    
-    //}
 }
