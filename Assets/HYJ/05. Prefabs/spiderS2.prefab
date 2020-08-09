@@ -217,8 +217,8 @@ MonoBehaviour:
   dest: {x: 0, y: 0, z: 0}
   animSpider: {fileID: 9216002082066054914}
   objMgr: {fileID: 0}
-  speed: 2
-  sprintSpeed: 4
+  speed: 1.2
+  sprintSpeed: 2
   reactionRange: 1.5
   currentTime: 0
   damageDelayTIme: 1
