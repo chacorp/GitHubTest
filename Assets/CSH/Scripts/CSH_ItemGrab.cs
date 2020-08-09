@@ -121,11 +121,12 @@ public class CSH_ItemGrab : MonoBehaviour
                 //selectedItem.transform.SetParent(inventory);
 
                 // 아이템의 rigidbody 물리엔진 끄기
-                itemRB.isKinematic = true;
+                //itemRB.isKinematic = true;
+                itemRB.constraints = RigidbodyConstraints.FreezePosition;
 
                 // 아이템의 Collider 끄기 => 안끄면 플레이어와 충돌나서 뒤로 밀린다!
                 Collider itemCol = selectedItem.GetComponent<Collider>();
-                itemCol.enabled = false;
+                //itemCol.enabled = false;
 
 
                 // 아이콘의 위치 옮기기
@@ -188,7 +189,8 @@ public class CSH_ItemGrab : MonoBehaviour
                 itemSelect.isGrabed = true;
 
                 // 아이템의 rigidbody 물리엔진 끄기
-                itemRB.isKinematic = true;
+                 //itemRB.isKinematic = true;
+                itemRB.constraints = RigidbodyConstraints.FreezePosition;
 
                 // [아이템]의 위치를 (this)의 위치로 바꾸기
                 Vector3 dir = transform.position - selectedItem.transform.position;
@@ -232,7 +234,8 @@ public class CSH_ItemGrab : MonoBehaviour
         // itemRB = pointingItem.GetComponent<Rigidbody>();
 
         // 아이템의 Rigidbody 물리엔진 켜기
-        itemRB.isKinematic = false;
+        //itemRB.isKinematic = false;
+        itemRB.constraints = RigidbodyConstraints.None;
 
         // 아이템의 CSH_ItemSelect한테  <안 잡힌 상태>  라고 알려주기
         itemSelect.isGrabed = false;

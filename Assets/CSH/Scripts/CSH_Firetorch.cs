@@ -19,17 +19,17 @@ public class CSH_Firetorch : MonoBehaviour
 
     void Update()
     {
+        // 마우스 좌클릭을 하면
         if (Input.GetMouseButtonDown(0))
         {
+            // 불 뿜기 / 안 뿜기
             flame.SetActive(!flame.activeSelf);
+            // 소리 켜기 / 끄기
             soundOn = flame.activeSelf;
         }
-        if(soundOn)
-        {
-            torchSound.Play();
-        }else
-        {
-            torchSound.Stop();
-        }
+
+        if (soundOn) torchSound.Play();
+        else torchSound.Stop();
+
     }
 }
