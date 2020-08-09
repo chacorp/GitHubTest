@@ -14,6 +14,12 @@ public class ClipboardAttack : MonoBehaviour
     [SerializeField] Vector3 targetPos2 = new Vector3(0.063f, -0.5f, 0.13f);
     [SerializeField] AudioClip swingSound;
     [SerializeField] AudioSource clipboardAudio;
+    #region 충돌체크를 위한 변수
+    Ray ray;
+    RaycastHit rayhit;
+    [SerializeField] float maxDistance = 100.0f;
+    #endregion
+
     float motionRatio = 0;
     float motionRatio2 = 0;
     float motionRatio3 = 0;
@@ -34,11 +40,31 @@ public class ClipboardAttack : MonoBehaviour
         {
             isSwinging = true;
             clipboardAudio.PlayOneShot(swingSound);
+
+            ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            int layer = LayerMask.NameToLayer("Player");
+            layer = 1 << layer;
+
+            ShootRay(ray, layer);
         }
 
         if (isSwinging)
         {
             SwingClipboard();
+        }
+    }
+
+    void ShootRay(Ray ray, int layer)
+    {
+        Debug.Log("Ray has been shot!");
+        if (Physics.Raycast(ray, out rayhit, maxDistance, ~layer))
+        {
+            Enemy enemy = rayhit.transform.GetComponent<Enemy>();
+            if (enemy)
+            {
+                Debug.Log($"{rayhit.transform.gameObject.name} is attacked!! with Ray");
+                enemy.OnDamageProcess();
+            }
         }
     }
 
@@ -84,7 +110,6 @@ public class ClipboardAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collide");
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
         if (enemy)
         {

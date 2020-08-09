@@ -200,14 +200,13 @@ public class Enemy : MonoBehaviour
         else if (gameObject.name.Contains("Beetle")) objMgr.ReturnObject(gameObject, objMgr.enemyObjectPools[3]);
     }
 
-}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Weapon"))
+        {
+            Debug.Log($"{gameObject.name} is attacked!");
+            OnDamageProcess();
+        }
+    }
 
-//    private void OnCollisionEnter(Collision collision)
-//    {
-//        if (!collision.gameObject.tag.Contains("Enemy"))
-//        {
-//            OnDamageProcess();
-//            Debug.Log("Enemy is under attck!");
-//        }
-//    }
-//}
+}

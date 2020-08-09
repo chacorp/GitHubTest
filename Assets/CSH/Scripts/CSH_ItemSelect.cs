@@ -21,7 +21,7 @@ public class CSH_ItemSelect : MonoBehaviour
 
     private void Start()
     {
-        isGrabed = false; 
+        isGrabed = false;
         GetComponent<Renderer>().material = nonBorder;
     }
 
@@ -34,7 +34,7 @@ public class CSH_ItemSelect : MonoBehaviour
         {
             // 아웃라인 제거하기
             GetComponent<Renderer>().material = nonBorder;
-            return; 
+            return;
         }
         GetComponent<Renderer>().material = border;
 
@@ -54,7 +54,7 @@ public class CSH_ItemSelect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collide");
+
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
         if (enemy)
         {

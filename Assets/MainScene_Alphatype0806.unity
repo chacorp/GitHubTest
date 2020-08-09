@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 338657711}
   - component: {fileID: 349181743}
   - component: {fileID: 352284079}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1184,6 +1184,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 842047564}
     m_Modifications:
+    - target: {fileID: 2242855630590601980, guid: 1bc4f573555ccad42835ee2984d1984d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2242855630590601981, guid: 1bc4f573555ccad42835ee2984d1984d,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1273,6 +1278,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Special Cube (0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584715285559334548, guid: 1bc4f573555ccad42835ee2984d1984d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bc4f573555ccad42835ee2984d1984d, type: 3}
@@ -5024,6 +5034,7 @@ MonoBehaviour:
   targetPos2: {x: 0.063, y: -0.7, z: 0.13}
   swingSound: {fileID: 8300000, guid: 732a12575547cdc4a81c11e0e00a354a, type: 3}
   clipboardAudio: {fileID: 1685343192516906}
+  maxDistance: 100
 --- !u!1001 &1580283486
 PrefabInstance:
   m_ObjectHideFlags: 0
