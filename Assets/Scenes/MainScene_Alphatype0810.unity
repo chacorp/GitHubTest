@@ -4342,7 +4342,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD018\uC2A4\uD2B8 \uC124\uBA85\n"
+  m_Text: "\uAC70\uBBF8 \uBD88\uD0DC\uC6B0\uAE30\n"
 --- !u!222 &1258695883
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20909,14 +20909,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6841952352632911948}
-  m_LocalRotation: {x: 0, y: 0, z: 0.3703143, w: 0.92890656}
-  m_LocalPosition: {x: 0.557, y: 1.7755756, z: 7.391}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -4.49, y: 1.208, z: -2.03}
   m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children:
   - {fileID: 9096892729125239185}
   m_Father: {fileID: 842047564}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 43.47}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &7930713096554831077
 MeshFilter:
   m_ObjectHideFlags: 0
