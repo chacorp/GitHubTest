@@ -140,7 +140,7 @@ public class CSH_ItemGrab : MonoBehaviour
                 if (selectedIcon != null)
                 {
                     selectedIcon.position = iconBoxRT;
-                    selectedIcon.rotation = Quaternion.Euler(0,0,0);
+                    selectedIcon.rotation = Quaternion.Euler(0, 0, 0);
                 }
 
 
@@ -189,7 +189,7 @@ public class CSH_ItemGrab : MonoBehaviour
                 itemSelect.isGrabed = true;
 
                 // 아이템의 rigidbody 물리엔진 끄기
-                 //itemRB.isKinematic = true;
+                //itemRB.isKinematic = true;
                 itemRB.constraints = RigidbodyConstraints.FreezePosition;
 
                 // [아이템]의 위치를 (this)의 위치로 바꾸기
