@@ -20555,7 +20555,6 @@ GameObject:
   - component: {fileID: 6305090325686882220}
   - component: {fileID: 6305090325686882219}
   - component: {fileID: 6305090325686882218}
-  - component: {fileID: 6305090325686882217}
   m_Layer: 11
   m_Name: Special Cube (0)
   m_TagString: Special
@@ -20563,22 +20562,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &6305090325686882217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6305090325686882216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4937cad366ee28c4e9c7d1c73a7b715c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGrabed: 0
-  isSpecialItem: 1
-  glowVFXFactory: {fileID: 0}
-  reachRange: 2.3
 --- !u!65 &6305090325686882218
 BoxCollider:
   m_ObjectHideFlags: 0
