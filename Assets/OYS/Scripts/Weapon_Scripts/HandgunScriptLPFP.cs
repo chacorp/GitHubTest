@@ -274,7 +274,7 @@ public class HandgunScriptLPFP : MonoBehaviour
         }
 
         //Shooting 
-        if (Input.GetMouseButtonDown(0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning)
+        if (Input.GetMouseButtonDown(0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning && !CSH_ItemGrab.Instance.hasItem)
         {
             anim.Play("Fire", 0, 0f);
 
