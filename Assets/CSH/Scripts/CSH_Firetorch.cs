@@ -6,12 +6,14 @@ public class CSH_Firetorch : MonoBehaviour
 {
     public GameObject flame;
     public AudioSource torchSound;
+    public AudioClip torchClip;
 
-    bool soundOn;
+
+    //bool soundOn;
 
     void Start()
     {
-        soundOn = false;
+        //soundOn = false;
         flame.SetActive(false);
 
         torchSound = GetComponent<AudioSource>();
@@ -24,12 +26,11 @@ public class CSH_Firetorch : MonoBehaviour
         {
             // 불 뿜기 / 안 뿜기
             flame.SetActive(!flame.activeSelf);
+            if (flame.activeSelf) torchSound.PlayOneShot(torchClip);
+            else torchSound.Stop();
             // 소리 켜기 / 끄기
-            soundOn = flame.activeSelf;
+            //soundOn = flame.activeSelf;
         }
-
-        if (soundOn) torchSound.Play();
-        else torchSound.Stop();
 
     }
 }

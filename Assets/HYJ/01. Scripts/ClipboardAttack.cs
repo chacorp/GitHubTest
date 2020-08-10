@@ -15,6 +15,7 @@ public class ClipboardAttack : MonoBehaviour
     [SerializeField] AudioClip swingSound;
     [SerializeField] AudioSource clipboardAudio;
     [SerializeField] GameObject clipboard;
+
     #region 충돌체크를 위한 변수
     Ray ray;
     RaycastHit rayhit;
