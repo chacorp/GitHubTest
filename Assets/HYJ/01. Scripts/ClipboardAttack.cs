@@ -16,6 +16,8 @@ public class ClipboardAttack : MonoBehaviour
     [SerializeField] AudioClip[] collisionSFXs;
     [SerializeField] AudioSource clipboardAudio;
     [SerializeField] GameObject clipboard;
+    [SerializeField] GameObject sparkFactory;
+
 
     #region 충돌체크를 위한 변수
     Ray ray;
@@ -69,11 +71,11 @@ public class ClipboardAttack : MonoBehaviour
                 Debug.Log($"{rayhit.transform.gameObject.name} is attacked!! with Ray");
                 enemy.OnDamageProcess();
             }
-            collisionSound(rayhit);
+            CollisionEffect(rayhit);
         }
     }
 
-    void collisionSound(RaycastHit hitinfo)
+    void CollisionEffect(RaycastHit hitinfo)
     {
         // 빛과 충돌된 물체가 있다면 그 물체와 클립보드(게임 오브젝트) 사이의 거리를 측정한다
         if (hitinfo.transform.gameObject != null)
@@ -85,6 +87,9 @@ public class ClipboardAttack : MonoBehaviour
                 int randNum = Random.Range(0, collisionSFXs.Length);
 
                 clipboardAudio.PlayOneShot(collisionSFXs[randNum]);
+                GameObject sparkEffect = Instantiate(sparkFactory);
+                sparkEffect.transform.transform.up = hitinfo.normal;
+                sparkEffect.transform.position = hitinfo.point;
 
             }
         }

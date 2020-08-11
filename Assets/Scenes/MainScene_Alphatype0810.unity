@@ -5494,7 +5494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1578378539}
   - component: {fileID: 1578378540}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5540,9 +5540,14 @@ MonoBehaviour:
   targetPos1: {x: 0.063, y: 0.3, z: 0.13}
   targetPos2: {x: 0.063, y: -0.7, z: 0.13}
   swingSound: {fileID: 8300000, guid: 732a12575547cdc4a81c11e0e00a354a, type: 3}
+  collisionSFXs:
+  - {fileID: 8300000, guid: 909fdef101daa424aa05b6b361d48804, type: 3}
+  - {fileID: 8300000, guid: c1464c0c077eecb49bb69fe98e0f0b46, type: 3}
   clipboardAudio: {fileID: 1685343192516906}
   clipboard: {fileID: 1685343192516903}
-  maxDistance: 100
+  sparkFactory: {fileID: 144898, guid: 8e10128ab5f2a294d9abf444cb9b0507, type: 3}
+  maxDistance: 1.5
+  effectRange: 1
 --- !u!1001 &1580283486
 PrefabInstance:
   m_ObjectHideFlags: 0
