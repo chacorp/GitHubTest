@@ -20260,7 +20260,7 @@ GameObject:
   - component: {fileID: 2312344275550090947}
   m_Layer: 0
   m_Name: Firetorch
-  m_TagString: Untagged
+  m_TagString: Special
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

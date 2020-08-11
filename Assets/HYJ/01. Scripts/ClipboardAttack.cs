@@ -13,6 +13,7 @@ public class ClipboardAttack : MonoBehaviour
     [SerializeField] Vector3 targetPos1 = new Vector3(0.063f, 0.001f, 0.13f);
     [SerializeField] Vector3 targetPos2 = new Vector3(0.063f, -0.5f, 0.13f);
     [SerializeField] AudioClip swingSound;
+    [SerializeField] AudioClip[] collisionSFXs;
     [SerializeField] AudioSource clipboardAudio;
     [SerializeField] GameObject clipboard;
 
@@ -25,7 +26,7 @@ public class ClipboardAttack : MonoBehaviour
     float motionRatio = 0;
     float motionRatio2 = 0;
     float motionRatio3 = 0;
-
+    public float effectRange = 1.0f;
 
     void Start()
     {
@@ -61,11 +62,30 @@ public class ClipboardAttack : MonoBehaviour
         Debug.Log("Ray has been shot!");
         if (Physics.Raycast(ray, out rayhit, maxDistance, ~layer))
         {
+            //Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 3f);
             Enemy enemy = rayhit.transform.GetComponent<Enemy>();
             if (enemy)
             {
                 Debug.Log($"{rayhit.transform.gameObject.name} is attacked!! with Ray");
                 enemy.OnDamageProcess();
+            }
+            collisionSound(rayhit);
+        }
+    }
+
+    void collisionSound(RaycastHit hitinfo)
+    {
+        // 빛과 충돌된 물체가 있다면 그 물체와 클립보드(게임 오브젝트) 사이의 거리를 측정한다
+        if (hitinfo.transform.gameObject != null)
+        {
+            Vector3 distance = gameObject.transform.position - hitinfo.point;
+            if (distance.magnitude <= effectRange)
+            {
+                // 거리가 일정 범위 안으로 들어오면 SFX와 VFX를 나타내라
+                int randNum = Random.Range(0, collisionSFXs.Length);
+
+                clipboardAudio.PlayOneShot(collisionSFXs[randNum]);
+
             }
         }
     }
