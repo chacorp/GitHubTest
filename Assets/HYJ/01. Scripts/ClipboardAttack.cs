@@ -78,7 +78,7 @@ public class ClipboardAttack : MonoBehaviour
     void CollisionEffect(RaycastHit hitinfo)
     {
         // 빛과 충돌된 물체가 있다면 그 물체와 클립보드(게임 오브젝트) 사이의 거리를 측정한다
-        if (hitinfo.transform.gameObject != null)
+        if (!hitinfo.transform.gameObject.tag.Contains("Enemy"))
         {
             Vector3 distance = gameObject.transform.position - hitinfo.point;
             if (distance.magnitude <= effectRange)

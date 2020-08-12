@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 // 가장 가까운 목적지를 탐색하여 이동하는 스크립트
+[RequireComponent(typeof(AudioSource))]
 public class Enemy : MonoBehaviour
 {
     #region 에너미 상태변수
@@ -21,6 +22,11 @@ public class Enemy : MonoBehaviour
 
     private NavMeshAgent spiderAgent;
     public Animator animSpider;
+    [SerializeField] AudioSource enemyAudio;
+    [SerializeField] AudioClip[] idleClips;
+    [SerializeField] AudioClip[] moveClips;
+    [SerializeField] AudioClip[] dieClips;
+    [SerializeField] AudioClip damageClip;
     private GameObject player;
     [SerializeField] private ObjectManager objMgr;
 
@@ -29,6 +35,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] float reactionRange = 4.0f;
     [SerializeField] float currentTime = 0.0f;
     [SerializeField] float damageDelayTIme = 1.0f;
+
+    bool isReached = false;
 
     #region 에너미 체력변수
     private int maxHp = 2;
@@ -40,6 +48,7 @@ public class Enemy : MonoBehaviour
         currentHp = maxHp;
         state = EnemyState.Idle;
         if (spiderAgent) spiderAgent.enabled = false;
+        enemyAudio = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -77,8 +86,10 @@ public class Enemy : MonoBehaviour
         if (distance.magnitude < reactionRange)
         {
             state = EnemyState.Move;
-
+            PlayRandomSound(isReached);
+            isReached = true;
         }
+        else if (distance.magnitude > reactionRange) isReached = false;
     }
 
     private void Move()
@@ -96,6 +107,13 @@ public class Enemy : MonoBehaviour
 
 
         SetDestination();
+        Vector3 distance = player.transform.position - transform.position;
+        if (distance.magnitude < reactionRange)
+        {
+            PlayRandomSound(isReached);
+            isReached = true;
+        }
+        else if (distance.magnitude > reactionRange) isReached = false;
 
         // 에너미의 위치가 목적지에 도달하게 되면 상태를 IDle로 변경한다.
         if (Vector3.Distance(transform.position, dest) <= spiderAgent.stoppingDistance) state = EnemyState.Idle;
@@ -165,10 +183,12 @@ public class Enemy : MonoBehaviour
             state = EnemyState.Damage;
             animSpider.SetBool("IsMoving", false);
             animSpider.SetBool("Flinched", true);
+            PlayRandomSound(isReached);
         }
         else
         {
             state = EnemyState.Die;
+            PlayRandomSound(isReached);
             StartCoroutine(Die());
             animSpider.SetTrigger("IsDying");
         }
@@ -212,4 +232,28 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    void PlayRandomSound(bool isReaced)
+    {
+        if (state == EnemyState.Idle && !isReaced)
+        {
+            int randNum = Random.Range(0, idleClips.Length);
+            enemyAudio.PlayOneShot(idleClips[randNum]);
+
+        }
+        else if (state == EnemyState.Move && !isReaced)
+        {
+            int randNum = Random.Range(0, moveClips.Length);
+            enemyAudio.PlayOneShot(moveClips[randNum]);
+
+        }
+        else if (state == EnemyState.Damage)
+        {
+            enemyAudio.PlayOneShot(damageClip);
+        }
+        else if (state == EnemyState.Die)
+        {
+            int randNum = Random.Range(0, dieClips.Length);
+            enemyAudio.PlayOneShot(dieClips[randNum]);
+        }
+    }
 }

@@ -242,7 +242,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5932,7 +5932,7 @@ MonoBehaviour:
   clipboardAudio: {fileID: 1685343192516906}
   clipboard: {fileID: 1685343192516903}
   sparkFactory: {fileID: 144898, guid: 8e10128ab5f2a294d9abf444cb9b0507, type: 3}
-  maxDistance: 1.5
+  maxDistance: 2
   effectRange: 1
 --- !u!1001 &1580283486
 PrefabInstance:
