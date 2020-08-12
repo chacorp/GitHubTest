@@ -233,7 +233,8 @@ MonoBehaviour:
   sprintSpeed: 2
   reactionRange: 1.5
   currentTime: 0
-  damageDelayTIme: 1
+  damageDelayTIme: 0.7
+  dieJumpPower: 2
   squeezeSpeed: 0.3
 --- !u!195 &867863547833550582
 NavMeshAgent:
@@ -265,11 +266,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1112336799913114}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.06506461, y: 0.03412591, z: 0.06891492}
-  m_Center: {x: 0.0017751828, y: 0.017952375, z: -0.0044960827}
+  m_Size: {x: 0.06506461, y: 0.03412591, z: 0.08407305}
+  m_Center: {x: 0.0017751828, y: 0.017952375, z: -0.0019697323}
 --- !u!54 &5548345228335153635
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2392,8 +2393,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9130133816096043136}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0103}
-  m_LocalScale: {x: 0.11533895, y: 0.11533895, z: 0.11533895}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0208}
+  m_LocalScale: {x: 0.14802602, y: 0.14802602, z: 0.14802602}
   m_Children:
   - {fileID: 4612560590841574}
   - {fileID: 4755038469773696}

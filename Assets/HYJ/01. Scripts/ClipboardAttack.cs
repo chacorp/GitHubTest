@@ -61,7 +61,7 @@ public class ClipboardAttack : MonoBehaviour
 
     void ShootRay(Ray ray, int layer)
     {
-        Debug.Log("Ray has been shot!");
+        //Debug.Log("Ray has been shot!");
         if (Physics.Raycast(ray, out rayhit, maxDistance, ~layer))
         {
             //Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 3f);

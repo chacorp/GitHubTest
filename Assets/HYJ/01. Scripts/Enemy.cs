@@ -35,8 +35,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] float reactionRange = 4.0f;
     [SerializeField] float currentTime = 0.0f;
     [SerializeField] float damageDelayTIme = 1.0f;
+    [SerializeField] float dieJumpPower = 1.5f;
 
     bool isReached = false;
+    Rigidbody rigidbody;
 
     #region 에너미 체력변수
     private int maxHp = 2;
@@ -58,6 +60,7 @@ public class Enemy : MonoBehaviour
         spiderAgent.enabled = false;
         if (animSpider == null) animSpider = GetComponentInChildren<Animator>();
         objMgr = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -189,6 +192,11 @@ public class Enemy : MonoBehaviour
         {
             state = EnemyState.Die;
             PlayRandomSound(isReached);
+            spiderAgent.enabled = false;
+            rigidbody.useGravity = true;
+            rigidbody.isKinematic = false;
+            rigidbody.AddForce(Vector3.up * dieJumpPower, ForceMode.Impulse);
+            rigidbody.AddTorque(Vector3.right * 100, ForceMode.Impulse);
             StartCoroutine(Die());
             animSpider.SetTrigger("IsDying");
         }
@@ -198,9 +206,8 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Die()
     {
+        Debug.Log($"{gameObject.name} is died!");
         // 게임 오브젝트의 Y 스케일 값을 작게 만들고 싶다.
-        spiderAgent.enabled = false;
-
         float t = 0;
         Vector3 start = transform.localScale;
         Vector3 end = new Vector3(1, 0.1f, 1);
@@ -210,6 +217,7 @@ public class Enemy : MonoBehaviour
             t += Time.deltaTime;
             yield return 0;
         }
+        yield return new WaitForSeconds(2.0f);
         DetectName(gameObject);
 
     }
