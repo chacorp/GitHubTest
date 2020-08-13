@@ -74,6 +74,7 @@ public class CSH_ItemGrab : MonoBehaviour
     public bool hasItem;
     bool grabing;
 
+
     private void Start()
     {
         grabing = false;
@@ -190,6 +191,8 @@ public class CSH_ItemGrab : MonoBehaviour
 
                 // 아이템의 rigidbody 물리엔진 끄기
                 itemRB.isKinematic = true;
+
+
                 //itemRB.constraints = RigidbodyConstraints.FreezePosition;
 
                 // [아이템]의 위치를 (this)의 위치로 바꾸기
@@ -225,7 +228,8 @@ public class CSH_ItemGrab : MonoBehaviour
     }
 
     void Throw_item()
-    {
+    {   
+        // 던지기가 가능한 경우는 모두 [아이템] 이라서 특수인지 아닌지 구분할 필요가 없다
         // ===============================================
         //   아이템의 컴포넌트 가져오기를 또 할 필요는 없다. 
         //       왜냐하면 이미 전역변수로 갖고 있으니까!

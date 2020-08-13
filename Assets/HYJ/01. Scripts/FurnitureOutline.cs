@@ -59,40 +59,59 @@ public class FurnitureOutline : MonoBehaviour
     // **** OnMouseEnter() 는 마우스 커서가 사물을 가리킨 순간 한번 호출! 
     //        =>     void OnMouseOver()    >>>>    void OnMouseEnter() 로 바꿨습니다
 
-    private void OnMouseEnter()
+
+    //private void OnMouseEnter()
+    //{
+    //    //isPointing = true;
+
+    //    //if (Input.GetKeyUp(KeyCode.E) && isPointing)
+    //    //{
+    //    //    renderer.material = nonBoarder;
+    //    //    currentTime += Time.deltaTime;
+
+    //    //    if (currentTime >= delayTime)
+    //    //    {
+    //    //        renderer.material = border;
+    //    //    }
+    //    //}
+
+    //    //if (isPointing)
+    //    //{
+    //    //    renderer.material = borderMat; 
+    //    //}
+
+
+    //    // ----------------------------------------------------------< 추가한 부분 - 2 > - 시작
+    //    outliner.enabled = true;
+    //    // ----------------------------------------------------------< 추가한 부분 - 2 > - 끝
+    //}
+
+    //private void OnMouseExit()
+    //{
+    //    //isPointing = false;
+    //    //renderer.material = nonBorderMat;
+
+
+    //    // ----------------------------------------------------------< 추가한 부분 - 3 > - 시작
+    //    outliner.enabled = false;
+    //    // ----------------------------------------------------------< 추가한 부분 - 3 > - 끝
+    //}
+
+    // ----------------------------------------------------------< 추가한 부분 - 4 > - 시작
+    private void OnTriggerStay(Collider other)
     {
-        //isPointing = true;
-
-        //if (Input.GetKeyUp(KeyCode.E) && isPointing)
-        //{
-        //    renderer.material = nonBoarder;
-        //    currentTime += Time.deltaTime;
-
-        //    if (currentTime >= delayTime)
-        //    {
-        //        renderer.material = border;
-        //    }
-        //}
-
-        //if (isPointing)
-        //{
-        //    renderer.material = borderMat; 
-        //}
-
-
-        // ----------------------------------------------------------< 추가한 부분 - 2 > - 시작
-        outliner.enabled = true;
-        // ----------------------------------------------------------< 추가한 부분 - 2 > - 끝
+        if (other.CompareTag("EditorOnly"))
+        {
+            // 플레이어와의 거리재기
+            float distance = Vector3.Distance(CSH_RayManager.Instance.player.transform.position, transform.position);
+            // 거리가 3m 이내라면
+            if (distance <= CSH_RayManager.Instance.distanceLimit) outliner.enabled = true;
+        }
     }
 
-    private void OnMouseExit()
+    private void OnTriggerExit(Collider other)
     {
-        //isPointing = false;
-        //renderer.material = nonBorderMat;
-
-
-        // ----------------------------------------------------------< 추가한 부분 - 3 > - 시작
-        outliner.enabled = false;
-        // ----------------------------------------------------------< 추가한 부분 - 3 > - 끝
+        if (other.CompareTag("EditorOnly")) outliner.enabled = false;
     }
+    // ----------------------------------------------------------< 추가한 부분 - 4 > - 끝
 }
