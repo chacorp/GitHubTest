@@ -185,10 +185,8 @@ public class Enemy : MonoBehaviour
         }
 
         currentHp--;
-        GameObject enemyDamageVFX = Instantiate(enemyBlood);
-        GameObject enemyDamageVFX2 = Instantiate(enemyBloodSpatter);
-        enemyDamageVFX.transform.position = transform.position;
-        enemyDamageVFX2.transform.position = transform.position;
+        StartCoroutine(DamageVFX());
+
         if (currentHp > 0)
         {
             state = EnemyState.Damage;
@@ -211,6 +209,18 @@ public class Enemy : MonoBehaviour
     }
 
     public float squeezeSpeed = 0.3f;
+
+    private IEnumerator DamageVFX()
+    {
+        GameObject enemyDamageVFX = Instantiate(enemyBlood);
+        GameObject enemyDamageVFX2 = Instantiate(enemyBloodSpatter);
+        enemyDamageVFX.transform.position = transform.position;
+        enemyDamageVFX2.transform.position = transform.position;
+        enemyDamageVFX2.GetComponent<ParticleSystem>().Play();
+
+        yield return new WaitForSeconds(0.3f);
+        enemyDamageVFX2.GetComponent<ParticleSystem>().Pause();
+    }
 
     private IEnumerator Die()
     {
