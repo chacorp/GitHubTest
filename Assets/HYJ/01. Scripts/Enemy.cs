@@ -36,6 +36,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] float currentTime = 0.0f;
     [SerializeField] float damageDelayTIme = 1.0f;
     [SerializeField] float dieJumpPower = 1.5f;
+    [SerializeField] GameObject enemyBlood;
+    [SerializeField] GameObject enemyBloodSpatter;
 
     bool isReached = false;
     Rigidbody rigidbody;
@@ -51,6 +53,9 @@ public class Enemy : MonoBehaviour
         state = EnemyState.Idle;
         if (spiderAgent) spiderAgent.enabled = false;
         enemyAudio = GetComponent<AudioSource>();
+        rigidbody = GetComponent<Rigidbody>();
+        rigidbody.useGravity = false;
+        rigidbody.isKinematic = true;
     }
 
     void Start()
@@ -60,7 +65,6 @@ public class Enemy : MonoBehaviour
         spiderAgent.enabled = false;
         if (animSpider == null) animSpider = GetComponentInChildren<Animator>();
         objMgr = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
-        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -181,6 +185,10 @@ public class Enemy : MonoBehaviour
         }
 
         currentHp--;
+        GameObject enemyDamageVFX = Instantiate(enemyBlood);
+        GameObject enemyDamageVFX2 = Instantiate(enemyBloodSpatter);
+        enemyDamageVFX.transform.position = transform.position;
+        enemyDamageVFX2.transform.position = transform.position;
         if (currentHp > 0)
         {
             state = EnemyState.Damage;
@@ -197,8 +205,8 @@ public class Enemy : MonoBehaviour
             rigidbody.isKinematic = false;
             rigidbody.AddForce(Vector3.up * dieJumpPower, ForceMode.Impulse);
             rigidbody.AddTorque(Vector3.right * 100, ForceMode.Impulse);
-            StartCoroutine(Die());
             animSpider.SetTrigger("IsDying");
+            StartCoroutine(Die());
         }
     }
 

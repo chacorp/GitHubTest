@@ -235,6 +235,10 @@ MonoBehaviour:
   currentTime: 0
   damageDelayTIme: 0.7
   dieJumpPower: 2
+  enemyBlood: {fileID: 6810944716560709387, guid: b5065247f92794547af50ec8976fe65c,
+    type: 3}
+  enemyBloodSpatter: {fileID: 6810944716560709387, guid: 5922c5f69a054ea419aa502680f17969,
+    type: 3}
   squeezeSpeed: 0.3
 --- !u!195 &867863547833550582
 NavMeshAgent:
@@ -299,7 +303,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.295
   m_Pitch: 1
   Loop: 0
   Mute: 0

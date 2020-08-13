@@ -90,7 +90,7 @@ public class ClipboardAttack : MonoBehaviour
                 GameObject sparkEffect = Instantiate(sparkFactory);
                 sparkEffect.transform.transform.up = hitinfo.normal;
                 sparkEffect.transform.position = hitinfo.point;
-
+                Debug.Log($"Clipboard is collide with {hitinfo.transform.name}");
             }
         }
     }
