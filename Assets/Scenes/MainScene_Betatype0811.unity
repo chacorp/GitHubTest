@@ -869,7 +869,7 @@ GameObject:
   - component: {fileID: 326680089}
   m_Layer: 0
   m_Name: SpawnPoint3
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4815,7 +4815,7 @@ GameObject:
   - component: {fileID: 1298782747}
   m_Layer: 0
   m_Name: SpawnPoint1
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6580,7 +6580,7 @@ GameObject:
   - component: {fileID: 1844040450}
   m_Layer: 0
   m_Name: SpawnPoint5
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7659,7 +7659,7 @@ GameObject:
   - component: {fileID: 2036001766}
   m_Layer: 0
   m_Name: SpawnPoint4
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7767,7 +7767,7 @@ GameObject:
   - component: {fileID: 2079045131}
   m_Layer: 0
   m_Name: SpawnPoint2
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
