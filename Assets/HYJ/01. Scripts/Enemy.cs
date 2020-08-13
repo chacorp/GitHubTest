@@ -10,15 +10,16 @@ public class Enemy : MonoBehaviour
     #region 에너미 상태변수
     enum EnemyState
     {
-        Idle, Move, Damage, Die
+        Idle, Move, Damage, Die, ReMove
     }
     [SerializeField] EnemyState state;
     #endregion
     [Header("목적지 정보")]
-    [SerializeField] int destinationLength = 2;
     private GameObject[] destinations;
+    private GameObject[] spawnPoints;
     private Vector3[] targetVectors;
-    [SerializeField] private Vector3 dest;
+    private Vector3[] retargetVectors;
+    [SerializeField] private Vector3 currrentDest;   // SetDestination에서 정해지는 목적지 변수
 
     private NavMeshAgent spiderAgent;
     public Animator animSpider;
@@ -65,6 +66,9 @@ public class Enemy : MonoBehaviour
         spiderAgent.enabled = false;
         if (animSpider == null) animSpider = GetComponentInChildren<Animator>();
         objMgr = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+        // 목적지 변수 배열 초기화 & Destination 오브젝트 검색
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        destinations = GameObject.FindGameObjectsWithTag("Destination");
     }
 
     private void Update()
@@ -76,6 +80,9 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyState.Move:
                 Move();
+                break;
+            case EnemyState.ReMove:
+                ReMove();
                 break;
             case EnemyState.Damage:
                 Damage();
@@ -108,12 +115,9 @@ public class Enemy : MonoBehaviour
             spiderAgent.enabled = true;
         }
 
-        // 목적지 변수 배열 초기화 & Destination 오브젝트 검색
-        targetVectors = new Vector3[destinationLength];
-        destinations = GameObject.FindGameObjectsWithTag("Destination");
-
-
+        targetVectors = new Vector3[destinations.Length];
         SetDestination();
+
         Vector3 distance = player.transform.position - transform.position;
         if (distance.magnitude < reactionRange)
         {
@@ -123,7 +127,31 @@ public class Enemy : MonoBehaviour
         else if (distance.magnitude > reactionRange) isReached = false;
 
         // 에너미의 위치가 목적지에 도달하게 되면 상태를 IDle로 변경한다.
-        if (Vector3.Distance(transform.position, dest) <= spiderAgent.stoppingDistance) state = EnemyState.Idle;
+        if (Vector3.Distance(transform.position, currrentDest) <= spiderAgent.stoppingDistance)
+        {
+            state = EnemyState.ReMove;
+            ReSettingDestination();
+        };
+    }
+
+    private void ReMove()
+    {
+        if (Vector3.Distance(transform.position, currrentDest) <= spiderAgent.stoppingDistance)
+        {
+            ReSettingDestination();
+        }
+
+        Vector3 distance = player.transform.position - transform.position;
+        if (distance.magnitude < reactionRange)
+        {
+            PlayRandomSound(isReached);
+            isReached = true;
+        }
+        else if (distance.magnitude > reactionRange)
+        {
+            isReached = false;
+            state = EnemyState.Idle;
+        }
     }
 
     private void Damage()
@@ -167,13 +195,68 @@ public class Enemy : MonoBehaviour
                     }
                 }
             }
-            dest = (targetVectors[0] + transform.position);
-            Debug.Log($"목적지의 좌표 : {dest}");
+            currrentDest = (targetVectors[0] + transform.position);
+            Debug.Log($"목적지의 좌표 : {currrentDest}");
             animSpider.SetBool("IsMoving", true);
-            spiderAgent.SetDestination(dest);
+            spiderAgent.SetDestination(currrentDest);
             spiderAgent.autoBraking = false;
             spiderAgent.stoppingDistance = 0.3f;
         }
+    }
+
+
+
+    void ReSettingDestination()
+    {
+        // 이동 가능한 지점을 담은 List 변수 생성
+        List<GameObject> otherDestinations = new List<GameObject>();
+        for (int i = 0; i < spawnPoints.Length; i++)
+        {
+            otherDestinations.Add(spawnPoints[i]);
+        }
+
+        for (int i = 0; i < destinations.Length; i++)
+        {
+            otherDestinations.Add(destinations[i]);
+        }
+
+        foreach (GameObject temp in otherDestinations)
+        {
+            if ((temp.transform.position - transform.position).magnitude < spiderAgent.stoppingDistance + 0.2f)
+            {
+                otherDestinations.Remove(temp);
+                break;
+            }
+        }
+
+        // 목적지와 나의 위치 차이값을 가지는 배열 변수 만들기
+        retargetVectors = new Vector3[otherDestinations.Count];
+        for (int i = 0; i < otherDestinations.Count; i++)
+        {
+            retargetVectors[i] = otherDestinations[i].transform.position - transform.position;
+            if (retargetVectors[i] == null) Debug.Log("Cannot find destination " + destinations[i].name);
+        }
+
+        // 목적지와의 거리를 가까운 기준으로 정렬하는 함수 (선택 정렬)
+        for (int i = 0; i < retargetVectors.Length - 1; i++)
+        {
+            for (int j = i + 1; j < retargetVectors.Length; j++)
+            {
+                if (retargetVectors[i].magnitude > retargetVectors[j].magnitude)
+                {
+                    Vector3 temp = retargetVectors[i];
+                    retargetVectors[i] = retargetVectors[j];
+                    retargetVectors[j] = temp;
+                }
+            }
+        }
+
+        currrentDest = (retargetVectors[0] + transform.position);
+        Debug.Log($"새로운 목적지 좌표 : {currrentDest}");
+        animSpider.SetBool("IsMoving", true);
+        spiderAgent.SetDestination(currrentDest);
+        spiderAgent.autoBraking = false;
+        spiderAgent.stoppingDistance = 0.3f;
     }
 
     // 에너미가 피격되면 호출되는 함수, 다른 클래스에서 적용시키기 위해 public으로 수식
@@ -185,10 +268,8 @@ public class Enemy : MonoBehaviour
         }
 
         currentHp--;
-        GameObject enemyDamageVFX = Instantiate(enemyBlood);
-        GameObject enemyDamageVFX2 = Instantiate(enemyBloodSpatter);
-        enemyDamageVFX.transform.position = transform.position;
-        enemyDamageVFX2.transform.position = transform.position;
+        StartCoroutine(DamageVFX());
+
         if (currentHp > 0)
         {
             state = EnemyState.Damage;
@@ -211,6 +292,18 @@ public class Enemy : MonoBehaviour
     }
 
     public float squeezeSpeed = 0.3f;
+
+    private IEnumerator DamageVFX()
+    {
+        GameObject enemyDamageVFX = Instantiate(enemyBlood);
+        GameObject enemyDamageVFX2 = Instantiate(enemyBloodSpatter);
+        enemyDamageVFX.transform.position = transform.position;
+        enemyDamageVFX2.transform.position = transform.position;
+        enemyDamageVFX2.GetComponent<ParticleSystem>().Play();
+
+        yield return new WaitForSeconds(0.3f);
+        enemyDamageVFX2.GetComponent<ParticleSystem>().Pause();
+    }
 
     private IEnumerator Die()
     {

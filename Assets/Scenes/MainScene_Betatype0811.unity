@@ -240,7 +240,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 78d29311bbebfe745a0c3641fd7b54bd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.533
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1026,7 +1026,7 @@ GameObject:
   - component: {fileID: 326680089}
   m_Layer: 0
   m_Name: SpawnPoint3
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4978,7 +4978,7 @@ GameObject:
   - component: {fileID: 1298782747}
   m_Layer: 0
   m_Name: SpawnPoint1
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6743,7 +6743,7 @@ GameObject:
   - component: {fileID: 1844040450}
   m_Layer: 0
   m_Name: SpawnPoint5
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7822,7 +7822,7 @@ GameObject:
   - component: {fileID: 2036001766}
   m_Layer: 0
   m_Name: SpawnPoint4
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7930,7 +7930,7 @@ GameObject:
   - component: {fileID: 2079045131}
   m_Layer: 0
   m_Name: SpawnPoint2
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18736,8 +18736,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.9891527, y: 1.6601884, z: 2.443488}
-  m_Center: {x: 0.07500255, y: 0.8850943, z: 1.4467702}
+  m_Size: {x: 1.855664, y: 1.6601884, z: 1.151413}
+  m_Center: {x: 0.010542841, y: 0.8850943, z: 0.80076015}
 --- !u!65 &65000010667537242
 BoxCollider:
   m_ObjectHideFlags: 0
