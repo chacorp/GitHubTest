@@ -7,7 +7,7 @@
 [RequireComponent(typeof(Rigidbody))]
 public class CSH_ItemSelect : MonoBehaviour
 {
-    // 커서를 [아이템]에 올렸냐?
+    // [아이템]을 잡고 있나?
     public bool isGrabed;
 
     // 이 [아이템]이 [특수 템]인가?
@@ -116,6 +116,7 @@ public class CSH_ItemSelect : MonoBehaviour
         }
     }
 
+    // 아웃라인 그려주기!
     void ShowOutline()
     {
         outlineOn = CSH_RayManager.Instance.raycastHitObject == gameObject.transform ? true : false;
@@ -184,30 +185,13 @@ public class CSH_ItemSelect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 부딪힌 트리거가 Enemy 스크립트를 갖고 있다면
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
         if (enemy)
         {
+            // Enemy 스크립트에서 OnDamageProcess() 실행하기
             Debug.Log($"{other.gameObject.name} is attacked!");
             enemy.OnDamageProcess();
         }
     }
-
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.CompareTag("EditorOnly") && gameObject == CSH_RayManager.Instance.raycastHitObject)
-    //    {
-    //        float distance = Vector3.Distance(player.transform.position, transform.position);
-    //        if (distance <= CSH_RayManager.Instance.distanceLimit)
-    //            outlineOn = true;
-    //    }
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("EditorOnly"))
-    //    {
-    //        outlineOn = false;
-    //    }
-    //}
 }

@@ -11,7 +11,6 @@ public class FurnitureOutline : MonoBehaviour
     [Header("Shader")]
     // 새로 다운 받은 아웃라인 에셋 스크립트!
     Outline outliner;
-    bool outlineOn;
 
     void Start()
     {
@@ -33,7 +32,9 @@ public class FurnitureOutline : MonoBehaviour
 
     void ShowOutline()
     {
-        // 1. 아웃라인 온/오프 여부는   CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트가   이 오브젝트가 맞는지 아닌지에 따라 바뀐다
+        // CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와   이 오브젝트를 비교해서
+        // 서로 갖다면, outline 켜기  
+        // 서로 다르다면, outline 끄기
         outliner.enabled = CSH_RayManager.Instance.raycastHitObject == gameObject.transform ? true : false;        
     }
 
