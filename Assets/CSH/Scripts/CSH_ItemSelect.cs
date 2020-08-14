@@ -118,6 +118,8 @@ public class CSH_ItemSelect : MonoBehaviour
 
     void ShowOutline()
     {
+        outlineOn = CSH_RayManager.Instance.raycastHitObject == gameObject.transform ? true : false;
+
         if (outlineOn)
         {
             // 플레이어가 [아이템]을 잡고 있는 상태라면, 아웃라인 만들지 않기
@@ -130,17 +132,11 @@ public class CSH_ItemSelect : MonoBehaviour
                 return;
             }
             outliner.enabled = true;
-
-            // 현재 가리키는 [아이템]으로 두기
-            //CSH_ItemGrab.Instance.pointingItem = gameObject;
         }
         else
         {
             //// 아웃라인 제거하기
             outliner.enabled = false;
-
-            // 현재 가리키는 [아이템]에서 빼기
-            //CSH_ItemGrab.Instance.pointingItem = null;
         }
     }
 
@@ -150,7 +146,6 @@ public class CSH_ItemSelect : MonoBehaviour
         ShowOutline();
         LayerChange();
     }
-
 
 
     // [아이템] 위에 커서를 올리면, 아웃라인 만들기
@@ -197,21 +192,22 @@ public class CSH_ItemSelect : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("EditorOnly"))
-        {
-            float distance = Vector3.Distance(player.transform.position, transform.position);
-            if (distance <= 3)
-                outlineOn = true;
-        }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("EditorOnly"))
-        {
-            outlineOn = false;
-        }
-    }
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.CompareTag("EditorOnly") && gameObject == CSH_RayManager.Instance.raycastHitObject)
+    //    {
+    //        float distance = Vector3.Distance(player.transform.position, transform.position);
+    //        if (distance <= CSH_RayManager.Instance.distanceLimit)
+    //            outlineOn = true;
+    //    }
+    //}
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("EditorOnly"))
+    //    {
+    //        outlineOn = false;
+    //    }
+    //}
 }

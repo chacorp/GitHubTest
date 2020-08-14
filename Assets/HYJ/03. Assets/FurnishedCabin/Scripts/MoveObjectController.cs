@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MoveObjectController : MonoBehaviour
 {
-    public float reachRange = 1.8f;
+    float reachRange;
 
     private Animator anim;
     private Camera fpsCam;
@@ -21,8 +21,12 @@ public class MoveObjectController : MonoBehaviour
 
     void Start()
     {
+        // 상호 작용을 할 수 있는 최대 거리
+        reachRange = CSH_RayManager.Instance.distanceLimit;
+
         //Initialize moveDrawController if script is enabled.
-        player = GameObject.FindGameObjectWithTag("Player");
+        // Xesco 게임엔 딱히 쓸모 없는 moveDrawController.cs를 가져오기 위한 것
+        player = CSH_RayManager.Instance.player;
 
         fpsCam = Camera.main;
         if (fpsCam == null) //a reference to Camera is required for rayasts
@@ -31,12 +35,13 @@ public class MoveObjectController : MonoBehaviour
         }
 
         //create AnimatorOverrideController to re-use animationController for sliding draws.
+        // 애니메이션 컴포넌트 가져오기
         anim = GetComponent<Animator>();
         anim.enabled = true;  //disable animation states by default.  
 
         //the layer used to mask raycast for interactable objects only
-        LayerMask iRayLM = LayerMask.NameToLayer("InteractRaycast");
-        rayLayerMask = 1 << iRayLM.value;
+        // 움직이는 애니메이션이 붙어있는 오브젝트만 검출할 수 있는 레이어
+        rayLayerMask = 1 << LayerMask.NameToLayer("InteractRaycast");
 
         //setup GUI style settings for user prompts
         setupGui();
@@ -68,10 +73,15 @@ public class MoveObjectController : MonoBehaviour
         if (playerEntered)
         {
             //center point of viewport in World space.
+            // 카메라 뷰포트의 중앙 위치 가져오기
             Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
 
             //if raycast hits a collider on the rayLayerMask
+            // 1. 뷰포트 중앙에서 카메라의 정면 방향으로
+            // 2. reachRange만큼
+            // 3. Ray를 쏴서
+            // 4. rayLayerMask 검출하기
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, reachRange, rayLayerMask))
             {
                 MoveableObject moveableObject = null;
