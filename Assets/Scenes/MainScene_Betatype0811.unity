@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Holder: {fileID: 1578378539}
-  HolderCount: 1
+  HolderCount: 0
 --- !u!1 &326680088
 GameObject:
   m_ObjectHideFlags: 0
