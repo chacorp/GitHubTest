@@ -31,8 +31,8 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     [SerializeField] private ObjectManager objMgr;
 
-    [SerializeField] float speed = 3.0f;
-    [SerializeField] float sprintSpeed = 5.0f;
+    [SerializeField] float speed = 1.2f;
+    [SerializeField] float sprintSpeed = 2.0f;
     [SerializeField] float reactionRange = 4.0f;
     [SerializeField] float currentTime = 0.0f;
     [SerializeField] float damageDelayTIme = 1.0f;
@@ -94,7 +94,7 @@ public class Enemy : MonoBehaviour
     private void Idle()
     {
         Vector3 distance = player.transform.position - transform.position;
-        spiderAgent.speed = Random.Range(speed - 1.0f, speed);
+        spiderAgent.speed = Random.Range(speed - 0.5f, speed);
         animSpider.SetBool("IsMoving", false);
 
         if (distance.magnitude < reactionRange)
@@ -106,6 +106,7 @@ public class Enemy : MonoBehaviour
         else if (distance.magnitude > reactionRange) isReached = false;
     }
 
+    // 목적지를 설정하고 이동하게 되는 상태
     private void Move()
     {
         // 네브매쉬 에이전트 활성화
@@ -126,7 +127,7 @@ public class Enemy : MonoBehaviour
         }
         else if (distance.magnitude > reactionRange) isReached = false;
 
-        // 에너미의 위치가 목적지에 도달하게 되면 상태를 IDle로 변경한다.
+        // 에너미의 위치가 목적지에 도달하게 되면 상태를 ReMove 변경한다.
         if (Vector3.Distance(transform.position, currrentDest) <= spiderAgent.stoppingDistance)
         {
             state = EnemyState.ReMove;
@@ -134,22 +135,22 @@ public class Enemy : MonoBehaviour
         };
     }
 
+    // 목적지에 도달하게 되었을 때 플레이어가 반응 범위 안으로 들어오게 되면 다시 목적지를 설정하게 되고 이동을 하게 된다.
+    // 목적지에 도달 했을 때, 플레이어가 반응 범위에 없으면 상태를 Idle 상태로 바꾼다. 
     private void ReMove()
     {
-        if (Vector3.Distance(transform.position, currrentDest) <= spiderAgent.stoppingDistance)
-        {
-            ReSettingDestination();
-        }
-
         Vector3 distance = player.transform.position - transform.position;
+
         if (distance.magnitude < reactionRange)
         {
+            //ReSettingDestination();
             PlayRandomSound(isReached);
             isReached = true;
         }
-        else if (distance.magnitude > reactionRange)
+        else if (distance.magnitude > reactionRange) isReached = false;
+
+        if (Vector3.Distance(transform.position, currrentDest) <= spiderAgent.stoppingDistance)
         {
-            isReached = false;
             state = EnemyState.Idle;
         }
     }
@@ -210,10 +211,10 @@ public class Enemy : MonoBehaviour
     {
         // 이동 가능한 지점을 담은 List 변수 생성
         List<GameObject> otherDestinations = new List<GameObject>();
-        for (int i = 0; i < spawnPoints.Length; i++)
-        {
-            otherDestinations.Add(spawnPoints[i]);
-        }
+        //for (int i = 0; i < spawnPoints.Length; i++)
+        //{
+        //    otherDestinations.Add(spawnPoints[i]);
+        //}
 
         for (int i = 0; i < destinations.Length; i++)
         {
@@ -222,7 +223,7 @@ public class Enemy : MonoBehaviour
 
         foreach (GameObject temp in otherDestinations)
         {
-            if ((temp.transform.position - transform.position).magnitude < spiderAgent.stoppingDistance + 0.2f)
+            if ((temp.transform.position - transform.position).magnitude < spiderAgent.stoppingDistance + 1.2f)
             {
                 otherDestinations.Remove(temp);
                 break;
