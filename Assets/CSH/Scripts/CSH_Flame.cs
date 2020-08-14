@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class CSH_Flame : MonoBehaviour
 {
+    ParticleSystem PS;
+    public float flameSize = 0;
+    private void Start()
+    {
+        PS = GetComponent<ParticleSystem>();
+    }
+
+    private void Update()
+    {
+        // 불의 크기 적용하기
+        var flameParticle = PS.main;
+        flameParticle.startSize = flameSize;
+    }
     // 트리거에 접촉하는 중이라면
     private void OnTriggerStay(Collider collision)
     {

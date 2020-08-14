@@ -228,7 +228,7 @@ public class CSH_ItemGrab : MonoBehaviour
     }
 
     void Throw_item()
-    {   
+    {
         // 던지기가 가능한 경우는 모두 [아이템] 이라서 특수인지 아닌지 구분할 필요가 없다
         // ===============================================
         //   아이템의 컴포넌트 가져오기를 또 할 필요는 없다. 
@@ -273,8 +273,8 @@ public class CSH_ItemGrab : MonoBehaviour
         // 현재 [아이템]이 없다면, 
         else
         {
-            // 가리키는 [아이템]이 있다면, 텍스트 보여주기
-            if (pointingItem)
+            // 가리키는 [아이템]이 있다면 + 충분히 가깝다면, 텍스트 보여주기
+            if (pointingItem && CSH_RayManager.Instance.isNear)
             {
                 // [E] 안내문 켜기
                 pressE.SetActive(true);
@@ -300,15 +300,15 @@ public class CSH_ItemGrab : MonoBehaviour
         // " Press E " 띄우기
         Show_PressE();
 
-        // -------------------------------------< [E] 키를 누르면 아이템 눈 앞으로 가져오기 >
-        // 1. 커서로 가리키는 아이템이 있고   &또한&   현재 아이템을 잡고 있지 않다면,
+        // -------------------------------------------------------------------------------< [E] 키를 눌러 아이템 눈 앞으로 가져오기 >
+        // 1. 현재 가리키는 아이템이 있고    현재 아이템을 잡고 있지 않고   
         if (!hasItem)
         {
             // Handgun 스크립트 활성화
             if (handGun != null)
                 handGun.enabled = true;
 
-            if (pointingItem != null)
+            if (pointingItem != null && CSH_RayManager.Instance.isNear)
             {
                 // 2. [E] 키를 눌러서 아이템 가져오기
                 if (Input.GetKeyDown(KeyCode.E))

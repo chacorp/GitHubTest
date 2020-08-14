@@ -1,4 +1,4 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 
 // ========================================================================
 // 키패드 1, 2, 3, 4, 5 를 누르면 
@@ -7,15 +7,19 @@
 // ========================================================================
 
 public class CSH_QuickMenu : MonoBehaviour
-{        
+{
+
     // 퀵 메뉴 보여줄 속도
-    public float moveSpeed = 200f;
+    public float moveSpeed = 500f;
 
     // UI 트랜스폼
     RectTransform RT;
 
     // UI 올라올 위치
-    float Ypos = 540f;
+    public float Ypos = 540f;
+
+    // UI 보여주는 시간
+    public float visibleTime = 2f;
 
     // UI 현재 위치
     float Ypos_D;
@@ -24,15 +28,15 @@ public class CSH_QuickMenu : MonoBehaviour
     float timer;
     public float SetTimer
     {
-        set 
+        set
         {
             timer = value;
         }
     }
 
     // 퀵 메뉴 온/오프 여부
+    public bool stayQM;
     public bool showQM;
-    public bool QM_Control;
 
     void Start()
     {
@@ -59,10 +63,13 @@ public class CSH_QuickMenu : MonoBehaviour
             if (RT.anchoredPosition.y >= Ypos)
             {
                 RT.anchoredPosition = new Vector2(RT.anchoredPosition.x, Ypos);
-                if (QM_Control) return;
 
+                // 타이머 무시하고 멈춰있기
+                if (stayQM) return;
+
+                // 2초정도 기다리기
                 timer += Time.deltaTime;
-                if (timer > 2)
+                if (timer > visibleTime)
                 {
                     timer = 0;
                     showQM = false;

@@ -7,7 +7,7 @@
 [RequireComponent(typeof(Rigidbody))]
 public class CSH_ItemSelect : MonoBehaviour
 {
-    // 커서를 [아이템]에 올렸냐?
+    // [아이템]을 잡고 있나?
     public bool isGrabed;
 
     // 이 [아이템]이 [특수 템]인가?
@@ -116,8 +116,19 @@ public class CSH_ItemSelect : MonoBehaviour
         }
     }
 
+    // 아웃라인 그려주기!
     void ShowOutline()
     {
+        // 플레이어와 충분히 가까이 있지 않다면
+        if (!CSH_RayManager.Instance.isNear)
+        {
+            // 아웃라인 끄기
+            outliner.enabled = false;
+            return;
+        }
+
+        // 1. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트와    서로 갖다면, outline 켜기  
+        // 2. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트가    서로 다르다면, outline 끄기
         outlineOn = CSH_RayManager.Instance.raycastHitObject == gameObject.transform ? true : false;
 
         if (outlineOn)
@@ -135,7 +146,7 @@ public class CSH_ItemSelect : MonoBehaviour
         }
         else
         {
-            //// 아웃라인 제거하기
+            // 아웃라인 제거하기
             outliner.enabled = false;
         }
     }
@@ -184,30 +195,13 @@ public class CSH_ItemSelect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 부딪힌 트리거가 Enemy 스크립트를 갖고 있다면
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
         if (enemy)
         {
+            // Enemy 스크립트에서 OnDamageProcess() 실행하기
             Debug.Log($"{other.gameObject.name} is attacked!");
             enemy.OnDamageProcess();
         }
     }
-
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.CompareTag("EditorOnly") && gameObject == CSH_RayManager.Instance.raycastHitObject)
-    //    {
-    //        float distance = Vector3.Distance(player.transform.position, transform.position);
-    //        if (distance <= CSH_RayManager.Instance.distanceLimit)
-    //            outlineOn = true;
-    //    }
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("EditorOnly"))
-    //    {
-    //        outlineOn = false;
-    //    }
-    //}
 }

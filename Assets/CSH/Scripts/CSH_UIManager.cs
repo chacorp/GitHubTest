@@ -79,7 +79,7 @@ public class CSH_UIManager : MonoBehaviour
                 
 
         // 인벤토리에 따라 퀵메뉴 온/오프 콘트롤하기
-        CSH_QM.QM_Control = isInventoryOn;
+        CSH_QM.stayQM = isInventoryOn;
 
         // 인벤토리가 켜져있으면, 퀵메뉴도 같이 키기
         if (isInventoryOn)
