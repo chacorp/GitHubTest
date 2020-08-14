@@ -26,7 +26,15 @@ public class CSH_RayManager : MonoBehaviour
 
     // 레이 맞은 물체
     public Transform raycastHitObject;
+
+    // 플레이어
     public GameObject player;
+
+    // 레이 맞은 물체와 플레이어와의 거리
+    float distance;
+
+    // 레이 맞은 물체와 플레이어 와의 거리가 제한 거리보다 작을때 true / 아니면 false
+    public bool isNear = false;
 
     // 왼손으로 잡아올 포인터 => colider 달려있음(trigger)
     public Transform crossHair;
@@ -51,34 +59,44 @@ public class CSH_RayManager : MonoBehaviour
         // 레이 쏘기
         if (Physics.Raycast(ray, out hit, rayLength, ~layerMask))
         {
-            // hit 지점에 crossHair 두기
+            // 1. hit 지점에 crossHair 두기
             crossHair.position = hit.point;
             crossHair.forward = Camera.main.transform.forward;
             crossHair.localScale = crossHairSize * hit.distance;
 
-            // hit 오브젝트 담아두기
+
+
+            // 2. hit 오브젝트 담아두기
             raycastHitObject = hit.transform;
 
-            // hit 오브젝트의 컴포넌트 CSH_ItemSelect 가져오기
-            CSH_ItemSelect sel = raycastHitObject.GetComponent<CSH_ItemSelect>();
 
-            // 만약 가져올 수 있다면
-            if (sel) CSH_ItemGrab.Instance.pointingItem = raycastHitObject.gameObject;
 
-            // 만약 못 가져온다면
-            else CSH_ItemGrab.Instance.pointingItem = null;
+            // 3. 서로 거리재기
+            distance = hit.distance;
+            // 3-a. 상호작용 가능한 거리인지 여부 파악하기
+            isNear = distance <= distanceLimit ? true : false;
+
+
+
+            // 4. hit 오브젝트가 CSH_ItemSelect를 갖고 있는지 여부를 파악해서
+            //    갖고 있다면,       CSH_ItemGrab.Instance.pointingItem 에     raycastHitObject.gameObject 넣어두기
+            //    안 갖고 있다면,    CSH_ItemGrab.Instance.pointingItem 에     null 넣어두기
+            CSH_ItemSelect select = raycastHitObject.GetComponent<CSH_ItemSelect>();
+
+            CSH_ItemGrab.Instance.pointingItem = select ? raycastHitObject.gameObject : null;
         }
     }
 
+    // 에디터에서 Ray 그리기
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
-        Ray ray = Camera.main.ScreenPointToRay(Camera.main.transform.forward);
         Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * rayLength);
     }
 
     void Update()
     {
+        //Ray 관련 모든 것
         RayManager();
     }
 

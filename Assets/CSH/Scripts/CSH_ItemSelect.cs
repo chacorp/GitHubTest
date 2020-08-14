@@ -119,6 +119,16 @@ public class CSH_ItemSelect : MonoBehaviour
     // 아웃라인 그려주기!
     void ShowOutline()
     {
+        // 플레이어와 충분히 가까이 있지 않다면
+        if (!CSH_RayManager.Instance.isNear)
+        {
+            // 아웃라인 끄기
+            outliner.enabled = false;
+            return;
+        }
+
+        // 1. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트와    서로 갖다면, outline 켜기  
+        // 2. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트가    서로 다르다면, outline 끄기
         outlineOn = CSH_RayManager.Instance.raycastHitObject == gameObject.transform ? true : false;
 
         if (outlineOn)
@@ -136,7 +146,7 @@ public class CSH_ItemSelect : MonoBehaviour
         }
         else
         {
-            //// 아웃라인 제거하기
+            // 아웃라인 제거하기
             outliner.enabled = false;
         }
     }

@@ -12,7 +12,7 @@ public class FurnitureOutline : MonoBehaviour
     // 새로 다운 받은 아웃라인 에셋 스크립트!
     Outline outliner;
 
-    void Start()
+    void Awake()
     {
         // ----------------------------------------------------------< 추가한 부분 - 1 > - 시작
         // Start()가 실행되는 순간,
@@ -32,10 +32,31 @@ public class FurnitureOutline : MonoBehaviour
 
     void ShowOutline()
     {
-        // CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와   이 오브젝트를 비교해서
-        // 서로 갖다면, outline 켜기  
-        // 서로 다르다면, outline 끄기
-        outliner.enabled = CSH_RayManager.Instance.raycastHitObject == gameObject.transform ? true : false;        
+        // 플레이어와 충분히 가까이 있지 않다면
+        if (!CSH_RayManager.Instance.isNear)
+        {
+            // 아웃라인 끄기
+            outliner.enabled = false;
+            return;
+        }
+
+        // 1. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트와    서로 갖다면, outline 켜기  
+        // 2. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트의    부모라면 outline 켜기
+        // 3. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트가    서로 다르다면, outline 끄기
+
+        if (CSH_RayManager.Instance.raycastHitObject == gameObject.transform)
+        {
+            outliner.enabled = true;
+        }
+        else if (CSH_RayManager.Instance.raycastHitObject == gameObject.transform.parent)
+        {
+            outliner.enabled = true;
+        }
+        else
+        {
+            outliner.enabled = false;
+        }
+
     }
 
     private void Update()
