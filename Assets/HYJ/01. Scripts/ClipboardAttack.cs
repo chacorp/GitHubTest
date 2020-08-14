@@ -44,6 +44,8 @@ public class ClipboardAttack : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isSwinging && clipboard.activeSelf)
         {
             isSwinging = true;
+
+            clipboardAudio = GetComponentInChildren<AudioSource>();// ----- 추가
             clipboardAudio.PlayOneShot(swingSound);
 
             ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
