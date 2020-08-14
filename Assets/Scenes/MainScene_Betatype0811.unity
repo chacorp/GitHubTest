@@ -8257,9 +8257,18 @@ MonoBehaviour:
       goalType: 0
       requiredAmount: 10
       currentAmount: 0
-  titleText: {fileID: 0}
-  descriptionText: {fileID: 0}
-  amountText: {fileID: 0}
+  titles:
+  - {fileID: 2078951827}
+  - {fileID: 227515431}
+  - {fileID: 1447944933}
+  descriptionText:
+  - {fileID: 1258695882}
+  - {fileID: 1276065116}
+  - {fileID: 1026238324}
+  amountText:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &1978256461
 PrefabInstance:
   m_ObjectHideFlags: 0
