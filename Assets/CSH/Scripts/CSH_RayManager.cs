@@ -29,28 +29,32 @@ public class CSH_RayManager : MonoBehaviour
     public GameObject player;
 
     // 왼손으로 잡아올 포인터 => colider 달려있음(trigger)
-    public Transform selectPointer; 
-
+    public Transform crossHair;
+    public float crossHairScale = 0.1f;
+    Vector3 crossHairSize;
 
     private void Awake()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
+        crossHairSize = crossHair.localScale * crossHairScale;
     }
 
     private void RayManager()
     {
         // 플레이어 카메라가 보는 방향으로 레이 쏘기
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward * rayLength);
+        Ray ray = new Ray(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)), Camera.main.transform.forward * rayLength);
         RaycastHit hit;
 
-        // 레이어 마스크       selectPointer의 레이어                       플레이어의 레이어                  플레이어가 갖고 있는 무기의 레이어
+        // 레이어 마스크             crossHair 레이어                       플레이어의 레이어                  플레이어가 갖고 있는 무기의 레이어
         int layerMask = (1 << LayerMask.NameToLayer("Water")) | (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("Weapon"));
 
         // 레이 쏘기
         if (Physics.Raycast(ray, out hit, rayLength, ~layerMask))
         {
-            // hit 지점에 selectPointer 두기
-            selectPointer.position = hit.point;
+            // hit 지점에 crossHair 두기
+            crossHair.position = hit.point;
+            crossHair.forward = Camera.main.transform.forward;
+            crossHair.localScale = crossHairSize * hit.distance;
 
             // hit 오브젝트 담아두기
             raycastHitObject = hit.transform;
