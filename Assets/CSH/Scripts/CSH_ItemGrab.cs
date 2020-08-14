@@ -90,7 +90,7 @@ public class CSH_ItemGrab : MonoBehaviour
             Holder.GetChild(i).gameObject.SetActive(false);
         }
 
-        activeItems.Add(Holder.GetChild(0).gameObject); // ------------------------------클립보드 야매로 리스트에 넣음
+        //activeItems.Add(Holder.GetChild(0).gameObject); // ------------------------------클립보드 야매로 리스트에 넣음
     }
 
     void Grab_item()

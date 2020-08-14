@@ -19,6 +19,7 @@ public class CSH_ItemSwitch : MonoBehaviour
 
     void Switch_item()
     {
+        if (HolderCount <= 0) return;
         // 갖고 있는 아이템들 중에서
         // 선택한 번호의 아이템을 활성화하고 & 나머지는 비활성화하기
         for (int i = 0; i < HolderCount; i++)
