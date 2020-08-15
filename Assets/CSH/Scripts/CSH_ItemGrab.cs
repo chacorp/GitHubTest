@@ -180,6 +180,9 @@ public class CSH_ItemGrab : MonoBehaviour
 
                 // 잡기 탈출
                 grabing = false;
+
+                // 퀘스트 Gathering 변수 값 올리기
+                if (QuestManager.Instance.quests[1].isActive) QuestManager.Instance.quests[1].goal.ItemCollected();
             }
 
             // 그냥 [아이템]이라면,

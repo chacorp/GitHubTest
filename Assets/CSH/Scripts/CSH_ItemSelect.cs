@@ -87,8 +87,6 @@ public class CSH_ItemSelect : MonoBehaviour
         // distance의 크기가 설정된 거리보다 작다면
         if (isSpecialItem && !isGlowed && distance < reachRange)
         {
-            Debug.Log("Player is reached");
-
             // 자식 오브젝트로 들어있는 반짝이 이펙트 가져오기
             GameObject glowVFX = transform.GetChild(transform.childCount - 1).gameObject;
             // * transform.childCount-1 하는 이유
@@ -193,15 +191,33 @@ public class CSH_ItemSelect : MonoBehaviour
 
     // 적에 부딪히면 데미지 프로세스 호출
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter (Collider other)
+    //{
+    //    // 부딪힌 트리거가 Enemy 스크립트를 갖고 있다면
+    //    Enemy enemy = other.gameObject.GetComponent<Enemy>();
+    //    if (enemy)
+    //    {
+    //        // Enemy 스크립트에서 OnDamageProcess() 실행하기
+    //        Debug.Log($"{other.gameObject.name} is attacked!");
+    //        enemy.OnDamageProcess();
+    //    }
+    //}
+
+    private void OnCollisionEnter(Collision other)
     {
-        // 부딪힌 트리거가 Enemy 스크립트를 갖고 있다면
+        //부딪힌 트리거가 Enemy 스크립트를 갖고 있다면
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
         if (enemy)
         {
             // Enemy 스크립트에서 OnDamageProcess() 실행하기
             Debug.Log($"{other.gameObject.name} is attacked!");
             enemy.OnDamageProcess();
+
+            if (enemy.currentHp == 0)
+            {
+                if (QuestManager.Instance.quests[2].isActive) QuestManager.Instance.quests[2].goal.EnemyKilled();
+                Debug.Log("박스를 이용해 적을 처치했습니다");
+            }
         }
     }
 }

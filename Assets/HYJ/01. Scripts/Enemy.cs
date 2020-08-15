@@ -43,9 +43,14 @@ public class Enemy : MonoBehaviour
     bool isReached = false;
     Rigidbody rigidbody;
 
+    //#region 퀘스트 관련 변수
+    //QuestManager questManager;
+
+    //#endregion
+
     #region 에너미 체력변수
     private int maxHp = 2;
-    private int currentHp = 0;
+    public int currentHp = 0;
     #endregion
 
     private void OnEnable()
@@ -308,6 +313,14 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Die()
     {
+        // 현재 진행중인 퀘스트에 맞게 퀘스트 변수를 증가시켜준다.
+        if (QuestManager.Instance.quests[0].isActive || QuestManager.Instance.quests[3].isActive)
+        {
+            QuestManager.Instance.quests[0].goal.EnemyKilled();
+            QuestManager.Instance.quests[3].goal.EnemyKilled();
+            Debug.Log($"{QuestManager.Instance.quests[0]}의 Enemy Kill point가 증가하였습니다");
+        }
+
         Debug.Log($"{gameObject.name} is died!");
         // 게임 오브젝트의 Y 스케일 값을 작게 만들고 싶다.
         float t = 0;
@@ -321,7 +334,6 @@ public class Enemy : MonoBehaviour
         }
         yield return new WaitForSeconds(2.0f);
         DetectName(gameObject);
-
     }
 
     private void DetectName(GameObject gameObject)
