@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     [Header("목적지 정보")]
     private GameObject[] destinations;
     private GameObject[] spawnPoints;
-    private Vector3[] targetVectors;
+    private List<Vector3> targetVectors;
     private Vector3[] retargetVectors;
     [SerializeField] private Vector3 currrentDest;   // SetDestination에서 정해지는 목적지 변수
 
@@ -121,7 +121,10 @@ public class Enemy : MonoBehaviour
             spiderAgent.enabled = true;
         }
 
-        targetVectors = new Vector3[destinations.Length];
+        rigidbody.useGravity = false;
+        rigidbody.isKinematic = true;
+
+        targetVectors = new List<Vector3>();
         SetDestination();
 
         Vector3 distance = player.transform.position - transform.position;
@@ -184,14 +187,23 @@ public class Enemy : MonoBehaviour
             // 목적지와의 거리 값을 나타내는 배열 생성
             for (int i = 0; i < destinations.Length; i++)
             {
-                targetVectors[i] = destinations[i].transform.position - transform.position;
+                targetVectors.Add(destinations[i].transform.position - transform.position);
                 if (targetVectors[i] == null) Debug.Log("Cannot find destination " + destinations[i].name);
             }
 
-            // 목적지와의 거리를 가까운 기준으로 정렬하는 함수 (선택 정렬)
-            for (int i = 0; i < targetVectors.Length - 1; i++)
+            foreach (Vector3 temp in targetVectors)
             {
-                for (int j = i + 1; j < targetVectors.Length; j++)
+                if (Vector3.Distance(transform.position, temp) < spiderAgent.stoppingDistance + 1.2f)
+                {
+                    targetVectors.Remove(temp);
+                    break;
+                }
+            }
+
+            // 목적지와의 거리를 가까운 기준으로 정렬하는 함수 (선택 정렬)
+            for (int i = 0; i < targetVectors.Count - 1; i++)
+            {
+                for (int j = i + 1; j < targetVectors.Count; j++)
                 {
                     if (targetVectors[i].magnitude > targetVectors[j].magnitude)
                     {
@@ -216,14 +228,23 @@ public class Enemy : MonoBehaviour
     {
         // 이동 가능한 지점을 담은 List 변수 생성
         List<GameObject> otherDestinations = new List<GameObject>();
-        //for (int i = 0; i < spawnPoints.Length; i++)
-        //{
-        //    otherDestinations.Add(spawnPoints[i]);
-        //}
 
-        for (int i = 0; i < destinations.Length; i++)
+        int randNum = Random.Range(0, 2);
+        if (randNum == 0)
         {
-            otherDestinations.Add(destinations[i]);
+            for (int i = 0; i < destinations.Length; i++)
+            {
+                otherDestinations.Add(destinations[i]);
+            }
+            Debug.Log("Find Destination");
+        }
+        else if (randNum == 1)
+        {
+            for (int i = 0; i < spawnPoints.Length; i++)
+            {
+                otherDestinations.Add(spawnPoints[i]);
+            }
+            Debug.Log("Find spawnPoints");
         }
 
         foreach (GameObject temp in otherDestinations)
@@ -282,6 +303,10 @@ public class Enemy : MonoBehaviour
             animSpider.SetBool("IsMoving", false);
             animSpider.SetBool("Flinched", true);
             PlayRandomSound(isReached);
+            spiderAgent.enabled = false;
+            rigidbody.useGravity = true;
+            rigidbody.isKinematic = false;
+            rigidbody.AddForce(Vector3.forward * -2 * dieJumpPower, ForceMode.Force);
         }
         else
         {
