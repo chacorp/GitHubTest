@@ -184,6 +184,7 @@ public class Enemy : MonoBehaviour
     {
         if (destinations != null)
         {
+            Debug.Log("SetDestination");
             // 목적지와의 거리 값을 나타내는 배열 생성
             for (int i = 0; i < destinations.Length; i++)
             {
@@ -214,7 +215,6 @@ public class Enemy : MonoBehaviour
                 }
             }
             currrentDest = (targetVectors[0] + transform.position);
-            Debug.Log($"목적지의 좌표 : {currrentDest}");
             animSpider.SetBool("IsMoving", true);
             spiderAgent.SetDestination(currrentDest);
             spiderAgent.autoBraking = false;
@@ -226,6 +226,7 @@ public class Enemy : MonoBehaviour
 
     void ReSettingDestination()
     {
+        Debug.Log("ResetDestination");
         // 이동 가능한 지점을 담은 List 변수 생성
         List<GameObject> otherDestinations = new List<GameObject>();
 
@@ -278,8 +279,9 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        currrentDest = (retargetVectors[0] + transform.position);
-        Debug.Log($"새로운 목적지 좌표 : {currrentDest}");
+        int rand = Random.Range(0, retargetVectors.Length);
+
+        currrentDest = (retargetVectors[rand] + transform.position);
         animSpider.SetBool("IsMoving", true);
         spiderAgent.SetDestination(currrentDest);
         spiderAgent.autoBraking = false;
