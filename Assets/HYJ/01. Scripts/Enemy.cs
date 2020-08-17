@@ -41,6 +41,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject enemyBloodSpatter;
 
     bool isReached = false;
+    public bool isBleeding;
     Rigidbody rigidbody;
 
     //#region 퀘스트 관련 변수
@@ -140,6 +141,7 @@ public class Enemy : MonoBehaviour
         {
             state = EnemyState.ReMove;
             ReSettingDestination();
+            isBleeding = false;
         };
     }
 
@@ -176,6 +178,7 @@ public class Enemy : MonoBehaviour
             state = EnemyState.Move;
             animSpider.SetBool("Flinched", false);
             spiderAgent.speed = Random.Range(sprintSpeed - 0.2f, sprintSpeed);
+            isBleeding = true;
             currentTime = 0;
         }
     }
@@ -308,7 +311,7 @@ public class Enemy : MonoBehaviour
             spiderAgent.enabled = false;
             rigidbody.useGravity = true;
             rigidbody.isKinematic = false;
-            rigidbody.AddForce(Vector3.forward * -2 * dieJumpPower, ForceMode.Force);
+            rigidbody.AddForce(-Vector3.forward * 2 * dieJumpPower, ForceMode.Force);
         }
         else
         {
