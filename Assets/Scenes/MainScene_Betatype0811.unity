@@ -6213,7 +6213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1298050596}
   m_Layer: 11
-  m_Name: item_icon
+  m_Name: item-icon_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
