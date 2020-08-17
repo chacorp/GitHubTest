@@ -137,14 +137,14 @@ public class ClipboardAttack : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Enemy enemy = other.gameObject.GetComponent<Enemy>();
-        if (enemy)
-        {
-            Debug.Log($"{other.gameObject.name} is attacked!");
-            enemy.OnDamageProcess();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    Enemy enemy = other.gameObject.GetComponent<Enemy>();
+    //    if (enemy)
+    //    {
+    //        Debug.Log($"{other.gameObject.name} is attacked!");
+    //        enemy.OnDamageProcess();
+    //    }
+    //}
 
 }

@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 3166040946511110147}
   - component: {fileID: 5548345228335153635}
   - component: {fileID: 4905722956786340493}
+  - component: {fileID: 4750302322347261079}
   m_Layer: 9
   m_Name: SpiderS2
   m_TagString: Enemy
@@ -214,8 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  destinationLength: 4
-  dest: {x: 0, y: 0, z: 0}
+  currrentDest: {x: 0, y: 0, z: 0}
   animSpider: {fileID: 9216002082066054914}
   enemyAudio: {fileID: 0}
   idleClips:
@@ -239,6 +239,8 @@ MonoBehaviour:
     type: 3}
   enemyBloodSpatter: {fileID: 6810944716560709387, guid: 5922c5f69a054ea419aa502680f17969,
     type: 3}
+  isBleeding: 0
+  currentHp: 0
   squeezeSpeed: 0.3
 --- !u!195 &867863547833550582
 NavMeshAgent:
@@ -387,6 +389,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4750302322347261079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112336799913114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81ef4eee699e24644bb9e4abcebe69dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartTimeBtwSpawns: 0.14
+  echo: {fileID: 4561953668557290357, guid: 077b9c1bc1d8ca7408ad5bd0d8f8414b, type: 3}
 --- !u!1 &1113735615928392
 GameObject:
   m_ObjectHideFlags: 0
