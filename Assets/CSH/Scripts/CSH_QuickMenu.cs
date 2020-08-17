@@ -10,10 +10,10 @@ public class CSH_QuickMenu : MonoBehaviour
 {
 
     // 퀵 메뉴 보여줄 속도
-    public float moveSpeed = 500f;
+    public float moveSpeed = 1000f;
 
     // UI 트랜스폼
-    RectTransform RT;
+    public RectTransform QM_RT;
 
     // UI 올라올 위치
     public float Ypos = 540f;
@@ -42,13 +42,12 @@ public class CSH_QuickMenu : MonoBehaviour
     {
         // 퀵 메뉴 보여주기
         showQM = true;
-        RT = GetComponent<RectTransform>();
 
         // 현재 위치 가져오기
-        Ypos_D = RT.anchoredPosition.y; // 540
+        Ypos_D = QM_RT.anchoredPosition.y; // 540
 
         // 시작하면서 퀵 메뉴 올려놓기
-        RT.anchoredPosition = new Vector2(RT.anchoredPosition.x, Ypos);
+        QM_RT.anchoredPosition = new Vector2(QM_RT.anchoredPosition.x, Ypos);
         showQM = true;
     }
 
@@ -56,13 +55,14 @@ public class CSH_QuickMenu : MonoBehaviour
     {
         if (showQM)
         {
+            QM_RT.gameObject.SetActive(true);
             // 천천히 올리기
-            RT.anchoredPosition += new Vector2(0, 1) * moveSpeed * Time.deltaTime;
+            QM_RT.anchoredPosition += new Vector2(0, 1) * moveSpeed * Time.deltaTime;
 
             // 적당한 위치에서 멈추기
-            if (RT.anchoredPosition.y >= Ypos)
+            if (QM_RT.anchoredPosition.y >= Ypos)
             {
-                RT.anchoredPosition = new Vector2(RT.anchoredPosition.x, Ypos);
+                QM_RT.anchoredPosition = new Vector2(QM_RT.anchoredPosition.x, Ypos);
 
                 // 타이머 무시하고 멈춰있기
                 if (stayQM) return;
@@ -78,10 +78,12 @@ public class CSH_QuickMenu : MonoBehaviour
         }
         else
         {
-            RT.anchoredPosition -= new Vector2(0, 1) * moveSpeed * Time.deltaTime;
-            if (RT.anchoredPosition.y <= Ypos_D)
+            QM_RT.anchoredPosition -= new Vector2(0, 1) * moveSpeed * Time.deltaTime;
+            if (QM_RT.anchoredPosition.y <= Ypos_D)
             {
-                RT.anchoredPosition = new Vector2(RT.anchoredPosition.x, Ypos_D);
+                QM_RT.anchoredPosition = new Vector2(QM_RT.anchoredPosition.x, Ypos_D);
+
+                QM_RT.gameObject.SetActive(false);
             }
         }
     }

@@ -29,6 +29,7 @@ public class CSH_UIManager : MonoBehaviour
 
     // 퀵메뉴판
     CSH_QuickMenu CSH_QM;
+
     // 커서 조준점
     public GameObject CursorUI;
 
@@ -47,7 +48,7 @@ public class CSH_UIManager : MonoBehaviour
     void Start()
     {
         // 퀵 메뉴 스크립트 가져오기
-        CSH_QM = quickMenuUI.GetComponent<CSH_QuickMenu>();
+        CSH_QM = GetComponent<CSH_QuickMenu>();
 
         // 리스트에 인벤토리 네모들의 위치 값 넣어두기
         for (int i = 0; i < inventoryMenuUI.transform.childCount; i++)
