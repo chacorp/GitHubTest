@@ -41,7 +41,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject enemyBloodSpatter;
 
     bool isReached = false;
-    public bool isBleeding;
+    public bool isBleeding = false;
+    private bool isSetdestination = false;
     Rigidbody rigidbody;
 
     //#region 퀘스트 관련 변수
@@ -162,6 +163,7 @@ public class Enemy : MonoBehaviour
         if (Vector3.Distance(transform.position, currrentDest) <= spiderAgent.stoppingDistance)
         {
             state = EnemyState.Idle;
+            isSetdestination = false;
         }
     }
 
@@ -176,6 +178,7 @@ public class Enemy : MonoBehaviour
         else if (damageDelayTIme <= currentTime)
         {
             state = EnemyState.Move;
+            isSetdestination = false;
             animSpider.SetBool("Flinched", false);
             spiderAgent.speed = Random.Range(sprintSpeed - 0.2f, sprintSpeed);
             isBleeding = true;
@@ -185,7 +188,7 @@ public class Enemy : MonoBehaviour
 
     private void SetDestination()
     {
-        if (destinations != null)
+        if (destinations != null && !isSetdestination)
         {
             Debug.Log("SetDestination");
             // 목적지와의 거리 값을 나타내는 배열 생성
@@ -222,6 +225,7 @@ public class Enemy : MonoBehaviour
             spiderAgent.SetDestination(currrentDest);
             spiderAgent.autoBraking = false;
             spiderAgent.stoppingDistance = 0.3f;
+            isSetdestination = true;
         }
     }
 

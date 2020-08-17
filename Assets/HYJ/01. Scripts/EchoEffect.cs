@@ -26,14 +26,15 @@ public class EchoEffect : MonoBehaviour
             if (timeBtwSpawns <= 0)
             {
                 // spawn echo gameobject
-                GameObject echos = Instantiate(echo, transform.position, Quaternion.identity);
-                Destroy(echos, 4.0f);
+                GameObject echos = Instantiate(echo);
+                echo.transform.position = transform.position;
+                Destroy(echos, 0.8f);
                 timeBtwSpawns = StartTimeBtwSpawns;
             }
             else timeBtwSpawns -= Time.deltaTime;
 
             currentTime += Time.deltaTime;
-            if (currentTime > 1.0f) return;
+            if (currentTime > 0.8f) return;
         }
     }
 }
