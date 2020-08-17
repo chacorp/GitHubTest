@@ -1404,7 +1404,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344192079}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -2.03, y: 0.93, z: 7.1}
+  m_LocalPosition: {x: -2.03, y: 0.93, z: 4.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1712453697}
@@ -1444,7 +1444,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5943
+    m_Bits: 5927
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -6302,7 +6302,7 @@ GameObject:
   - component: {fileID: 1327159531}
   - component: {fileID: 1327159530}
   - component: {fileID: 1327159533}
-  m_Layer: 11
+  m_Layer: 4
   m_Name: CrossHair
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
@@ -6574,7 +6574,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2064
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
