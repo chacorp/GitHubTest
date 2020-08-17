@@ -27,7 +27,7 @@ public class EchoEffect : MonoBehaviour
             {
                 // spawn echo gameobject
                 GameObject echos = Instantiate(echo);
-                echo.transform.position = transform.position;
+                echos.transform.position = transform.position;
                 Destroy(echos, 0.8f);
                 timeBtwSpawns = StartTimeBtwSpawns;
             }
