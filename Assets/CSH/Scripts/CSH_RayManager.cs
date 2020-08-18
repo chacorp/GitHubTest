@@ -47,7 +47,6 @@ public class CSH_RayManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         crossHairSize = crossHair.localScale * crossHairScale;
-
         // 카메라 가져오기
 #if VR_MODE
         Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
@@ -56,25 +55,23 @@ public class CSH_RayManager : MonoBehaviour
 #endif
     }
 
-#if VR_MODE
     // 왼손 트리거의 조준점
     private void RayManager_L()
     {
         Ray ray = new Ray(CSH_ModeChange.Instance.leftControllerAnchor.position, CSH_ModeChange.Instance.leftControllerAnchor.forward * rayLength);
-        RaycastHit hit;
+        RaycastHit hit_L;
 
         // 레이어 마스크             crossHair 레이어                       플레이어의 레이어                  플레이어가 갖고 있는 무기의 레이어
         int layerMask = (1 << LayerMask.NameToLayer("Water")) | (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("Weapon"));
-        if (Physics.Raycast(ray, out hit, rayLength, ~layerMask))
+
+        if (Physics.Raycast(ray, out hit_L, rayLength, ~layerMask))
         {
             // 1. hit 지점에 crossHair 두기
-            crossHair_L.position = hit.point;
+            crossHair_L.position = hit_L.point;
             crossHair_L.forward = Cam.transform.forward;
-            crossHair_L.localScale = crossHairSize * hit.distance;
+            crossHair_L.localScale = crossHairSize * hit_L.distance;
         }
     }
-#elif EDITOR_MODE
-#endif
 
     //오른손 트리거의 조준점
     private void RayManager_R()
@@ -137,7 +134,11 @@ public class CSH_RayManager : MonoBehaviour
     {
         //Ray 관련 모든 것
         RayManager_R();
+
+#if VR_MODE
         RayManager_L();
+#elif EDITOR_MODE
+#endif
     }
 
 }
