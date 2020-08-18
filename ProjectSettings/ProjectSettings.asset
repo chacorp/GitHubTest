@@ -162,9 +162,7 @@ PlayerSettings:
   resolutionScalingMode: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier:
-    Android: com.DefaultCompany.Xesco
-    Standalone: com.DefaultCompany.Xesco
+  applicationIdentifier: {}
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 19
@@ -566,7 +564,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: VR_MODE
+    1: EDITOR_MODE
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}
