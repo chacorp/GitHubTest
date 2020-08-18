@@ -441,10 +441,12 @@ public class HandgunScriptLPFP : MonoBehaviour
             Spawnpoints.bulletSpawnPoint.transform.position,
             Spawnpoints.bulletSpawnPoint.transform.rotation);
 
+        Vector3 dir = CSH_RayManager.Instance.crossHair.position - Spawnpoints.bulletSpawnPoint.transform.position;
+
         Rigidbody brb = bullet.GetComponent<Rigidbody>();
         if (brb != null)
         {
-            brb.AddForce(bullet.forward * bulletForce, ForceMode.VelocityChange);
+            brb.AddForce(dir.normalized * bulletForce, ForceMode.VelocityChange);
         }
     }
     private IEnumerator CasingSpawnDelay()

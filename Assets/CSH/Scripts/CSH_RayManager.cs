@@ -38,6 +38,7 @@ public class CSH_RayManager : MonoBehaviour
 
     // 왼손으로 잡아올 포인터 => colider 달려있음(trigger)
     public Transform crossHair;
+    public Transform crossHair_L;
     public float crossHairScale = 0.1f;
     Vector3 crossHairSize;
     Camera Cam;
@@ -46,6 +47,8 @@ public class CSH_RayManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         crossHairSize = crossHair.localScale * crossHairScale;
+
+        // 카메라 가져오기
 #if VR_MODE
         Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
 #elif EDITOR_MODE
@@ -53,10 +56,35 @@ public class CSH_RayManager : MonoBehaviour
 #endif
     }
 
-    private void RayManager()
+#if VR_MODE
+    // 왼손 트리거의 조준점
+    private void RayManager_L()
+    {
+        Ray ray = new Ray(CSH_ModeChange.Instance.leftControllerAnchor.position, CSH_ModeChange.Instance.leftControllerAnchor.forward * rayLength);
+        RaycastHit hit;
+
+        // 레이어 마스크             crossHair 레이어                       플레이어의 레이어                  플레이어가 갖고 있는 무기의 레이어
+        int layerMask = (1 << LayerMask.NameToLayer("Water")) | (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("Weapon"));
+        if (Physics.Raycast(ray, out hit, rayLength, ~layerMask))
+        {
+            // 1. hit 지점에 crossHair 두기
+            crossHair_L.position = hit.point;
+            crossHair_L.forward = Cam.transform.forward;
+            crossHair_L.localScale = crossHairSize * hit.distance;
+        }
+    }
+#elif EDITOR_MODE
+#endif
+
+    //오른손 트리거의 조준점
+    private void RayManager_R()
     {
         // 플레이어 카메라가 보는 방향으로 레이 쏘기
+#if VR_MODE
+        Ray ray = new Ray(CSH_ModeChange.Instance.rightControllerAnchor.position, CSH_ModeChange.Instance.rightControllerAnchor.forward * rayLength);
+#elif EDITOR_MODE
         Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
+#endif
         RaycastHit hit;
 
         // 레이어 마스크             crossHair 레이어                       플레이어의 레이어                  플레이어가 갖고 있는 무기의 레이어
@@ -85,29 +113,31 @@ public class CSH_RayManager : MonoBehaviour
 
 
             // 4. hit 오브젝트가 CSH_ItemSelect를 갖고 있는지 여부를 파악해서
-            //    갖고 있다면,       CSH_ItemGrab.Instance.pointingItem 에     raycastHitObject.gameObject 넣어두기
-            //    안 갖고 있다면,    CSH_ItemGrab.Instance.pointingItem 에     null 넣어두기
             CSH_ItemSelect select = raycastHitObject.GetComponent<CSH_ItemSelect>();
 
+            //    갖고 있다면,       raycastHitObject.gameObject
+            //    안 갖고 있다면,    null 
+            //    CSH_ItemGrab.Instance.pointingItem 에 보내기
             CSH_ItemGrab.Instance.pointingItem = select ? raycastHitObject.gameObject : null;
         }
     }
 
+#if VR_MODE
+#elif EDITOR_MODE
     // 에디터에서 Ray 그리기
     private void OnDrawGizmos()
     {
-#if VR_MODE
-#elif EDITOR_MODE
         Gizmos.color = Color.magenta;
         //Ray ray = new Ray(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)), Camera.main.transform.forward * rayLength);
         Gizmos.DrawRay(Cam.transform.position, Cam.transform.forward * rayLength);
-#endif
     }
+#endif
 
     void Update()
     {
         //Ray 관련 모든 것
-        RayManager();
+        RayManager_R();
+        RayManager_L();
     }
 
 }

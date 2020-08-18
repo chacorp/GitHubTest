@@ -74,6 +74,12 @@ public class CSH_ItemGrab : MonoBehaviour
     public bool hasItem;
     bool grabing;
 
+#if EDITOR_MODE
+#elif VR_MODE
+    // VR에서 던질때 위치
+    Vector3 afterPos;
+    Vector3 beforePos;
+#endif
 
     private void Start()
     {
@@ -111,7 +117,7 @@ public class CSH_ItemGrab : MonoBehaviour
             // 살펴보기 안내문 켜기
             Looking.SetActive(true);
 
-            // [특수 템]이라면, --------------------------------------------------< 이렇게 하지 말고, 플레이어가 다 갖고 있다가 활성화하는 방식으로 하자!>
+            // [특수 템]이라면, --------------------------------------------------< 플레이어가 다 갖고 있다가 활성화하는 방식으로 하자!>
             if (itemSelect.isSpecialItem)
             {
                 // 이름 가져오기
@@ -258,10 +264,13 @@ public class CSH_ItemGrab : MonoBehaviour
         // [아이템]의 부모를 [null]로 설정하기
         // => 현재 갖고 있던 자식 비우기
         pointingItem.transform.SetParent(null);
-
+#if EDITOR_MODE
         // 보고 있는 방향의 정면으로 던져버리기!!!!!!
         itemRB.AddForce(Camera.main.transform.forward * throwSpeed, ForceMode.Impulse);
-
+#elif VR_MODE
+        Vector3 dir = (afterPos - beforePos);
+        itemRB.AddForce(dir.normalized * throwSpeed, ForceMode.Impulse);
+#endif
         // 위에서 고정했던 pointingItem을 다시 비워두기!!!
         pointingItem = null;
 
@@ -343,6 +352,12 @@ public class CSH_ItemGrab : MonoBehaviour
         // 현재 [아이템]을 잡고 있다면
         if (hasItem)
         {
+            // 위치 넣기
+#if EDITOR_MODE
+#elif VR_MODE
+            afterPos = CSH_ModeChange.Instance.leftControllerAnchor.position;
+#endif
+
             // Handgun 스크립트 비활성화
             if (handGun != null)
                 handGun.enabled = false;
@@ -363,7 +378,7 @@ public class CSH_ItemGrab : MonoBehaviour
 #if EDITOR_MODE
                 if (Input.GetMouseButton(1))
 #elif VR_MODE
-            if (OVRInput.Get(OVRInput.Button.PrimaryThumbstick, OVRInput.Controller.RTouch))
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick, OVRInput.Controller.RTouch))
 #endif
             {
                 // 2. 마우스를 움직이면 아이템 회전하기
@@ -386,12 +401,18 @@ public class CSH_ItemGrab : MonoBehaviour
 #if EDITOR_MODE
             if (Input.GetMouseButtonDown(0))
 #elif VR_MODE
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
 #endif
             {
                 // 2. 보고 있는 방향으로 아이템 던지기
                 Throw_item();
             }
+
+
+#if EDITOR_MODE
+#elif VR_MODE
+            beforePos = afterPos;
+#endif
         }
     }
 }
