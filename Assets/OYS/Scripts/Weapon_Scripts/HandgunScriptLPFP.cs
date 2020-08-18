@@ -441,7 +441,7 @@ public class HandgunScriptLPFP : MonoBehaviour
             Spawnpoints.bulletSpawnPoint.transform.position,
             Spawnpoints.bulletSpawnPoint.transform.rotation);
 
-        Vector3 dir = CSH_RayManager.Instance.crossHair.position - Spawnpoints.bulletSpawnPoint.transform.position;
+        Vector3 dir = CSH_RayManager.Instance.crossHair_R.position - Spawnpoints.bulletSpawnPoint.transform.position;
 
         Rigidbody brb = bullet.GetComponent<Rigidbody>();
         if (brb != null)

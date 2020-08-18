@@ -44,11 +44,11 @@ public class FurnitureOutline : MonoBehaviour
         // 2. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트의    부모라면 outline 켜기
         // 3. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트가    서로 다르다면, outline 끄기
 
-        if (CSH_RayManager.Instance.raycastHitObject == gameObject.transform)
+        if (CSH_RayManager.Instance.raycastHitObject_R == gameObject.transform)
         {
             outliner.enabled = true;
         }
-        else if (CSH_RayManager.Instance.raycastHitObject == gameObject.transform.parent)
+        else if (CSH_RayManager.Instance.raycastHitObject_R == gameObject.transform.parent)
         {
             outliner.enabled = true;
         }

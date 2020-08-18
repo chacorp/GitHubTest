@@ -269,7 +269,7 @@ public class CSH_ItemGrab : MonoBehaviour
         itemRB.AddForce(Camera.main.transform.forward * throwSpeed, ForceMode.Impulse);
 #elif VR_MODE
         Vector3 dir = (afterPos - beforePos);
-        itemRB.AddForce(dir.normalized * throwSpeed, ForceMode.Impulse);
+        itemRB.AddForce(dir.normalized * (throwSpeed/(float)3), ForceMode.Impulse);
 #endif
         // 위에서 고정했던 pointingItem을 다시 비워두기!!!
         pointingItem = null;

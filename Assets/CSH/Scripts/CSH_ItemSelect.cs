@@ -127,7 +127,7 @@ public class CSH_ItemSelect : MonoBehaviour
 
         // 1. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트와    서로 갖다면, outline 켜기  
         // 2. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트가    서로 다르다면, outline 끄기
-        outlineOn = CSH_RayManager.Instance.raycastHitObject == gameObject.transform ? true : false;
+        outlineOn = CSH_RayManager.Instance.raycastHitObject_R == gameObject.transform ? true : false;
 
         if (outlineOn)
         {

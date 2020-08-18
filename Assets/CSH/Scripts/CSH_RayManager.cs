@@ -25,7 +25,7 @@ public class CSH_RayManager : MonoBehaviour
     public float distanceLimit = 3f;
 
     // 레이 맞은 물체
-    public Transform raycastHitObject;
+    public Transform raycastHitObject_R;
 
     // 플레이어
     public GameObject player;
@@ -37,7 +37,7 @@ public class CSH_RayManager : MonoBehaviour
     public bool isNear = false;
 
     // 왼손으로 잡아올 포인터 => colider 달려있음(trigger)
-    public Transform crossHair;
+    public Transform crossHair_R;
     public Transform crossHair_L;
     public float crossHairScale = 0.1f;
     Vector3 crossHairSize;
@@ -46,11 +46,12 @@ public class CSH_RayManager : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        crossHairSize = crossHair.localScale * crossHairScale;
+        crossHairSize = crossHair_R.localScale * crossHairScale;
         // 카메라 가져오기
 #if VR_MODE
         Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
 #elif EDITOR_MODE
+        crossHair_L.gameObject.SetActive(false);
         Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
 #endif
     }
@@ -91,14 +92,14 @@ public class CSH_RayManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, rayLength, ~layerMask))
         {
             // 1. hit 지점에 crossHair 두기
-            crossHair.position = hit.point;
-            crossHair.forward = Cam.transform.forward;
-            crossHair.localScale = crossHairSize * hit.distance;
+            crossHair_R.position = hit.point;
+            crossHair_R.forward = Cam.transform.forward;
+            crossHair_R.localScale = crossHairSize * hit.distance;
 
 
 
             // 2. hit 오브젝트 담아두기
-            raycastHitObject = hit.transform;
+            raycastHitObject_R = hit.transform;
 
 
 
@@ -110,12 +111,12 @@ public class CSH_RayManager : MonoBehaviour
 
 
             // 4. hit 오브젝트가 CSH_ItemSelect를 갖고 있는지 여부를 파악해서
-            CSH_ItemSelect select = raycastHitObject.GetComponent<CSH_ItemSelect>();
+            CSH_ItemSelect select = raycastHitObject_R.GetComponent<CSH_ItemSelect>();
 
             //    갖고 있다면,       raycastHitObject.gameObject
             //    안 갖고 있다면,    null 
             //    CSH_ItemGrab.Instance.pointingItem 에 보내기
-            CSH_ItemGrab.Instance.pointingItem = select ? raycastHitObject.gameObject : null;
+            CSH_ItemGrab.Instance.pointingItem = select ? raycastHitObject_R.gameObject : null;
         }
     }
 
