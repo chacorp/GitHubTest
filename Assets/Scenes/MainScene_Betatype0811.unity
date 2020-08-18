@@ -1154,7 +1154,6 @@ MonoBehaviour:
   Holder: {fileID: 1578378539}
   activeItems: []
   itemSwitch: {fileID: 253464064}
-  fpcController: {fileID: 338657711}
   handGun: {fileID: 114919997017412512}
   throwSpeed: 15
   grabSpeed: 100
@@ -1327,7 +1326,6 @@ MonoBehaviour:
     BobAmount: 0
   m_StepInterval: 3
   clipboard: {fileID: 95092961067648487}
-  hasGrabed: 0
 --- !u!124 &339485705
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1387,6 +1385,7 @@ GameObject:
   - component: {fileID: 349181743}
   - component: {fileID: 352284079}
   - component: {fileID: 344192080}
+  - component: {fileID: 344192081}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -1415,6 +1414,20 @@ MonoBehaviour:
   itemGrab: {fileID: 253464062}
   Holder: {fileID: 1578378539}
   playerInventroy: {fileID: 1529982797}
+--- !u!114 &344192081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344192079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad39489c7f9211c448c1dd9c32e7d50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iThumbstick_L: 0
+  moveSpeed: 2.5
 --- !u!4 &344221805
 Transform:
   m_ObjectHideFlags: 0
@@ -7578,6 +7591,7 @@ MonoBehaviour:
   clipboardAudio: {fileID: 1685343192516906}
   clipboard: {fileID: 1685343192516903}
   sparkFactory: {fileID: 144898, guid: 8e10128ab5f2a294d9abf444cb9b0507, type: 3}
+  iTrigger_L: 0
   maxDistance: 2
   effectRange: 1
 --- !u!1001 &1580283486
