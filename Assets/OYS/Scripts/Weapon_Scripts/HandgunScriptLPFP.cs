@@ -184,6 +184,7 @@ public class HandgunScriptLPFP : MonoBehaviour
 
     private void Update()
     {
+        #region 삭제-1
         //Aiming
         //Toggle camera FOV when right click is held down
         //if (Input.GetButton("Fire2") && !isReloading && !isRunning && !isInspecting)
@@ -210,7 +211,7 @@ public class HandgunScriptLPFP : MonoBehaviour
         //    anim.SetBool("Aim", false);
         //}
         //Aiming end
-
+        #endregion
         //If randomize muzzleflash is true, genereate random int values
         if (randomMuzzleflash == true)
         {
@@ -226,6 +227,7 @@ public class HandgunScriptLPFP : MonoBehaviour
         //is currently playing
         AnimationCheck();
 
+        #region 삭제-2
         //Play knife attack 1 animation when Q key is pressed
         //if (Input.GetKeyDown(KeyCode.Q) && !isInspecting)
         //{
@@ -244,7 +246,7 @@ public class HandgunScriptLPFP : MonoBehaviour
         //    //Play grenade throw animation
         //    anim.Play("GrenadeThrow", 0, 0.0f);
         //}
-
+        #endregion
         //If out of ammo
         if (currentAmmo == 0)
         {
@@ -274,7 +276,11 @@ public class HandgunScriptLPFP : MonoBehaviour
         }
 
         //Shooting 
+#if VR_MODE
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch)&& !outOfAmmo && !isReloading && !isInspecting && !isRunning && !CSH_ItemGrab.Instance.hasItem)
+#elif EDITOR_MODE
         if (Input.GetMouseButtonDown(0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning && !CSH_ItemGrab.Instance.hasItem)
+#endif
         {
             anim.Play("Fire", 0, 0f);
 
@@ -287,7 +293,7 @@ public class HandgunScriptLPFP : MonoBehaviour
             shootAudioSource.clip = SoundClips.shootSound;
             shootAudioSource.Play();
 
-
+            #region 삭제-3
             //if (!isAiming) //if not aiming
             //{
             //    anim.Play("Fire", 0, 0f);
@@ -311,6 +317,7 @@ public class HandgunScriptLPFP : MonoBehaviour
 
             //    }
             //}
+            #endregion
         }
 
         //Inspect weapon when pressing T key
@@ -319,6 +326,7 @@ public class HandgunScriptLPFP : MonoBehaviour
             anim.SetTrigger("Inspect");
         }
 
+        #region 삭제-4
         //Toggle weapon holster when pressing E key
         // 무기 바꾸기
         //if (Input.GetKeyDown(KeyCode.E) && !hasBeenHolstered)
@@ -349,9 +357,14 @@ public class HandgunScriptLPFP : MonoBehaviour
         //{
         //    anim.SetBool("Holster", false);
         //}
+        #endregion
 
-        //Reload 
+        //Reload Function
+#if VR_MODE
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
+#elif EDITOR_MODE
         if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isInspecting)
+#endif
         {
             //Reload
             Reload();

@@ -37,7 +37,11 @@ public class CSH_Firetorch : MonoBehaviour
         torchSound.volume = torchVolume;
 
         // 마우스 좌클릭을 하면 && 아이템이 없을때
+#if VR_MODE
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) && !CSH_ItemGrab.Instance.hasItem)
+#elif EDITOR_MODE
         if (Input.GetMouseButtonDown(0) && !CSH_ItemGrab.Instance.hasItem)
+#endif
         {
             // 불 뿜기 / 안 뿜기
             flameOn = !flameOn;
