@@ -66,4 +66,5 @@ public class CSH_ModeChange : MonoBehaviour
         playerInventroy.SetParent(mainCamera.transform);
 #endif
     }
+
 }
