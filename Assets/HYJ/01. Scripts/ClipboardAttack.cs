@@ -17,6 +17,7 @@ public class ClipboardAttack : MonoBehaviour
     [SerializeField] AudioSource clipboardAudio;
     [SerializeField] GameObject clipboard;
     [SerializeField] GameObject sparkFactory;
+    [SerializeField] OVRInput.Button iTrigger_L;
 
 
     #region 충돌체크를 위한 변수
@@ -41,7 +42,11 @@ public class ClipboardAttack : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+#if EDITOR_MODE
         if (Input.GetMouseButtonDown(0) && !isSwinging && clipboard.activeSelf)
+#elif VR_MODE
+        if (OVRInput.GetDown(iTrigger_L))
+#endif
         {
             isSwinging = true;
 
