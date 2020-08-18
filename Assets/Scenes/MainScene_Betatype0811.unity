@@ -1235,18 +1235,14 @@ MonoBehaviour:
     smooth: 0
     smoothTime: 5
     lockCursor: 1
+    m_CharacterTargetRot: {x: 0, y: 0, z: 0, w: 0}
+    m_CameraTargetRot: {x: 0, y: 0, z: 0, w: 0}
+    m_cursorIsLocked: 1
   m_UseFovKick: 1
-  m_FovKick:
-    Camera: {fileID: 0}
-    originalFov: 0
-    FOVIncrease: 3
-    TimeToIncrease: 1
-    TimeToDecrease: 1
-    IncreaseCurve:
-      serializedVersion: 2
+  m_FovKick: {Camera: {fileID: 0}, originalFov: 0, FOVIncrease: 3, TimeToIncrease: 1,
+    TimeToDecrease: 1, IncreaseCurve:
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 0
         outSlope: 0
@@ -1254,8 +1250,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 1
         inSlope: 2
         outSlope: 2
@@ -1266,14 +1261,13 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+}
   m_HeadBob:
     HorizontalBobRange: 0.33
     VerticalBobRange: 0.33
     Bobcurve:
-      serializedVersion: 2
       m_Curve:
-      - serializedVersion: 3
-        time: 0
+      - time: 0
         value: 0
         inSlope: 0
         outSlope: 0
@@ -1281,8 +1275,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 0.5
+      - time: 0.5
         value: 1
         inSlope: 0
         outSlope: 0
@@ -1290,8 +1283,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 1
+      - time: 1
         value: 0
         inSlope: 0
         outSlope: 0
@@ -1299,8 +1291,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 1.5
+      - time: 1.5
         value: -1
         inSlope: 0
         outSlope: 0
@@ -1308,8 +1299,7 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 2
+      - time: 2
         value: 0
         inSlope: 0
         outSlope: 0
@@ -1321,11 +1311,26 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     VerticaltoHorizontalRatio: 1
+    m_CyclePositionX: 0
+    m_CyclePositionY: 0
+    m_BobBaseInterval: 0
+    m_OriginalCameraPosition: {x: 0, y: 0, z: 0}
+    m_Time: 0
   m_JumpBob:
     BobDuration: 0
     BobAmount: 0
+    m_Offset: 0
   m_StepInterval: 3
   clipboard: {fileID: 95092961067648487}
+  m_Camera: {fileID: 0}
+  m_Jump: 0
+  m_Input: {x: 0, y: 0}
+  m_MoveDir: {x: 0, y: 0, z: 0}
+  m_CharacterController: {fileID: 0}
+  m_CollisionFlags: 0
+  m_PreviouslyGrounded: 0
+  m_StepCycle: 0
+  m_Jumping: 0
 --- !u!124 &339485705
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1426,7 +1431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad39489c7f9211c448c1dd9c32e7d50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iThumbstick_L: 0
+  iThumbstick_L: 1
   moveSpeed: 2.5
 --- !u!4 &344221805
 Transform:
@@ -1454,7 +1459,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344192079}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -2.03, y: 0.93, z: 7.29}
+  m_LocalPosition: {x: -2.03, y: 0.93, z: 4.623}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1712453697}
