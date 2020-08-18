@@ -40,17 +40,23 @@ public class CSH_RayManager : MonoBehaviour
     public Transform crossHair;
     public float crossHairScale = 0.1f;
     Vector3 crossHairSize;
+    Camera Cam;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         crossHairSize = crossHair.localScale * crossHairScale;
+#if VR_MODE
+        Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
+#elif EDITOR_MODE
+        Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
+#endif
     }
 
     private void RayManager()
     {
         // 플레이어 카메라가 보는 방향으로 레이 쏘기
-        Ray ray = new Ray(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)), Camera.main.transform.forward * rayLength);
+        Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
         RaycastHit hit;
 
         // 레이어 마스크             crossHair 레이어                       플레이어의 레이어                  플레이어가 갖고 있는 무기의 레이어
@@ -61,7 +67,7 @@ public class CSH_RayManager : MonoBehaviour
         {
             // 1. hit 지점에 crossHair 두기
             crossHair.position = hit.point;
-            crossHair.forward = Camera.main.transform.forward;
+            crossHair.forward = Cam.transform.forward;
             crossHair.localScale = crossHairSize * hit.distance;
 
 
@@ -91,7 +97,8 @@ public class CSH_RayManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
-        Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * rayLength);
+        //Ray ray = new Ray(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)), Camera.main.transform.forward * rayLength);
+        Gizmos.DrawRay(Cam.transform.position, Cam.transform.forward * rayLength);
     }
 
     void Update()

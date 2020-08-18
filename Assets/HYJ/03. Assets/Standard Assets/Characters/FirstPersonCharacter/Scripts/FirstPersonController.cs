@@ -45,8 +45,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         //private AudioSource m_AudioSource;
 
-        [Tooltip("아이템 잡고 있을때의 카메라 움직임 조정하는 용도 "), SerializeField]
-        public bool hasGrabed = false;
+        //[Tooltip("아이템 잡고 있을때의 카메라 움직임 조정하는 용도 "), SerializeField]
+        //public bool hasGrabed = false;
 
         // Use this for initialization
         private void Start()
@@ -247,7 +247,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            if (hasGrabed) return;
+           // if (hasGrabed) return;
             m_MouseLook.LookRotation(transform, m_Camera.transform);
         }
 

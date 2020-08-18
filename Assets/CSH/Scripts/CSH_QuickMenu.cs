@@ -55,11 +55,13 @@ public class CSH_QuickMenu : MonoBehaviour
     {
         if (showQM)
         {
+            // 1. 활성화기
             QM_RT.gameObject.SetActive(true);
-            // 천천히 올리기
+
+            // 2. 천천히 올리기
             QM_RT.anchoredPosition += new Vector2(0, 1) * moveSpeed * Time.deltaTime;
 
-            // 적당한 위치에서 멈추기
+            // 3. 적당한 위치에서 멈추기
             if (QM_RT.anchoredPosition.y >= Ypos)
             {
                 QM_RT.anchoredPosition = new Vector2(QM_RT.anchoredPosition.x, Ypos);
@@ -78,11 +80,15 @@ public class CSH_QuickMenu : MonoBehaviour
         }
         else
         {
+            // 1. 천천히 내리기
             QM_RT.anchoredPosition -= new Vector2(0, 1) * moveSpeed * Time.deltaTime;
+
+            // 2. 적당한 위치에서 멈추기
             if (QM_RT.anchoredPosition.y <= Ypos_D)
             {
                 QM_RT.anchoredPosition = new Vector2(QM_RT.anchoredPosition.x, Ypos_D);
 
+                // 3. 비활성화하기
                 QM_RT.gameObject.SetActive(false);
             }
         }
