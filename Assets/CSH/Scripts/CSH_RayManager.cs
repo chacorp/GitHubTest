@@ -96,9 +96,12 @@ public class CSH_RayManager : MonoBehaviour
     // 에디터에서 Ray 그리기
     private void OnDrawGizmos()
     {
+#if VR_MODE
+#elif EDITOR_MODE
         Gizmos.color = Color.magenta;
         //Ray ray = new Ray(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)), Camera.main.transform.forward * rayLength);
         Gizmos.DrawRay(Cam.transform.position, Cam.transform.forward * rayLength);
+#endif
     }
 
     void Update()

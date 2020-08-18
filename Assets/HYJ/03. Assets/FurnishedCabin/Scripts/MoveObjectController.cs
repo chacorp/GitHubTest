@@ -53,7 +53,6 @@ public class MoveObjectController : MonoBehaviour
         if (other.CompareTag("EditorOnly"))     //player has collided with trigger
         {
             playerEntered = true;
-            Debug.Log("123");
         }
     }
 

@@ -321,7 +321,6 @@ public class CSH_ItemGrab : MonoBehaviour
 
             if (pointingItem != null && CSH_RayManager.Instance.isNear)
             {
-                Debug.Log("1");
                 // 2. [E] 키를 눌러서 아이템 가져오기
                 // VR. 오른손 VR 중지 버튼
 #if EDITOR_MODE
@@ -330,8 +329,6 @@ public class CSH_ItemGrab : MonoBehaviour
                 if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
 #endif
                 {
-
-                Debug.Log("2");
                     // 커서로 가리킨 [아이템]을 선택한 [아이템]으로 설정한다
                     selectedItem = pointingItem;
                     pointingItem = null;
