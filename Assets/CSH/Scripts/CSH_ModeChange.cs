@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class CSH_ModeChange : MonoBehaviour
 {
+    public static CSH_ModeChange Instance;
+    CSH_ModeChange()
+    {
+        Instance = this;
+    }
+
     [Header("OVR")]    // ----------------------------< VR 사용시 활성화 >
     public GameObject OVRCamera;
     // OVR 위치들
@@ -52,12 +58,12 @@ public class CSH_ModeChange : MonoBehaviour
         // OVRCamera 비활성화
         OVRCamera.SetActive(false);
         // EditorCamera 활성화
-        editorMainCamera.SetActive(true);
+        mainCamera.SetActive(true);
         // 위치 이동
-        WeaponCamera.SetParent(editorMainCamera.transform);
-        itemGrab.SetParent(editorMainCamera.transform);
-        Holder.SetParent(editorMainCamera.transform);
-        playerInventroy.SetParent(editorMainCamera.transform);
+        WeaponCamera.SetParent(mainCamera.transform);
+        itemGrab.SetParent(mainCamera.transform);
+        Holder.SetParent(mainCamera.transform);
+        playerInventroy.SetParent(mainCamera.transform);
 #endif
     }
 }
