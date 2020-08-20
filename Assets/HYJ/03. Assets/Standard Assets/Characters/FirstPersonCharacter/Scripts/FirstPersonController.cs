@@ -89,6 +89,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_MoveDir.y = 0f;
             }
 
+            if (m_CharacterController.isGrounded && Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                if (m_CharacterController.height == 0.5f) m_CharacterController.height = 1.3f;
+                else if (m_CharacterController.height == 1.3f) m_CharacterController.height = 0.5f;
+            }
+
+
+
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
 
@@ -121,6 +129,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_CharacterController.isGrounded)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
+
+
+
 
                 if (m_Jump)
                 {
@@ -248,7 +259,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-           // if (hasGrabed) return;
+            // if (hasGrabed) return;
             m_MouseLook.LookRotation(transform, m_Camera.transform);
         }
 
