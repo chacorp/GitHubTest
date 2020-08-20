@@ -269,7 +269,7 @@ public class CSH_ItemGrab : MonoBehaviour
         itemRB.AddForce(Camera.main.transform.forward * throwSpeed, ForceMode.Impulse);
 #elif VR_MODE
         Vector3 dir = (afterPos - beforePos);
-        itemRB.AddForce(dir.normalized * (throwSpeed/(float)3), ForceMode.Impulse);
+        itemRB.AddForce(dir.normalized * (throwSpeed / (float)3), ForceMode.Impulse);
 #endif
         // 위에서 고정했던 pointingItem을 다시 비워두기!!!
         pointingItem = null;
@@ -385,14 +385,14 @@ public class CSH_ItemGrab : MonoBehaviour
                 Spin_item();
 
                 // 3. 마우스 우클릭 중엔 카메라 회전 안하기
-               // if (fpcController != null)
-                   // fpcController.hasGrabed = true;
+                // if (fpcController != null)
+                // fpcController.hasGrabed = true;
             }
             else
             {
                 // 3. 마우스 우클릭 중엔 카메라 회전 안하기
-               // if (fpcController != null)
-                  //  fpcController.hasGrabed = false;
+                // if (fpcController != null)
+                //  fpcController.hasGrabed = false;
             }
 
             // -------------------------------------< 마우스 좌클릭을 하면 아이템 던져버리기!! >

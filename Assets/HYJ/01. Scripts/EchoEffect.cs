@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,15 +9,22 @@ public class EchoEffect : MonoBehaviour
     private float timeBtwSpawns;
     private float currentTime;
 
-    [SerializeField] GameObject echo;
     private Enemy enemy;
+    EchoPool echoManager;
 
     void Start()
     {
         enemy = GetComponent<Enemy>();
-
+        echoManager = GameObject.Find("ObjectManager").GetComponent<EchoPool>();
     }
 
+
+    //private void ReturnEchoPool(GameObject obj, List<GameObject> objPool)
+    //{
+    //    obj.SetActive(false);
+    //    obj.transform.position = Vector3.zero;
+    //    objPool.Add(obj);
+    //}
 
     void Update()
     {
@@ -26,9 +34,11 @@ public class EchoEffect : MonoBehaviour
             if (timeBtwSpawns <= 0)
             {
                 // spawn echo gameobject
-                GameObject echos = Instantiate(echo);
-                echos.transform.position = transform.position;
-                Destroy(echos, 0.8f);
+                GameObject trailEffect = echoManager.GetEchoPool();
+                trailEffect.transform.position = transform.position;
+
+                StartCoroutine(echoManager.ReturnEchoPool(trailEffect, 0.8f));
+
                 timeBtwSpawns = StartTimeBtwSpawns;
             }
             else timeBtwSpawns -= Time.deltaTime;

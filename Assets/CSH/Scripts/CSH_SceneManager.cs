@@ -22,6 +22,8 @@ public class CSH_SceneManager : MonoBehaviour
     // FADE OUT 속도
     public float fadeSpeed = 10f;
 
+    public GameObject enndingText;
+
 
     float timer = 0;
     bool start = false;
@@ -42,7 +44,7 @@ public class CSH_SceneManager : MonoBehaviour
         {
             timer += Time.deltaTime;
             if (timer > 1)
-            { 
+            {
                 start = true;
                 timer = 0;
             }
@@ -76,6 +78,14 @@ public class CSH_SceneManager : MonoBehaviour
 
             // 화면 암막 색상
             fadeOutImage.color = new Color(0, 0, 0, alphaC);
+        }
+
+        if (QuestManager.Instance.quests[3].goal.IsReached())
+        {
+            fadeOutImage.gameObject.SetActive(true);
+            alphaC += Time.deltaTime * fadeSpeed;
+            if (alphaC >= 0.5f) alphaC = 0.5f;
+            enndingText.SetActive(true);
         }
     }
 }

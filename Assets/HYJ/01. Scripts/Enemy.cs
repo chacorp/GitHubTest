@@ -174,14 +174,15 @@ public class Enemy : MonoBehaviour
         if (currentTime < damageDelayTIme)
         {
             spiderAgent.enabled = false;
+
         }
         else if (damageDelayTIme <= currentTime)
         {
             state = EnemyState.Move;
+
             isSetdestination = false;
             animSpider.SetBool("Flinched", false);
             spiderAgent.speed = Random.Range(sprintSpeed - 0.2f, sprintSpeed);
-            isBleeding = true;
             currentTime = 0;
         }
     }
@@ -309,6 +310,7 @@ public class Enemy : MonoBehaviour
         if (currentHp > 0)
         {
             state = EnemyState.Damage;
+            isBleeding = true;
             animSpider.SetBool("IsMoving", false);
             animSpider.SetBool("Flinched", true);
             PlayRandomSound(isReached);
@@ -348,14 +350,12 @@ public class Enemy : MonoBehaviour
     private IEnumerator Die()
     {
         // 현재 진행중인 퀘스트에 맞게 퀘스트 변수를 증가시켜준다.
-        if (QuestManager.Instance.quests[0].isActive || QuestManager.Instance.quests[3].isActive)
+        if (QuestManager.Instance.quests[0].isActive || QuestManager.Instance.quests[3].isActive || QuestManager.Instance.quests[2].isActive)
         {
             QuestManager.Instance.quests[0].goal.EnemyKilled();
             QuestManager.Instance.quests[3].goal.EnemyKilled();
-            Debug.Log($"{QuestManager.Instance.quests[0]}의 Enemy Kill point가 증가하였습니다");
         }
 
-        Debug.Log($"{gameObject.name} is died!");
         // 게임 오브젝트의 Y 스케일 값을 작게 만들고 싶다.
         float t = 0;
         Vector3 start = transform.localScale;

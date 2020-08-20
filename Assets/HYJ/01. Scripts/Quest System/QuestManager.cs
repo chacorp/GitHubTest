@@ -54,6 +54,11 @@ public class QuestManager : MonoBehaviour
             quests[3].isActive = true;
         }
 
+        if (quests[3].goal.IsReached())
+        {
+            checkmarks[3].SetActive(true);
+            quests[3].isActive = false;
+        }
         amountText.text = quests[3].goal.currentAmount.ToString($"{quests[3].goal.currentAmount}마리 처치");
     }
 

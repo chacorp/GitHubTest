@@ -17,7 +17,8 @@ public class ClipboardAttack : MonoBehaviour
     [SerializeField] AudioSource clipboardAudio;
     [SerializeField] GameObject clipboard;
     [SerializeField] GameObject sparkFactory;
-    [SerializeField] OVRInput.Button iTrigger_L;
+    [SerializeField] OVRInput.Button iTrigger_R;
+    [SerializeField] Transform rightControllerAnchor;
 
 
     #region 충돌체크를 위한 변수
@@ -45,15 +46,18 @@ public class ClipboardAttack : MonoBehaviour
 #if EDITOR_MODE
         if (Input.GetMouseButtonDown(0) && !isSwinging && clipboard.activeSelf)
 #elif VR_MODE
-        if (OVRInput.GetDown(iTrigger_L))
+        if (OVRInput.GetDown(iTrigger_R) && !isSwinging && clipboard.activeSelf)
 #endif
         {
             isSwinging = true;
 
             clipboardAudio = GetComponentInChildren<AudioSource>();// ----- 추가
             clipboardAudio.PlayOneShot(swingSound);
-
+#if EDITOR_MODE
             ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+#elif VR_MODE
+            ray = new Ray(rightControllerAnchor.position, rightControllerAnchor.forward);
+#endif
             int layer = LayerMask.NameToLayer("Player");
             layer = 1 << layer;
 
@@ -68,8 +72,8 @@ public class ClipboardAttack : MonoBehaviour
 
     void ShootRay(Ray ray, int layer)
     {
-        //Debug.Log("Ray has been shot!");
-        if (Physics.Raycast(ray, out rayhit, maxDistance, ~layer))
+        //Physics.Raycast(ray, out rayhit, maxDistance, ~layer)
+        if (Physics.SphereCast(ray, 0.3f, out rayhit, maxDistance, ~layer))
         {
             //Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 3f);
             Enemy enemy = rayhit.transform.GetComponent<Enemy>();

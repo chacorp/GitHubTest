@@ -22,10 +22,13 @@ public class ObjectManager : MonoBehaviour
 
     void InitPool(int size)
     {
+        Debug.Log("오브젝트 풀에 넣기!");
         for (int i = 0; i < size; i++)
         {
+            Debug.Log("오브젝트 풀에 넣기!!!!!!!!!!!!!");
             // spiderS1을 오브젝트 풀 리스트에 넣어준다
             GameObject spiderS1 = Instantiate(enemies[0]);
+            spiderS1.transform.position = Vector3.zero;
             spiderS1.SetActive(false);
             enemyObjectPools[0].Add(spiderS1);
         }
@@ -34,6 +37,7 @@ public class ObjectManager : MonoBehaviour
         {
             // spiderS2을 오브젝트 풀 리스트에 넣어준다
             GameObject spiderS2 = Instantiate(enemies[1]);
+            spiderS2.transform.position = Vector3.zero;
             spiderS2.SetActive(false);
             enemyObjectPools[1].Add(spiderS2);
         }
@@ -75,6 +79,7 @@ public class ObjectManager : MonoBehaviour
     public void ReturnObject(GameObject enemy, List<GameObject> enemyObjectPool)
     {
         enemy.SetActive(false);
+        enemy.transform.position = Vector3.zero;
         enemyObjectPool.Add(enemy);
     }
 }
