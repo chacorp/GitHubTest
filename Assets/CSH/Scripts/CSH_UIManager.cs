@@ -38,7 +38,7 @@ public class CSH_UIManager : MonoBehaviour
 
 
     // 인벤토리 아이템 상자
-    public List<Vector2> I_Box = new List<Vector2>();
+    public List<GameObject> I_Box = new List<GameObject>();
 
     // 퀵 메뉴 아이템 상자
     List<Vector2> QM_Box = new List<Vector2>();
@@ -53,7 +53,7 @@ public class CSH_UIManager : MonoBehaviour
         // 리스트에 인벤토리 네모들의 위치 값 넣어두기
         for (int i = 0; i < inventoryMenuUI.transform.childCount; i++)
         {
-            I_Box.Add(inventoryMenuUI.transform.GetChild(i).GetComponent<RectTransform>().position);
+            I_Box.Add(inventoryMenuUI.transform.GetChild(i).gameObject);
         }
         // 리스트에 퀵 메뉴 네모들의 위치 값 넣어두기
         for (int i = 0; i < quickMenuUI.transform.childCount; i++)

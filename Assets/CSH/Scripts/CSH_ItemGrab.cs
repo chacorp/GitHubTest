@@ -59,7 +59,7 @@ public class CSH_ItemGrab : MonoBehaviour
     // 걍 무기 담아두는 곳
     public Transform inventory;
     List<GameObject> invntry = new List<GameObject>();
-    
+
     // 무기 잡고 있는 곳
     public Transform Holder;
 
@@ -114,10 +114,10 @@ public class CSH_ItemGrab : MonoBehaviour
 
     void Grab_item()
     {
-        
 
 
-// [특수 템] 잡기 --------------------------------------------------< 플레이어가 다 갖고 있다가 활성화하는 방식!>
+
+        // [특수 템] 잡기 --------------------------------------------------< 플레이어가 다 갖고 있다가 활성화하는 방식!>
         if (grabing_R)
         {
             // 1. [E] 키 안내문 끄기
@@ -144,7 +144,6 @@ public class CSH_ItemGrab : MonoBehaviour
 
             // 아이템의 rigidbody 물리엔진 끄기
             itemRB_R.isKinematic = true;
-            //itemRB.constraints = RigidbodyConstraints.FreezePosition;
 
             // 아이템의 Collider 끄기 => 안끄면 플레이어와 충돌나서 뒤로 밀린다!
             Collider itemCol = selectedItem_R.GetComponent<Collider>();
@@ -153,28 +152,33 @@ public class CSH_ItemGrab : MonoBehaviour
 
 
             // 3.아이콘의 위치 옮기기
-            // => 자식 컴포넌트 가져오리가서 부모 옮기기보다 먼저 해야함
+            // => 자식 컴포넌트 가져오기를  부모 옮기기보다 먼저 해야함
+
             // CSH_UIManager의 아이템 박스 리스트 < I_Box > 속에서
-            //                          [ iBoxCount ] 번째 위치를 가져온다.
-            Vector2 iconBoxRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
+            //                          [ iBoxCount ] 번째의 RectTransform을 가져온다.
+            RectTransform iconBoxRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount].GetComponent<RectTransform>();
 
-            // 아이콘의 위치를 [ iBoxCount ] 번째 위치로 바꾼다
+            // 선택한 아이템의 아이콘 속 RectTransform 가져오기
             RectTransform selectedIcon = selectedItem_R.transform.GetComponentInChildren<RectTransform>();
-            if (selectedIcon != null)
-            {
-                selectedIcon.position = iconBoxRT;
-                selectedIcon.rotation = Quaternion.Euler(0, 0, 0);
-            }
+
+            
 
 
-
-            // 4. 부모 옮기기
+            // 4. 부모 옮기고 위치와 크기 맞추기
             if (selectedItem_R.transform.childCount >= 1)
             {
                 Transform iconT = selectedItem_R.transform.GetChild(0);
                 if (iconT != null)
                     iconT.SetParent(CSH_UIManager.Instance.item_icons);
+
+                if (selectedIcon != null)
+                {
+                    selectedIcon.localPosition = iconBoxRT.localPosition;
+                    selectedIcon.localRotation = iconBoxRT.localRotation;
+                    selectedIcon.localScale    = iconBoxRT.localScale;
+                }
             }
+
 
 
 
@@ -200,18 +204,24 @@ public class CSH_ItemGrab : MonoBehaviour
                 }
             }
 
+
+
             // 7. 커서로 선택한 아이템 비활성화하기
             selectedItem_R.SetActive(false);
+
+
 
             // 8. 퀘스트 Gathering 변수 값 올리기
             if (QuestManager.Instance.quests[1].isActive)
                 QuestManager.Instance.quests[1].goal.ItemCollected();
 
+
+
             // 9. 잡기 탈출
             grabing_R = false;
         }
 
-// [일반 템] 잡기 
+        // [일반 템] 잡기 
         if (grabing_L)
         {
             // 1. [E] 키 안내문 끄기
@@ -362,7 +372,14 @@ public class CSH_ItemGrab : MonoBehaviour
                 handGun.enabled = true;
 
             if (CSH_FT)
+            {
+                // 불을 뿜는 상태에선 물건 잡기 못함
+                if (CSH_FT.flameOn)
+                {
+                    return;
+                }
                 CSH_FT.enabled = true;
+            }
 
             if (ClipA)
                 ClipA.enabled = true;
