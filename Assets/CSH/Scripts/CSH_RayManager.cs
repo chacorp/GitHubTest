@@ -26,6 +26,7 @@ public class CSH_RayManager : MonoBehaviour
 
     // 레이 맞은 물체
     public Transform raycastHitObject_R;
+    public Transform raycastHitObject_L;
 
     // 플레이어
     public GameObject player;
@@ -59,7 +60,11 @@ public class CSH_RayManager : MonoBehaviour
     // 왼손 트리거의 조준점
     private void RayManager_L()
     {
+#if VR_MODE
         Ray ray = new Ray(CSH_ModeChange.Instance.leftControllerAnchor.position, CSH_ModeChange.Instance.leftControllerAnchor.forward * rayLength);
+#elif EDITOR_MODE
+        Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
+#endif
         RaycastHit hit_L;
 
         // 레이어 마스크             crossHair 레이어                       플레이어의 레이어                  플레이어가 갖고 있는 무기의 레이어
@@ -71,6 +76,38 @@ public class CSH_RayManager : MonoBehaviour
             crossHair_L.position = hit_L.point;
             crossHair_L.forward = Cam.transform.forward;
             crossHair_L.localScale = crossHairSize * hit_L.distance;
+
+
+
+            // 2. hit 오브젝트 담아두기
+            raycastHitObject_L = hit_L.transform;
+
+
+
+            // 3. 서로 거리재기
+            distance = hit_L.distance;
+            // 3-a. 상호작용 가능한 거리인지 여부 파악하기
+            isNear = distance <= distanceLimit ? true : false;
+
+
+
+            // 4. hit 오브젝트가 특수 아이템인지 파악하기
+
+            // CSH_ItemSelect 가져오기
+            CSH_ItemSelect select = raycastHitObject_L.GetComponent<CSH_ItemSelect>();
+            // CSH_ItemSelect 가져올 수 있을때,
+            if (select)
+            {
+                // isSpecialItem으로 [특수 템] 여부 확인하기 CSH_ItemGrab.Instance.pointingItem_L 에 보내기
+                //    특수 맞다       null 
+                //    특수 아니다     raycastHitObject_L.gameObject
+                CSH_ItemGrab.Instance.pointingItem_L = select.isSpecialItem ? null : raycastHitObject_L.gameObject;
+            }
+            // 못 가져오면 암것도 안 보냄
+            else
+            {
+                CSH_ItemGrab.Instance.pointingItem_L = null;
+            }
         }
     }
 
@@ -110,13 +147,23 @@ public class CSH_RayManager : MonoBehaviour
 
 
 
-            // 4. hit 오브젝트가 CSH_ItemSelect를 갖고 있는지 여부를 파악해서
-            CSH_ItemSelect select = raycastHitObject_R.GetComponent<CSH_ItemSelect>();
+            // 4. hit 오브젝트가 특수 아이템인지 파악하기
 
-            //    갖고 있다면,       raycastHitObject.gameObject
-            //    안 갖고 있다면,    null 
-            //    CSH_ItemGrab.Instance.pointingItem 에 보내기
-            CSH_ItemGrab.Instance.pointingItem = select ? raycastHitObject_R.gameObject : null;
+            // CSH_ItemSelect 가져오기
+            CSH_ItemSelect select = raycastHitObject_R.GetComponent<CSH_ItemSelect>();
+            // CSH_ItemSelect 가져올 수 있을때,
+            if (select)
+            {
+                // isSpecialItem으로 [특수 템] 여부 확인해서 CSH_ItemGrab.Instance.pointingItem_R 에 보내기
+                //    특수 맞다       raycastHitObject_R.gameObject
+                //    특수 아니다     null 
+                CSH_ItemGrab.Instance.pointingItem_R = select.isSpecialItem ? raycastHitObject_R.gameObject : null;
+            }
+            // 못 가져오면 암것도 안 보냄
+            else
+            {
+                CSH_ItemGrab.Instance.pointingItem_R = null;
+            }
         }
     }
 
@@ -135,11 +182,7 @@ public class CSH_RayManager : MonoBehaviour
     {
         //Ray 관련 모든 것
         RayManager_R();
-
-#if VR_MODE
         RayManager_L();
-#elif EDITOR_MODE
-#endif
     }
 
 }

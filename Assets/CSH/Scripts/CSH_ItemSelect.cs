@@ -136,9 +136,18 @@ public class CSH_ItemSelect : MonoBehaviour
             return;
         }
 
-        // 1. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트와    서로 갖다면, outline 켜기  
-        // 2. CSH_RayManager.Instance.raycastHitObject가 가리키는 오브젝트와    이 오브젝트가    서로 다르다면, outline 끄기
-        outlineOn = CSH_RayManager.Instance.raycastHitObject_R == gameObject.transform ? true : false;
+        // 왼손 ray 또는 오른손 ray에 맞았다면,
+        if(CSH_RayManager.Instance.raycastHitObject_L == gameObject.transform || CSH_RayManager.Instance.raycastHitObject_R == gameObject.transform)
+        {
+            // 아웃라인 켜기
+            outlineOn = true;
+        }
+        // 왼손 ray 또는 오른손 ray에 안 맞았다면,
+        else
+        {
+            // 아웃라인 끄기
+            outlineOn = false;
+        }
 
         if (outlineOn)
         {

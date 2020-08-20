@@ -20,7 +20,7 @@ public class CSH_Firetorch : MonoBehaviour
     public float maxFlameSize = 1f;
 
     // 불꽃 발사!!!!!
-    bool flameOn = false;
+    public bool flameOn = false;
     float timer;
     void Start()
     {

@@ -30,22 +30,36 @@ public class CSH_ItemGrab : MonoBehaviour
     }
 
 
-    [Header("Interacting Object")]
-    // 현재 마우스 커서로 가리키고 있는 아이템
-    public GameObject pointingItem;
-
+    [Header("Object_R and Mouse")]
+    // 현재 오른손 또는 마우스로 가리키고 있는 아이템
+    public GameObject pointingItem_R;
     // 선택한 아이템
-    GameObject selectedItem;
+    GameObject selectedItem_R;
+    // 아이템의 컴포넌트를 담아둘 전역변수
+    CSH_ItemSelect itemSelect_R;
+    Rigidbody itemRB_R;
 
+
+    [Header("Object_L")]
+    // 현재 왼손으로 가리키고 있는 아이템
+    public GameObject pointingItem_L;
+    // 선택한 아이템
+    GameObject selectedItem_L;
+    // 아이템의 컴포넌트를 담아둘 전역변수
+    CSH_ItemSelect itemSelect_L;
+    Rigidbody itemRB_L;
+
+    [Header("Interaction")]
     // 텍스트 UI
     public GameObject pressE;
     public GameObject Looking;
+
 
     // [특수 템]을 위한 인벤토리
     // 걍 무기 담아두는 곳
     public Transform inventory;
     List<GameObject> invntry = new List<GameObject>();
-
+    
     // 무기 잡고 있는 곳
     public Transform Holder;
 
@@ -56,13 +70,11 @@ public class CSH_ItemGrab : MonoBehaviour
     // 스크립트 가져옴
     public CSH_ItemSwitch itemSwitch;
 
-    // 아이템의 컴포넌트를 담아둘 전역변수
-    CSH_ItemSelect itemSelect;
-    Rigidbody itemRB;
-
 
     //public FirstPersonController fpcController;
     public HandgunScriptLPFP handGun;
+    public CSH_Firetorch CSH_FT;
+    public ClipboardAttack ClipA;
 
     [Header("Properties")]
     // 던져버릴 속도
@@ -72,7 +84,8 @@ public class CSH_ItemGrab : MonoBehaviour
 
     // 현재 [아이템]을 잡고 있나?
     public bool hasItem;
-    bool grabing;
+    bool grabing_R;
+    bool grabing_L;
 
 #if EDITOR_MODE
 #elif VR_MODE
@@ -83,7 +96,7 @@ public class CSH_ItemGrab : MonoBehaviour
 
     private void Start()
     {
-        grabing = false;
+        grabing_R = false;
         hasItem = false;
 
         pressE.SetActive(false);
@@ -101,144 +114,163 @@ public class CSH_ItemGrab : MonoBehaviour
 
     void Grab_item()
     {
-        // 선택한 [아이템]의 컴포넌트를 전역변수에 넣어두기
-        if (selectedItem != null)
-        {
-            itemSelect = selectedItem.GetComponent<CSH_ItemSelect>();
-            itemRB = selectedItem.GetComponent<Rigidbody>();
-        }
+        
 
-        // 잡기 시작
-        if (grabing)
+
+// [특수 템] 잡기 --------------------------------------------------< 플레이어가 다 갖고 있다가 활성화하는 방식!>
+        if (grabing_R)
         {
-            // [E] 키 안내문 끄기
+            // 1. [E] 키 안내문 끄기
             pressE.SetActive(false);
 
-            // [특수 템]이라면, --------------------------------------------------< 플레이어가 다 갖고 있다가 활성화하는 방식으로 하자!>
-            if (itemSelect.isSpecialItem)
+
+            // 선택한 [아이템]의 컴포넌트를 전역변수에 넣어두기
+            if (selectedItem_R != null)
             {
-                // 이름 가져오기
-                string itemName = selectedItem.name;
+                itemSelect_R = selectedItem_R.GetComponent<CSH_ItemSelect>();
+                itemRB_R = selectedItem_R.GetComponent<Rigidbody>();
+            }
 
-                // 인벤토리 리스트에 추가하기
-                invntry.Add(pointingItem);
-                //selectedItem.transform.SetParent(inventory);
+            // 2. 특수 템 정보 가져오기
+            // 이름 가져오기
+            string itemName = selectedItem_R.name;
 
-                // 아이템의 rigidbody 물리엔진 끄기
-                itemRB.isKinematic = true;
-                //itemRB.constraints = RigidbodyConstraints.FreezePosition;
+            // 인벤토리 리스트에 추가하기
+            invntry.Add(pointingItem_R);
+            //selectedItem.transform.SetParent(inventory);
 
-                // 아이템의 Collider 끄기 => 안끄면 플레이어와 충돌나서 뒤로 밀린다!
-                Collider itemCol = selectedItem.GetComponent<Collider>();
-                //itemCol.enabled = false;
+            // => 아웃라인 끄기
+            itemSelect_R.isGrabed = true;
+
+            // 아이템의 rigidbody 물리엔진 끄기
+            itemRB_R.isKinematic = true;
+            //itemRB.constraints = RigidbodyConstraints.FreezePosition;
+
+            // 아이템의 Collider 끄기 => 안끄면 플레이어와 충돌나서 뒤로 밀린다!
+            Collider itemCol = selectedItem_R.GetComponent<Collider>();
+            //itemCol.enabled = false;
 
 
-                // 아이콘의 위치 옮기기
-                // => 자식 컴포넌트 가져오리가서 부모 옮기기보다 먼저 해야함
-                // CSH_UIManager의 아이템 박스 리스트 < I_Box > 속에서
-                //                          [ iBoxCount ] 번째 위치를 가져온다.
-                Vector2 iconBoxRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
 
-                // 아이콘의 위치를 [ iBoxCount ] 번째 위치로 바꾼다
-                RectTransform selectedIcon = selectedItem.transform.GetComponentInChildren<RectTransform>();
-                if (selectedIcon != null)
+            // 3.아이콘의 위치 옮기기
+            // => 자식 컴포넌트 가져오리가서 부모 옮기기보다 먼저 해야함
+            // CSH_UIManager의 아이템 박스 리스트 < I_Box > 속에서
+            //                          [ iBoxCount ] 번째 위치를 가져온다.
+            Vector2 iconBoxRT = CSH_UIManager.Instance.I_Box[CSH_UIManager.Instance.iBoxCount];
+
+            // 아이콘의 위치를 [ iBoxCount ] 번째 위치로 바꾼다
+            RectTransform selectedIcon = selectedItem_R.transform.GetComponentInChildren<RectTransform>();
+            if (selectedIcon != null)
+            {
+                selectedIcon.position = iconBoxRT;
+                selectedIcon.rotation = Quaternion.Euler(0, 0, 0);
+            }
+
+
+
+            // 4. 부모 옮기기
+            if (selectedItem_R.transform.childCount >= 1)
+            {
+                Transform iconT = selectedItem_R.transform.GetChild(0);
+                if (iconT != null)
+                    iconT.SetParent(CSH_UIManager.Instance.item_icons);
+            }
+
+
+
+            // 5. 아이템 카운터 ++
+            CSH_UIManager.Instance.iBoxCount++;
+
+
+
+            // 6. Holder에서 이름이 같은 오브젝트 활성화
+            for (int i = 0; i < Holder.childCount; i++)
+            {
+                if (Holder.GetChild(i).name.Contains(itemName))
                 {
-                    selectedIcon.position = iconBoxRT;
-                    selectedIcon.rotation = Quaternion.Euler(0, 0, 0);
+                    Holder.GetChild(i).gameObject.SetActive(true);
+                    // 활성화된 리스트에도 넣기--------------------------------- 최초 1번이라서 중복 안될듯
+                    activeItems.Add(Holder.GetChild(i).gameObject);
+                    // 갖고 있는 아이템 갯수 +1
+                    itemSwitch.HolderCount++;
                 }
-
-
-
-                // 부모 옮기기
-                if (selectedItem.transform.childCount >= 1)
+                else
                 {
-                    Transform iconT = selectedItem.transform.GetChild(0);
-                    if (iconT != null)
-                        iconT.SetParent(CSH_UIManager.Instance.item_icons);
+                    Holder.GetChild(i).gameObject.SetActive(false);
                 }
+            }
 
-                // 아이템 카운터 ++
-                CSH_UIManager.Instance.iBoxCount++;
+            // 7. 커서로 선택한 아이템 비활성화하기
+            selectedItem_R.SetActive(false);
+
+            // 8. 퀘스트 Gathering 변수 값 올리기
+            if (QuestManager.Instance.quests[1].isActive)
+                QuestManager.Instance.quests[1].goal.ItemCollected();
+
+            // 9. 잡기 탈출
+            grabing_R = false;
+        }
+
+// [일반 템] 잡기 
+        if (grabing_L)
+        {
+            // 1. [E] 키 안내문 끄기
+            pressE.SetActive(false);
+
+            // 선택한 [아이템]의 컴포넌트를 전역변수에 넣어두기
+            if (selectedItem_L != null)
+            {
+                itemSelect_L = selectedItem_L.GetComponent<CSH_ItemSelect>();
+                itemRB_L = selectedItem_L.GetComponent<Rigidbody>();
+            }
+
+            // 2. 아이템의 CSH_ItemSelect한테  <잡힌 상태> 라고 알려주기
+            // => 아웃라인 끄기
+            itemSelect_L.isGrabed = true;
+
+            // 3. 아이템의 rigidbody 물리엔진 끄기
+            itemRB_L.isKinematic = true;
+            //itemRB.constraints = RigidbodyConstraints.FreezePosition;
 
 
-                // Holder에서 이름이 같은 오브젝트 켜기
-                for (int i = 0; i < Holder.childCount; i++)
-                {
-                    if (Holder.GetChild(i).name.Contains(itemName))
-                    {
-                        Holder.GetChild(i).gameObject.SetActive(true);
-                        // 활성화된 리스트에도 넣기--------------------------------- 최초 1번이라서 중복 안될듯
-                        activeItems.Add(Holder.GetChild(i).gameObject);
-                        // 갖고 있는 아이템 갯수 +1
-                        itemSwitch.HolderCount++;
-                    }
-                    else
-                    {
-                        Holder.GetChild(i).gameObject.SetActive(false);
-                    }
-                }
+            // 4. [아이템]의 위치를 (this)의 위치로 가져오기
+            Vector3 dir = transform.position - selectedItem_L.transform.position;
+            //selectedItem.transform.position = Vector3.Lerp(selectedItem.transform.position, transform.position, 20 * Time.deltaTime);
+            selectedItem_L.transform.position += dir.normalized * grabSpeed * Time.deltaTime;
 
-                // 비활성화하기
-                selectedItem.SetActive(false);
+            if (dir.magnitude <= 1f)
+            {
+                selectedItem_L.transform.position = transform.position;
+                // [아이템]의 부모를 (this)로 설정하기
+                // = [아이템]을 (this)의 자식으로 가져오기
+                selectedItem_L.transform.SetParent(transform);
+
+                // 현재 [아이템]을 갖고 있다!
+                hasItem = true;
 
                 // 잡기 탈출
-                grabing = false;
-
-                // 퀘스트 Gathering 변수 값 올리기
-                if (QuestManager.Instance.quests[1].isActive) QuestManager.Instance.quests[1].goal.ItemCollected();
+                grabing_L = false;
             }
 
-            // 그냥 [아이템]이라면,
-            else
-            {
-                // 아이템의 csh_itemselect한테  <잡힌 상태> 라고 알려주기
-                // => 아웃라인 끄기
-                itemSelect.isGrabed = true;
-
-                // 아이템의 rigidbody 물리엔진 끄기
-                itemRB.isKinematic = true;
-
-
-                //itemRB.constraints = RigidbodyConstraints.FreezePosition;
-
-                // [아이템]의 위치를 (this)의 위치로 바꾸기
-                Vector3 dir = transform.position - selectedItem.transform.position;
-                //selectedItem.transform.position = Vector3.Lerp(selectedItem.transform.position, transform.position, 20 * Time.deltaTime);
-                selectedItem.transform.position += dir.normalized * grabSpeed * Time.deltaTime;
-
-                if (dir.magnitude <= 1f)
-                {
-                    selectedItem.transform.position = transform.position;
-                    // [아이템]의 부모를 (this)로 설정하기
-                    // = [아이템]을 (this)의 자식으로 가져오기
-                    selectedItem.transform.SetParent(transform);
-
-                    // 현재 [아이템]을 갖고 있다!
-                    hasItem = true;
-
-                    // 잡기 탈출
-                    grabing = false;
-                }
-            }
         }
     }
 
     void Spin_item()
     {
 #if EDITOR_MODE
-            // 마우스 인풋 가져오기
-            float mx = Input.GetAxis("Mouse X");
-            float my = Input.GetAxis("Mouse Y");
+        // 마우스 인풋 가져오기
+        float mx = Input.GetAxis("Mouse X");
+        float my = Input.GetAxis("Mouse Y");
 
 #elif VR_MODE
         // 오른 손 조이스틱의 좌표 가져오기
-        Vector2 control = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
+        Vector2 control = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
         float mx = control.x;
         float my = control.y;
 #endif
 
         // 마우스 인풋값으로 [아이템] 돌리기
-        pointingItem.transform.localEulerAngles += new Vector3(my, -mx);
+        pointingItem_L.transform.localEulerAngles += new Vector3(my, -mx);
     }
 
     void Throw_item()
@@ -248,28 +280,29 @@ public class CSH_ItemGrab : MonoBehaviour
         //   아이템의 컴포넌트 가져오기를 또 할 필요는 없다. 
         //       왜냐하면 이미 전역변수로 갖고 있으니까!
         // ===============================================
-        // itemSelect = pointingItem.GetComponent<CSH_ItemSelect>();
-        // itemRB = pointingItem.GetComponent<Rigidbody>();
+        // itemSelect_L = pointingItem_L.GetComponent<CSH_ItemSelect>();
+        // itemRB_L = pointingItem_L.GetComponent<Rigidbody>();
 
         // 아이템의 Rigidbody 물리엔진 켜기
-        itemRB.isKinematic = false;
+        itemRB_L.isKinematic = false;
         //itemRB.constraints = RigidbodyConstraints.None;
 
         // 아이템의 CSH_ItemSelect한테  <안 잡힌 상태>  라고 알려주기
-        itemSelect.isGrabed = false;
+        itemSelect_L.isGrabed = false;
 
         // [아이템]의 부모를 [null]로 설정하기
         // => 현재 갖고 있던 자식 비우기
-        pointingItem.transform.SetParent(null);
+        pointingItem_L.transform.SetParent(null);
 #if EDITOR_MODE
         // 보고 있는 방향의 정면으로 던져버리기!!!!!!
-        itemRB.AddForce(Camera.main.transform.forward * throwSpeed, ForceMode.Impulse);
+        itemRB_L.AddForce(Camera.main.transform.forward * throwSpeed, ForceMode.Impulse);
 #elif VR_MODE
         Vector3 dir = (afterPos - beforePos);
-        itemRB.AddForce(dir.normalized * (throwSpeed / (float)3), ForceMode.Impulse);
+        itemRB_L.AddForce(dir.normalized * (throwSpeed / (float)3), ForceMode.Impulse);
 #endif
         // 위에서 고정했던 pointingItem을 다시 비워두기!!!
-        pointingItem = null;
+        pointingItem_L = null;
+
 
         // 현재 잡고 있는 [아이템] 없음
         hasItem = false;
@@ -291,23 +324,26 @@ public class CSH_ItemGrab : MonoBehaviour
         else
         {
             // 가리키는 [아이템]이 있다면 + 충분히 가깝다면, 텍스트 보여주기
-            if (pointingItem && CSH_RayManager.Instance.isNear)
+            if (CSH_RayManager.Instance.isNear)
             {
-                // [E] 안내문 켜기
-                pressE.SetActive(true);
+                if (pointingItem_R || pointingItem_L)
+                {
+                    // [E] 안내문 켜기
+                    pressE.SetActive(true);
 
-                // 살펴보기 안내문 끄기
-                Looking.SetActive(false);
-            }
+                    // 살펴보기 안내문 끄기
+                    Looking.SetActive(false);
+                }
 
-            // 가리키는 [아이템]이 없다면, 텍스트 가리기
-            else
-            {
-                // [E] 안내문 끄기
-                pressE.SetActive(false);
+                // 가리키는 [아이템]이 없다면, 텍스트 가리기
+                else
+                {
+                    // [E] 안내문 끄기
+                    pressE.SetActive(false);
 
-                // 살펴보기 안내문 끄기
-                Looking.SetActive(false);
+                    // 살펴보기 안내문 끄기
+                    Looking.SetActive(false);
+                }
             }
         }
     }
@@ -321,14 +357,20 @@ public class CSH_ItemGrab : MonoBehaviour
         // 1. 현재 가리키는 아이템이 있고    현재 아이템을 잡고 있지 않고   
         if (!hasItem)
         {
-            // Handgun 스크립트 활성화
-            if (handGun != null)
+            // 갖고 있는 무기 공격 못하게 만들기
+            if (handGun)
                 handGun.enabled = true;
 
-            if (pointingItem != null && CSH_RayManager.Instance.isNear)
+            if (CSH_FT)
+                CSH_FT.enabled = true;
+
+            if (ClipA)
+                ClipA.enabled = true;
+
+            // 오른손으로 가리키는 물체
+            if (pointingItem_R != null && CSH_RayManager.Instance.isNear)
             {
-                // 2. [E] 키를 눌러서 아이템 가져오기
-                // VR. 오른손 VR 중지 버튼
+                // 2. [E] 키를 눌러서 아이템 가져오기    ||    오른손 VR 컨트롤러 중지 버튼
 #if EDITOR_MODE
                 if (Input.GetKeyDown(KeyCode.E))
 #elif VR_MODE
@@ -336,9 +378,26 @@ public class CSH_ItemGrab : MonoBehaviour
 #endif
                 {
                     // 커서로 가리킨 [아이템]을 선택한 [아이템]으로 설정한다
-                    selectedItem = pointingItem;
-                    pointingItem = null;
-                    grabing = true;
+                    selectedItem_R = pointingItem_R;
+                    pointingItem_R = null;
+                    grabing_R = true;
+                }
+            }
+
+            // 왼손으로 가리키는 물체
+            if (pointingItem_L != null && CSH_RayManager.Instance.isNear)
+            {
+                // 2. [E] 키를 눌러서 아이템 가져오기    ||    오른손 VR 컨트롤러 중지 버튼
+#if EDITOR_MODE
+                if (Input.GetKeyDown(KeyCode.E))
+#elif VR_MODE
+                if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
+#endif
+                {
+                    // 커서로 가리킨 [아이템]을 선택한 [아이템]으로 설정한다
+                    selectedItem_L = pointingItem_L;
+                    pointingItem_L = null;
+                    grabing_L = true;
                 }
             }
 
@@ -355,12 +414,16 @@ public class CSH_ItemGrab : MonoBehaviour
             afterPos = CSH_ModeChange.Instance.leftControllerAnchor.position;
 #endif
 
-            // Handgun 스크립트 비활성화
-            if (handGun != null)
+            // 갖고 있는 무기 공격 못하게 만들기
+            if (handGun)
                 handGun.enabled = false;
+            if (CSH_FT)
+                CSH_FT.enabled = false;
+            if (ClipA)
+                ClipA.enabled = false;
 
             // 현재 잡고 있는 아이템을 자기 자식으로 가져온 아이템으로 고정하기
-            pointingItem = transform.GetChild(0).gameObject;
+            pointingItem_L = transform.GetChild(0).gameObject;
 
             //                      :: 이렇게 하는 이유 ::
             //
@@ -370,12 +433,11 @@ public class CSH_ItemGrab : MonoBehaviour
 
 
             // -------------------------------------< 마우스 우클릭을 한 채로 움직이면 아이템 회전하기 >
-            // 1. 마우스 우클릭을 지속하는 중이고
-            // VR. 오른손 VR 조이스틱
+            // 1. 마우스 우클릭을 지속하는 중이고     ||     왼손 VR 중지 버튼
 #if EDITOR_MODE
-                if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1))
 #elif VR_MODE
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick, OVRInput.Controller.RTouch))
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
 #endif
             {
                 // 2. 마우스를 움직이면 아이템 회전하기

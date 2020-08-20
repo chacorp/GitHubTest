@@ -739,6 +739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceLimit: 2
   raycastHitObject_R: {fileID: 0}
+  raycastHitObject_L: {fileID: 0}
   player: {fileID: 0}
   isNear: 0
   crossHair_R: {fileID: 1327159529}
@@ -1251,7 +1252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef4e3a200953ea4e933491ebb8aa815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointingItem: {fileID: 0}
+  pointingItem_R: {fileID: 0}
+  pointingItem_L: {fileID: 0}
   pressE: {fileID: 1354768666}
   Looking: {fileID: 1249712286}
   inventory: {fileID: 1529982797}
@@ -1259,6 +1261,8 @@ MonoBehaviour:
   activeItems: []
   itemSwitch: {fileID: 253464064}
   handGun: {fileID: 114919997017412512}
+  CSH_FT: {fileID: 1288429707}
+  ClipA: {fileID: 1578378540}
   throwSpeed: 15
   grabSpeed: 100
   hasItem: 0
@@ -6367,6 +6371,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276065114}
   m_CullTransparentMesh: 0
+--- !u!114 &1288429707 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 523674553857510248, guid: dd9448d17ee35174a9450d9de19d5905,
+    type: 3}
+  m_PrefabInstance: {fileID: 1060745712072927162}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c30b441cbca32418bcf0990a62a7bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1289181398
 GameObject:
   m_ObjectHideFlags: 0
