@@ -114,9 +114,6 @@ public class CSH_ItemGrab : MonoBehaviour
             // [E] 키 안내문 끄기
             pressE.SetActive(false);
 
-            // 살펴보기 안내문 켜기
-            Looking.SetActive(true);
-
             // [특수 템]이라면, --------------------------------------------------< 플레이어가 다 갖고 있다가 활성화하는 방식으로 하자!>
             if (itemSelect.isSpecialItem)
             {

@@ -45,8 +45,19 @@ public class CSH_ItemSelect : MonoBehaviour
         // + 에셋 스크립트에 설정 넣어주기
         gameObject.AddComponent<Outline>();
         outliner = GetComponent<Outline>();
-        outliner.OutlineColor = new Color(0.3f, 1f, 0.3f);
-        outliner.OutlineWidth = 8f;
+
+        if (isSpecialItem)
+        {
+            // 특수 아이템 외곽선 = 초록색
+            outliner.OutlineColor = new Color(0.3f, 1f, 0.3f);
+            outliner.OutlineWidth = 8f;
+        }
+        else
+        {
+            // 일반 아이템 외곽선 = 노란색
+            outliner.OutlineColor = new Color(1f, 1f, 0f);
+            outliner.OutlineWidth = 8f;
+        }
 
         // 아웃라인은 기본으로 꺼놓기
         outliner.enabled = false;
