@@ -119,7 +119,6 @@ public class Enemy : MonoBehaviour
         // 네브매쉬 에이전트 활성화
         if (spiderAgent.enabled == false)
         {
-            spiderAgent.Warp(transform.position);
             spiderAgent.enabled = true;
         }
 
@@ -179,8 +178,8 @@ public class Enemy : MonoBehaviour
         else if (damageDelayTIme <= currentTime)
         {
             state = EnemyState.Move;
-
             isSetdestination = false;
+            isBleeding = true;
             animSpider.SetBool("Flinched", false);
             spiderAgent.speed = Random.Range(sprintSpeed - 0.2f, sprintSpeed);
             currentTime = 0;
@@ -222,6 +221,7 @@ public class Enemy : MonoBehaviour
                 }
             }
             currrentDest = (targetVectors[0] + transform.position);
+            Debug.Log($" 현재 목적지는 {currrentDest} 입니다!");
             animSpider.SetBool("IsMoving", true);
             spiderAgent.SetDestination(currrentDest);
             spiderAgent.autoBraking = false;
@@ -310,7 +310,6 @@ public class Enemy : MonoBehaviour
         if (currentHp > 0)
         {
             state = EnemyState.Damage;
-            isBleeding = true;
             animSpider.SetBool("IsMoving", false);
             animSpider.SetBool("Flinched", true);
             PlayRandomSound(isReached);
@@ -402,6 +401,11 @@ public class Enemy : MonoBehaviour
             enemyAudio.PlayOneShot(moveClips[randNum]);
 
         }
+        else if (state == EnemyState.ReMove && !isReached)
+        {
+            int randNum = Random.Range(0, moveClips.Length);
+            enemyAudio.PlayOneShot(moveClips[randNum]);
+        }
         else if (state == EnemyState.Damage)
         {
             enemyAudio.PlayOneShot(damageClip);
@@ -412,4 +416,5 @@ public class Enemy : MonoBehaviour
             enemyAudio.PlayOneShot(dieClips[randNum]);
         }
     }
+
 }

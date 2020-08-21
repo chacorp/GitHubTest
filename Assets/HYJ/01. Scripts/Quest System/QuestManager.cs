@@ -33,7 +33,6 @@ public class QuestManager : MonoBehaviour
         if (quests[0].goal.IsReached())
         {
             checkmarks[0].SetActive(true);
-            quests[0].isActive = false;
             ShowingQuest(quests[1], 1);
             quests[1].isActive = true;
         }
@@ -41,7 +40,6 @@ public class QuestManager : MonoBehaviour
         if (quests[1].goal.IsReached())
         {
             checkmarks[1].SetActive(true);
-            quests[1].isActive = false;
             ShowingQuest(quests[2], 2);
             quests[2].isActive = true;
         }
@@ -49,7 +47,6 @@ public class QuestManager : MonoBehaviour
         if (quests[2].goal.IsReached())
         {
             checkmarks[2].SetActive(true);
-            quests[2].isActive = false;
             ShowingQuest(quests[3], 3);
             quests[3].isActive = true;
         }
@@ -57,7 +54,7 @@ public class QuestManager : MonoBehaviour
         if (quests[3].goal.IsReached())
         {
             checkmarks[3].SetActive(true);
-            quests[3].isActive = false;
+
         }
         amountText.text = quests[3].goal.currentAmount.ToString($"{quests[3].goal.currentAmount}마리 처치");
     }
@@ -74,6 +71,6 @@ public class QuestManager : MonoBehaviour
 
             if (index == 3) amountText.gameObject.SetActive(true);
         }
-
+        else if (quest.isActive) return;
     }
 }

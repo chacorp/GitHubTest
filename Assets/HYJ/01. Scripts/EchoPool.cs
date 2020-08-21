@@ -23,9 +23,13 @@ public class EchoPool : MonoBehaviour
 
     public GameObject GetEchoPool()
     {
-        GameObject echoEffect = echoPool.Dequeue();
-        echoEffect.SetActive(true);
-        return echoEffect;
+        if (echoPool.Count > 0)
+        {
+            GameObject echoEffect = echoPool.Dequeue();
+            echoEffect.SetActive(true);
+            return echoEffect;
+        }
+        else return null;
 
     }
 

@@ -43,8 +43,10 @@ public class EchoEffect : MonoBehaviour
             }
             else timeBtwSpawns -= Time.deltaTime;
 
-            currentTime += Time.deltaTime;
-            if (currentTime > 0.8f) return;
         }
+
+        currentTime += Time.deltaTime;
+        if (currentTime > 0.8f) return;
+
     }
 }

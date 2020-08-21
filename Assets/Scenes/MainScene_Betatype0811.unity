@@ -5130,7 +5130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 4561953668557290357, guid: 077b9c1bc1d8ca7408ad5bd0d8f8414b, type: 3}
-  poolSize: 15
+  poolSize: 20
 --- !u!1001 &1039050817
 PrefabInstance:
   m_ObjectHideFlags: 0
