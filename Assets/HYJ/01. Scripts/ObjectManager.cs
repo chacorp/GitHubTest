@@ -7,12 +7,12 @@ using UnityEngine;
 public class ObjectManager : MonoBehaviour
 {
     #region EnemyList
-    [SerializeField] Transform[] spawnPoints;
-    [SerializeField] GameObject[] enemies;
+    //[SerializeField] public Transform[] spawnPoints;
+    [SerializeField] public GameObject[] enemies;
 
     #endregion
     [SerializeField] public List<GameObject>[] enemyObjectPools = new List<GameObject>[] { new List<GameObject>(), new List<GameObject>(), new List<GameObject>(), new List<GameObject>() };
-    [SerializeField] int poolSize = 2;
+    [SerializeField] public int poolSize = 2;
 
 
     void Start()
@@ -65,9 +65,7 @@ public class ObjectManager : MonoBehaviour
         {
             GameObject obj = enemyObjectPool[0];
             obj.SetActive(true);
-
-            int rand = Random.Range(0, spawnPoints.Length);
-            obj.transform.position = spawnPoints[rand].position;
+            obj.transform.position = new Vector3(0, 0, 0);
             obj.transform.localScale = Vector3.one;
 
             enemyObjectPool.RemoveAt(0);

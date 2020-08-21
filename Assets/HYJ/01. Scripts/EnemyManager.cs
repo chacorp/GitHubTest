@@ -9,7 +9,9 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager Instance;
 
     [SerializeField] ObjectManager obMgr;
+    [SerializeField] Transform[] spawnPoints;
     [SerializeField] float maxCreatTime = 5.0f;
+
 
     private void Awake()
     {
@@ -19,18 +21,81 @@ public class EnemyManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        // 에너미를 생성할 때 에너미끼리 중복 생성되지 않도록 하는 메소드 작성
+        StartCoroutine(CreateEnemy());
+    }
+
     void Update()
     {
-        StartCoroutine(CreateEnemy());
+        // 에너미가 재생성될 때 겹치지 않도록 하는 메소드 생성
     }
 
     IEnumerator CreateEnemy()
     {
-        float rand = Random.Range(0, maxCreatTime);
-        int randNum = Random.Range(0, 4);
+        List<Transform> spawnPosition = new List<Transform>();
+        foreach (Transform point in spawnPoints)
+        {
+            spawnPosition.Add(point);
+        }
 
-        yield return new WaitForSeconds(rand);
-        obMgr.GetObject(obMgr.enemyObjectPools[randNum]);
+        yield return new WaitForFixedUpdate();
 
+        for (int i = 0; i < obMgr.poolSize; i++)
+        {
+            GameObject enemyType1 = obMgr.GetObject(obMgr.enemyObjectPools[0]);
+
+            int randNum = Random.Range(0, spawnPosition.Count);
+            enemyType1.transform.position = spawnPosition[randNum].position;
+
+            spawnPosition.RemoveAt(randNum);
+        }
+
+        for (int i = 0; i < obMgr.poolSize; i++)
+        {
+            GameObject enemyType2 = obMgr.GetObject(obMgr.enemyObjectPools[1]);
+
+            int randNum = Random.Range(0, spawnPosition.Count);
+            enemyType2.transform.position = spawnPosition[randNum].position;
+
+            spawnPosition.RemoveAt(randNum);
+        }
+
+        yield return new WaitForFixedUpdate();
     }
+
+    //IEnumerator CreateEnemy2()
+    //{
+    //    int randNum = Random.Range(0, obMgr.enemies.Length);
+
+    //    for (int i = 0; i < obMgr.enemies.Length * obMgr.poolSize; i++)
+    //    {
+    //        enemies[i] = obMgr.GetObject(obMgr.enemyObjectPools[randNum]);
+    //        enemies[i].transform.localPosition = new Vector3(0, 0, 0);
+    //    }
+
+    //    yield return new WaitForFixedUpdate();
+
+    //    for (int i = 0; i < obMgr.enemies.Length * obMgr.poolSize; i++)
+    //    {
+    //        int temp = Random.Range(0, spawnPoints.Length);
+    //        Vector3 myPos = spawnPoints[temp].position;
+
+    //        int checkLayer = LayerMask.NameToLayer("Enemy");
+
+    //        Collider[] cols = Physics.OverlapSphere(myPos, 0.3f, 1 << checkLayer);
+
+    //        if (cols.Length > 0)
+    //        {
+    //            i--;
+    //            yield return 0;
+    //        }
+    //        else
+    //        {
+    //            enemies[i].transform.localPosition = myPos;
+    //            yield return new WaitForFixedUpdate();
+    //        }
+    //    }
+    //}
 }
