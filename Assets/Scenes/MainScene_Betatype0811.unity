@@ -813,7 +813,6 @@ MonoBehaviour:
   - {fileID: 1844040450}
   - {fileID: 923822823}
   - {fileID: 1496904867}
-  maxCreatTime: 3
 --- !u!4 &204653327
 Transform:
   m_ObjectHideFlags: 0
@@ -9656,11 +9655,11 @@ MonoBehaviour:
       requiredAmount: 1
       currentAmount: 0
   - title: "\uAC70\uBBF8 \uC18C\uD0D5"
-    description: "\uAC70\uBBF8 \uCD1D 15\uB9C8\uB9AC \uC7A1\uAE30"
+    description: "\uAC70\uBBF8 \uCD1D 10 \uB9C8\uB9AC \uC7A1\uAE30"
     isActive: 0
     goal:
       goalType: 0
-      requiredAmount: 15
+      requiredAmount: 10
       currentAmount: 0
   titles:
   - {fileID: 2078951827}

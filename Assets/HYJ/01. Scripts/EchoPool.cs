@@ -13,7 +13,7 @@ public class EchoPool : MonoBehaviour
     {
         for (int i = 0; i < poolSize; i++)
         {
-            Debug.Log("이펙트 풀에 넣기!!!!!!!!");
+
             GameObject effects = Instantiate(echo);
             effects.SetActive(false);
             echoPool.Enqueue(effects);

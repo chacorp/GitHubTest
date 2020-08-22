@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] ObjectManager obMgr;
     [SerializeField] Transform[] spawnPoints;
-    [SerializeField] float maxCreatTime = 5.0f;
+
 
 
     private void Awake()
@@ -29,7 +29,17 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        // 에너미가 재생성될 때 겹치지 않도록 하는 메소드 생성
+        if (obMgr.enemyObjectPools[0].Count == 3 && obMgr.enemyObjectPools[1].Count == 3)
+        {
+            if (!QuestManager.Instance.quests[3].goal.IsReached())
+            {
+                StartCoroutine(CreateEnemy());
+                Debug.Log("Recreate Enemy!!");
+            }
+            else return;
+        }
+
+
     }
 
     IEnumerator CreateEnemy()

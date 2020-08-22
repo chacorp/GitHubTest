@@ -64,10 +64,7 @@ public class Enemy : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         rigidbody.useGravity = false;
         rigidbody.isKinematic = true;
-    }
 
-    void Start()
-    {
         player = GameObject.Find("Player");
         spiderAgent = GetComponent<NavMeshAgent>();
         spiderAgent.enabled = false;
@@ -76,6 +73,19 @@ public class Enemy : MonoBehaviour
         // 목적지 변수 배열 초기화 & Destination 오브젝트 검색
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         destinations = GameObject.FindGameObjectsWithTag("Destination");
+        isSetdestination = false;
+    }
+
+    void Start()
+    {
+        //player = GameObject.Find("Player");
+        //spiderAgent = GetComponent<NavMeshAgent>();
+        //spiderAgent.enabled = false;
+        //if (animSpider == null) animSpider = GetComponentInChildren<Animator>();
+        //objMgr = GameObject.Find("ObjectManager").GetComponent<ObjectManager>();
+        //// 목적지 변수 배열 초기화 & Destination 오브젝트 검색
+        //spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        //destinations = GameObject.FindGameObjectsWithTag("Destination");
     }
 
     private void Update()
