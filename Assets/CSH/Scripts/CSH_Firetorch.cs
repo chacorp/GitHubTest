@@ -97,7 +97,7 @@ public class CSH_Firetorch : MonoBehaviour
 
             // D. 연료 소비하기
             ammoTime += Time.deltaTime;
-            if (ammoTime > 0.2f)
+            if (ammoTime > 0.25f)
             {
                 ammo--;
                 torchUI.currentAmmo.text = ammo.ToString();
