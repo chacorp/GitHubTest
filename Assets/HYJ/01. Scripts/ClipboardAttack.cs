@@ -44,7 +44,7 @@ public class ClipboardAttack : MonoBehaviour
     void LateUpdate()
     {
 #if EDITOR_MODE
-        if (Input.GetMouseButtonDown(0) && !isSwinging && clipboard.activeSelf)
+        if (Input.GetMouseButtonDown(0) && !isSwinging && clipboard.activeSelf && !QuestManager.Instance.quests[3].goal.IsReached())
 #elif VR_MODE
         if (OVRInput.GetDown(iTrigger_R) && !isSwinging && clipboard.activeSelf)
 #endif

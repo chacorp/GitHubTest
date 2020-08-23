@@ -13,6 +13,8 @@ public class CSH_SceneManager : MonoBehaviour
     // 화면을 검게 만들 암막 이미지
     public Image fadeOutImage;
 
+    [SerializeField] GameObject restartButton;
+    [SerializeField] GameObject exitButton;
     // FADE OUT 여부
     bool FADEOUT = false;
 
@@ -27,6 +29,8 @@ public class CSH_SceneManager : MonoBehaviour
 
     float timer = 0;
     bool start = false;
+    bool IsGameFinished = false;
+
     public void OnButtonClicked()
     {
         // 버튼 누르면 FADE OUT 하기
@@ -35,7 +39,10 @@ public class CSH_SceneManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         fadeOutImage.gameObject.SetActive(true);
+        restartButton.SetActive(false);
+        exitButton.SetActive(false);
     }
 
     private void Update()
@@ -50,42 +57,105 @@ public class CSH_SceneManager : MonoBehaviour
             }
         }
 
-        if (start)
+        if (start && !QuestManager.Instance.quests[3].goal.IsReached())
         {
-            // FADE OUT일때 화면 검게하기
-            if (FADEOUT)
-            {
-                fadeOutImage.gameObject.SetActive(true);
-                alphaC += Time.deltaTime * fadeSpeed;
-                if (alphaC >= 1f)
-                {
-                    alphaC = 1;
-
-                    // 완전히 까매지면 
-                    // Scene 바꾸기
-                    SceneManager.LoadScene(1);
-                }
-            }
-            else
-            {
-                alphaC -= Time.deltaTime * fadeSpeed;
-                if (alphaC <= 0)
-                {
-                    alphaC = 0;
-                    fadeOutImage.gameObject.SetActive(false);
-                }
-            }
-
-            // 화면 암막 색상
-            fadeOutImage.color = new Color(0, 0, 0, alphaC);
+            FadeOutStart();
         }
 
-        if (QuestManager.Instance.quests[3].goal.IsReached())
+        else if (QuestManager.Instance.quests[3].goal.IsReached())
+        {
+            StartCoroutine(FinishGame());
+        }
+    }
+
+    void FadeOutStart()
+    {
+
+        // FADE OUT일때 화면 검게하기
+        if (FADEOUT)
         {
             fadeOutImage.gameObject.SetActive(true);
             alphaC += Time.deltaTime * fadeSpeed;
-            if (alphaC >= 0.5f) alphaC = 0.5f;
+            if (alphaC >= 1f)
+            {
+                alphaC = 1;
+
+                // 완전히 까매지면 
+                // Scene 바꾸기
+                SceneManager.LoadScene(1);
+            }
+        }
+        else
+        {
+            alphaC -= Time.deltaTime * fadeSpeed;
+            if (alphaC <= 0)
+            {
+                alphaC = 0;
+                fadeOutImage.gameObject.SetActive(false);
+            }
+        }
+
+        // 화면 암막 색상
+        fadeOutImage.color = new Color(0, 0, 0, alphaC);
+    }
+
+    // 게임 엔딩씬을 만들고 싶다
+    IEnumerator FinishGame()
+    {
+        if (!IsGameFinished)
+        {
+            yield return new WaitForSecondsRealtime(1.0f);
+            // 약간의 슬로우 모션 효과를 부여
+            Time.timeScale = 1.0f;
+            // 3초간의 지연시간을 통해 슬로우 모션을 플레이어가 체감할 수 있도록 함.
+            yield return new WaitForSecondsRealtime(1.8f);
+
+            fadeOutImage.gameObject.SetActive(true);
+            fadeOutImage.color = new Color(0, 0, 0, alphaC);
             enndingText.SetActive(true);
+            //iTween.ScaleTo(restartButton, iTween.Hash("scale", Vector3.one, "time", 1.0f, "easetype", iTween.EaseType.easeInOutBack));
+            //iTween.ScaleTo(exitButton, iTween.Hash("scale", Vector3.one, "time", 1.0f, "easetype", iTween.EaseType.easeInOutBack));
+            restartButton.SetActive(true);
+            exitButton.SetActive(true);
+            alphaC += Time.deltaTime * fadeSpeed;
+            if (alphaC >= 0.5f)
+            {
+                alphaC = 0.5f;
+                Time.timeScale = 1.0f;
+            }
+
+            IsGameFinished = true;
+
+            yield return null;
         }
     }
+
+    public void OnClickRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("OnClickRestart");
+    }
+
+    public void OnClickEnding()
+    {
+        Application.Quit();
+        Debug.Log("OnClickEnding");
+    }
+
+    void ButtonAnim()
+    {
+
+
+
+        //iTween.ScaleTo(
+        //   exitButton,
+        //   iTween.Hash(
+        //       "scale", Vector3.one,
+        //       "time", 0.5f,
+        //       "easetype", iTween.EaseType.easeInOutBack
+        //       )
+        //   );
+    }
+
+
 }
