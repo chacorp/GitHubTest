@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CSH_Firetorch : MonoBehaviour
 {
+    [Header("Object Properties")]
     // 불꽃 오브젝트
     public GameObject flame;
 
@@ -22,12 +24,26 @@ public class CSH_Firetorch : MonoBehaviour
     // 불꽃 발사!!!!!
     public bool flameOn = false;
     float timer;
+
+    // 토치 UI
+    [System.Serializable]
+    public class torch_UI
+    {
+        [Header("UI Properties")]
+        public Text totalAmmo;
+        public Text currentAmmo;
+    }
+    public torch_UI torchUI;
+
+    float ammoTime;
+    float ammo = 100f;
+
+
     void Start()
     {
         flame.SetActive(false);
 
         torchSound = GetComponent<AudioSource>();
-        
     }
 
 
@@ -40,7 +56,7 @@ public class CSH_Firetorch : MonoBehaviour
 #if VR_MODE
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) && !CSH_ItemGrab.Instance.hasItem)
 #elif EDITOR_MODE
-        if (Input.GetMouseButtonDown(0) && !CSH_ItemGrab.Instance.hasItem)
+        if (Input.GetMouseButtonDown(0) && !CSH_ItemGrab.Instance.hasItem && ammo > 0)
 #endif
         {
             // 불 뿜기 / 안 뿜기
@@ -58,9 +74,16 @@ public class CSH_Firetorch : MonoBehaviour
 
             // B. 소리 점점 키우기
             torchVolume += Time.deltaTime;
-            if(torchVolume >= 0.5f)
+            if (torchVolume >= 0.5f)
             {
                 torchVolume = 0.5f;
+            }
+
+            // 연료가 없다면 불 X
+            if (ammo <= 0)
+            {
+                flameOn = false;
+                return;
             }
 
             // C. 불꽃 키우기
@@ -68,6 +91,17 @@ public class CSH_Firetorch : MonoBehaviour
             if (flameControl.flameSize >= maxFlameSize)
             {
                 flameControl.flameSize = maxFlameSize;
+            }
+
+
+
+            // D. 연료 소비하기
+            ammoTime += Time.deltaTime;
+            if (ammoTime > 0.2f)
+            {
+                ammo--;
+                torchUI.currentAmmo.text = ammo.ToString();
+                ammoTime = 0;
             }
         }
 
@@ -92,7 +126,7 @@ public class CSH_Firetorch : MonoBehaviour
                 if (flame.activeSelf)
                 {
                     timer += Time.deltaTime;
-                    if (timer >= 0.8f)
+                    if (timer >= 0.75f)
                     {
                         // A. 불꽃 끄기
                         flame.SetActive(false);

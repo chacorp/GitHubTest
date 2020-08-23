@@ -17,6 +17,8 @@ public class CSH_ModeChange : MonoBehaviour
     public Transform leftControllerAnchor;
     public Transform rightControllerAnchor;
 
+    public Transform crossHair_R;
+
     [Header("Editor")] // ----------------------------< VR 사용시 비활성화 >
     public GameObject mainCamera;
 
@@ -25,6 +27,8 @@ public class CSH_ModeChange : MonoBehaviour
     public Transform itemGrab;
     public Transform Holder;
     public Transform playerInventroy;
+
+    public Transform inventory_UICanvas;
 
     private void Awake()
     {
@@ -54,6 +58,8 @@ public class CSH_ModeChange : MonoBehaviour
         Holder.position = rightControllerAnchor.position;
         Holder.SetParent(rightControllerAnchor);
 
+        inventory_UICanvas.SetParent(crossHair_R);
+
 #elif EDITOR_MODE
         // OVRCamera 비활성화
         OVRCamera.SetActive(false);
@@ -64,6 +70,10 @@ public class CSH_ModeChange : MonoBehaviour
         itemGrab.SetParent(mainCamera.transform);
         Holder.SetParent(mainCamera.transform);
         playerInventroy.SetParent(mainCamera.transform);
+
+
+        inventory_UICanvas.SetParent(mainCamera.transform);
+        inventory_UICanvas.localPosition = new Vector3(0, 0, 10f);
 #endif
     }
 }

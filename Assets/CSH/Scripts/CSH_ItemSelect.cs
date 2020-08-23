@@ -54,9 +54,15 @@ public class CSH_ItemSelect : MonoBehaviour
         }
         else
         {
+#if VR_MODE
             // 일반 아이템 외곽선 = 노란색
             outliner.OutlineColor = new Color(1f, 1f, 0f);
             outliner.OutlineWidth = 8f;
+#elif EDITOR_MODE
+            // 특수 아이템 외곽선 = 초록색
+            outliner.OutlineColor = new Color(0.3f, 1f, 0.3f);
+            outliner.OutlineWidth = 8f;
+#endif
         }
 
         // 아웃라인은 기본으로 꺼놓기
@@ -117,7 +123,14 @@ public class CSH_ItemSelect : MonoBehaviour
         // => 이렇게 하는 이유는 다른 물체에 겹쳐서 안보이는 걸 방지하기 위함
         if (isGrabed)
         {
-            gameObject.layer = LayerMask.NameToLayer("Weapon");
+            if (CSH_UIManager.Instance.CSH_QM.showQM)
+            {
+                gameObject.layer = itemLayerMask;
+            }
+            else
+            {
+                gameObject.layer = LayerMask.NameToLayer("Weapon");
+            }
         }
         else
         {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 // ========================================================================
 // 키패드 1, 2, 3, 4, 5 를 누르면 
@@ -8,7 +9,7 @@
 
 public class CSH_QuickMenu : MonoBehaviour
 {
-
+    [Header("QuickMenu Properties")]
     // 퀵 메뉴 보여줄 속도
     public float moveSpeed = 1000f;
 
@@ -24,6 +25,7 @@ public class CSH_QuickMenu : MonoBehaviour
     // UI 현재 위치
     float Ypos_D;
 
+
     // 타이머
     float timer;
     public float SetTimer
@@ -38,6 +40,12 @@ public class CSH_QuickMenu : MonoBehaviour
     public bool stayQM;
     public bool showQM;
 
+    [Header("Showing icons on QuickMenu")]
+    public Transform QM_icons;
+    public Transform grabedItem_icons;
+
+    public int grabeditem_Count = 0;
+
     void Start()
     {
         // 퀵 메뉴 보여주기
@@ -49,6 +57,8 @@ public class CSH_QuickMenu : MonoBehaviour
         // 시작하면서 퀵 메뉴 올려놓기
         QM_RT.anchoredPosition = new Vector2(QM_RT.anchoredPosition.x, Ypos);
         showQM = true;
+
+        QM_icons.gameObject.SetActive(false);
     }
 
     void Show_QuickMenu()
@@ -94,6 +104,51 @@ public class CSH_QuickMenu : MonoBehaviour
         }
     }
 
+
+    private void Show_Icon()
+    {
+        // QM이 알고 있는 아이템의 갯수와    실제 플레이어가 획득한 아이콘의 갯수가 다르다면,
+        //             = 플레이어가 아이템을 획득했다!
+        //                                 +
+        //                      퀵메뉴 칸의 갯수보다 작다면
+        if (grabeditem_Count < grabedItem_icons.childCount && grabeditem_Count < 5)
+        {
+            // 플레이어가 획득한 아이콘 의 트랜스폼을 가져온다.
+            Transform item = grabedItem_icons.GetChild(grabeditem_Count);
+
+            // QM의 자식들 중에서 가져온 이름과 같은 것을 찾아서 활성화한다
+            for (int i = 0; i < QM_icons.childCount; i++)
+            {
+                if (QM_icons.GetChild(i).name == item.name)
+                {
+                    // 해당하는 오브젝트를 가져오고
+                    GameObject QMicon = QM_icons.GetChild(i).gameObject;
+
+                    // 아이콘을 옮겨놓을 위치의 좌표
+                    RectTransform BTNpos = QM_RT.GetChild(grabeditem_Count).GetComponent<RectTransform>();
+
+                    // 옮길 아이콘의 좌표
+                    RectTransform QM_Ipos = QMicon.GetComponent<RectTransform>();
+
+                    Debug.Log(BTNpos.name + " :: " );
+
+                    // 둘다 가져올 수 있다면
+                    if (BTNpos && QM_Ipos)
+                    {
+                        QM_Ipos.SetParent(BTNpos);
+                        QM_Ipos.sizeDelta     = new Vector2(100f, 100f);
+                        QM_Ipos.localPosition = new Vector2(0, 50);
+                        QM_Ipos.localRotation = BTNpos.localRotation;
+                        QM_Ipos.localScale    = BTNpos.localScale;
+                    }
+
+                    grabeditem_Count++;
+
+                    QMicon.SetActive(true);
+                }
+            }
+        }
+    }
     void Update()
     {
         // 1,2,3,4,5 중에 하나라도 누르면
@@ -105,5 +160,7 @@ public class CSH_QuickMenu : MonoBehaviour
 
         // 퀵 메뉴 보여주기
         Show_QuickMenu();
+
+        Show_Icon();
     }
 }

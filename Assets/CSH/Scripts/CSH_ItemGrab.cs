@@ -70,8 +70,12 @@ public class CSH_ItemGrab : MonoBehaviour
     // 스크립트 가져옴
     public CSH_ItemSwitch itemSwitch;
 
+#if EDITOR_MODE
+    public FirstPersonController fpcController;
+#elif VR_MODE
+#endif
 
-    //public FirstPersonController fpcController;
+
     public HandgunScriptLPFP handGun;
     public CSH_Firetorch CSH_FT;
     public ClipboardAttack ClipA;
@@ -114,9 +118,6 @@ public class CSH_ItemGrab : MonoBehaviour
 
     void Grab_item()
     {
-
-
-
         // [특수 템] 잡기 --------------------------------------------------< 플레이어가 다 갖고 있다가 활성화하는 방식!>
         if (grabing_R)
         {
@@ -161,7 +162,7 @@ public class CSH_ItemGrab : MonoBehaviour
             // 선택한 아이템의 아이콘 속 RectTransform 가져오기
             RectTransform selectedIcon = selectedItem_R.transform.GetComponentInChildren<RectTransform>();
 
-            
+
 
 
             // 4. 부모 옮기고 위치와 크기 맞추기
@@ -333,9 +334,10 @@ public class CSH_ItemGrab : MonoBehaviour
         // 현재 [아이템]이 없다면, 
         else
         {
-            // 가리키는 [아이템]이 있다면 + 충분히 가깝다면, 텍스트 보여주기
+            // 충분히 가깝고
             if (CSH_RayManager.Instance.isNear)
             {
+                // 가리키는[아이템]이 있다 = 텍스트 보여주기
                 if (pointingItem_R || pointingItem_L)
                 {
                     // [E] 안내문 켜기
@@ -345,7 +347,7 @@ public class CSH_ItemGrab : MonoBehaviour
                     Looking.SetActive(false);
                 }
 
-                // 가리키는 [아이템]이 없다면, 텍스트 가리기
+                // 가리키는 [아이템]이 없다 = 텍스트 가리기
                 else
                 {
                     // [E] 안내문 끄기
@@ -354,6 +356,16 @@ public class CSH_ItemGrab : MonoBehaviour
                     // 살펴보기 안내문 끄기
                     Looking.SetActive(false);
                 }
+            }
+            // 충분히 가깝지 않다!
+            else
+            {
+                // [E] 안내문 끄기
+                pressE.SetActive(false);
+
+                // 살펴보기 안내문 끄기
+                Looking.SetActive(false);
+
             }
         }
     }
@@ -364,10 +376,10 @@ public class CSH_ItemGrab : MonoBehaviour
         Show_PressE();
 
         // -------------------------------------------------------------------------------< [E] 키를 눌러 아이템 눈 앞으로 가져오기 >
-        // 1. 현재 가리키는 아이템이 있고    현재 아이템을 잡고 있지 않고   
+        // 1. 현재 가리키는 [아이템]이 있고   +  현재 [아이템]을 잡고 있지 않다면   
         if (!hasItem)
         {
-            // 갖고 있는 무기 공격 못하게 만들기
+            // A. 갖고 있는 무기 공격 못하게 만들기
             if (handGun)
                 handGun.enabled = true;
 
@@ -384,7 +396,9 @@ public class CSH_ItemGrab : MonoBehaviour
             if (ClipA)
                 ClipA.enabled = true;
 
-            // 오른손으로 가리키는 물체
+
+
+            // B. 오른손으로 가리키는 물체
             if (pointingItem_R != null && CSH_RayManager.Instance.isNear)
             {
                 // 2. [E] 키를 눌러서 아이템 가져오기    ||    오른손 VR 컨트롤러 중지 버튼
@@ -401,7 +415,7 @@ public class CSH_ItemGrab : MonoBehaviour
                 }
             }
 
-            // 왼손으로 가리키는 물체
+            // C. 왼손으로 가리키는 물체
             if (pointingItem_L != null && CSH_RayManager.Instance.isNear)
             {
                 // 2. [E] 키를 눌러서 아이템 가져오기    ||    오른손 VR 컨트롤러 중지 버튼
@@ -418,7 +432,7 @@ public class CSH_ItemGrab : MonoBehaviour
                 }
             }
 
-            // 잡기 함수 실행!
+            // D. 잡기 함수 실행!
             Grab_item();
         }
 
@@ -450,26 +464,31 @@ public class CSH_ItemGrab : MonoBehaviour
 
 
             // -------------------------------------< 마우스 우클릭을 한 채로 움직이면 아이템 회전하기 >
-            // 1. 마우스 우클릭을 지속하는 중이고     ||     왼손 VR 중지 버튼
+            // 1. 마우스 우클릭을 지속하는 중이고
 #if EDITOR_MODE
             if (Input.GetMouseButton(1))
-#elif VR_MODE
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
-#endif
             {
                 // 2. 마우스를 움직이면 아이템 회전하기
                 Spin_item();
 
                 // 3. 마우스 우클릭 중엔 카메라 회전 안하기
-                // if (fpcController != null)
-                // fpcController.hasGrabed = true;
+                if (fpcController != null)
+                    fpcController.hasGrabed = true;
             }
+            // 4. 마우스 우클릭 떼면 카메라 회전하기
             else
             {
-                // 3. 마우스 우클릭 중엔 카메라 회전 안하기
-                // if (fpcController != null)
-                //  fpcController.hasGrabed = false;
+                if (fpcController != null)
+                    fpcController.hasGrabed = false;
             }
+#elif VR_MODE
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
+            {
+                // 2. 왼손 VR 중지 버튼을 누른 상태라면,
+                Spin_item();
+            }
+#endif
+
 
             // -------------------------------------< 마우스 좌클릭을 하면 아이템 던져버리기!! >
             // 1. 마우스 좌클릭을 했다면,

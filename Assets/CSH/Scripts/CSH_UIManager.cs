@@ -28,7 +28,7 @@ public class CSH_UIManager : MonoBehaviour
     public Transform item_icons;
 
     // 퀵메뉴판
-    CSH_QuickMenu CSH_QM;
+    public CSH_QuickMenu CSH_QM;
 
     // 커서 조준점
     public GameObject CursorUI;
