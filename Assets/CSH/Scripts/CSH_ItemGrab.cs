@@ -472,15 +472,15 @@ public class CSH_ItemGrab : MonoBehaviour
                 Spin_item();
 
                 // 3. 마우스 우클릭 중엔 카메라 회전 안하기
-                if (fpcController != null)
-                    fpcController.hasGrabed = true;
+                //if (fpcController != null)
+                //    fpcController.hasGrabed = true;
             }
             // 4. 마우스 우클릭 떼면 카메라 회전하기
-            else
-            {
-                if (fpcController != null)
-                    fpcController.hasGrabed = false;
-            }
+            //else
+            //{
+            //    if (fpcController != null)
+            //        fpcController.hasGrabed = false;
+            //}
 #elif VR_MODE
             if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
             {
