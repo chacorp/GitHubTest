@@ -161,10 +161,10 @@ public class MoveObjectController : MonoBehaviour
     private void setupGui()
     {
         guiStyle = new GUIStyle();
-        guiStyle.fontSize = 20;
+        guiStyle.fontSize = 30;
         guiStyle.fontStyle = FontStyle.Bold;
         guiStyle.normal.textColor = Color.white;
-        msg = "왼쪽 HandTrigger 누르기";
+        msg = "E 버튼 누르기";
     }
 
     private string getGuiMsg(bool isOpen)
@@ -172,11 +172,11 @@ public class MoveObjectController : MonoBehaviour
         string rtnVal;
         if (isOpen)
         {
-            rtnVal = "왼쪽 HandTrigger 눌러서 닫기";
+            rtnVal = "E 버튼 눌러서 닫기";
         }
         else
         {
-            rtnVal = "왼쪽 HandTrigger 눌러서 열기";
+            rtnVal = "E 버튼 눌러서 열기";
         }
 
         return rtnVal;
@@ -186,7 +186,7 @@ public class MoveObjectController : MonoBehaviour
     {
         if (showInteractMsg)  //show on-screen prompts to user for guide.
         {
-            GUI.Label(new Rect(800, Screen.height - 100, 200, 50), msg, guiStyle);
+            GUI.Label(new Rect(800, Screen.height - 120, 200, 50), msg, guiStyle);
         }
     }
     //End of GUI Config --------------

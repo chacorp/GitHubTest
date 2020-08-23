@@ -56,7 +56,8 @@ public class QuestManager : MonoBehaviour
             checkmarks[3].SetActive(true);
 
         }
-        amountText.text = quests[3].goal.currentAmount.ToString($"{quests[3].goal.currentAmount}마리 처치");
+        amountText.text = quests[3].goal.currentAmount.ToString("0" + "마리 처치");
+
     }
 
     void ShowingQuest(Quest quest, int index)

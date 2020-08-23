@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] ObjectManager obMgr;
     [SerializeField] Transform[] spawnPoints;
 
-
+    private bool isSpawnEnemy = false;
 
     private void Awake()
     {
@@ -31,6 +31,8 @@ public class EnemyManager : MonoBehaviour
     {
         if (obMgr.enemyObjectPools[0].Count == 3 && obMgr.enemyObjectPools[1].Count == 3)
         {
+            isSpawnEnemy = false;
+
             if (!QuestManager.Instance.quests[3].goal.IsReached())
             {
                 StartCoroutine(CreateEnemy());
@@ -44,35 +46,40 @@ public class EnemyManager : MonoBehaviour
 
     IEnumerator CreateEnemy()
     {
-        List<Transform> spawnPosition = new List<Transform>();
-        foreach (Transform point in spawnPoints)
+        if (!isSpawnEnemy)
         {
-            spawnPosition.Add(point);
+
+            List<Transform> spawnPosition = new List<Transform>();
+            foreach (Transform point in spawnPoints)
+            {
+                spawnPosition.Add(point);
+            }
+
+            yield return new WaitForFixedUpdate();
+
+            for (int i = 0; i < obMgr.poolSize; i++)
+            {
+                GameObject enemyType1 = obMgr.GetObject(obMgr.enemyObjectPools[0]);
+
+                int randNum = Random.Range(0, spawnPosition.Count);
+                enemyType1.transform.position = spawnPosition[randNum].position;
+
+                spawnPosition.RemoveAt(randNum);
+            }
+
+            for (int i = 0; i < obMgr.poolSize; i++)
+            {
+                GameObject enemyType2 = obMgr.GetObject(obMgr.enemyObjectPools[1]);
+
+                int randNum = Random.Range(0, spawnPosition.Count);
+                enemyType2.transform.position = spawnPosition[randNum].position;
+
+                spawnPosition.RemoveAt(randNum);
+            }
+
+            isSpawnEnemy = true;
+            yield return new WaitForFixedUpdate();
         }
-
-        yield return new WaitForFixedUpdate();
-
-        for (int i = 0; i < obMgr.poolSize; i++)
-        {
-            GameObject enemyType1 = obMgr.GetObject(obMgr.enemyObjectPools[0]);
-
-            int randNum = Random.Range(0, spawnPosition.Count);
-            enemyType1.transform.position = spawnPosition[randNum].position;
-
-            spawnPosition.RemoveAt(randNum);
-        }
-
-        for (int i = 0; i < obMgr.poolSize; i++)
-        {
-            GameObject enemyType2 = obMgr.GetObject(obMgr.enemyObjectPools[1]);
-
-            int randNum = Random.Range(0, spawnPosition.Count);
-            enemyType2.transform.position = spawnPosition[randNum].position;
-
-            spawnPosition.RemoveAt(randNum);
-        }
-
-        yield return new WaitForFixedUpdate();
     }
 
     //IEnumerator CreateEnemy2()

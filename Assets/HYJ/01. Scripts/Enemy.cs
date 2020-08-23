@@ -151,7 +151,7 @@ public class Enemy : MonoBehaviour
         {
             state = EnemyState.ReMove;
             ReSettingDestination();
-            isBleeding = false;
+            //isBleeding = false;
         };
     }
 
