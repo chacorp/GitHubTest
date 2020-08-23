@@ -259,7 +259,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            // if (hasGrabed) return;
+            if (CSH_ItemGrab.Instance.hasItem && Input.GetMouseButton(1)) return;
+            else if (QuestManager.Instance.quests[3].goal.IsReached())
+            {
+                float currentTime = 0;
+                currentTime += Time.realtimeSinceStartup;
+                if (currentTime >= 2.5f) return;
+
+            }
             m_MouseLook.LookRotation(transform, m_Camera.transform);
         }
 
