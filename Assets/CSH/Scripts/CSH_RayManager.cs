@@ -49,46 +49,35 @@ public class CSH_RayManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         crossHairSize = crossHair_R.localScale * crossHairScale;
         // 카메라 가져오기
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 #if VR_MODE
         Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
->>>>>>> parent of f94817f... 빌드 수정
+
 
 #endif
         crossHair_L.gameObject.SetActive(false);
-<<<<<<< HEAD
+
         Cam = Camera.main.GetComponent<Camera>();
-=======
+
 #if VR_MODE
         Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
 #elif EDITOR_MODE
         crossHair_L.gameObject.SetActive(false);
         Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
 #endif
->>>>>>> parent of 2cb4815... 빌드 세팅 수정
-=======
+
         Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
->>>>>>> parent of f94817f... 빌드 수정
+
     }
 
     // 왼손 트리거의 조준점
     private void RayManager_L()
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
 #if VR_MODE
         Ray ray = new Ray(CSH_ModeChange.Instance.leftControllerAnchor.position, CSH_ModeChange.Instance.leftControllerAnchor.forward * rayLength);
 #elif EDITOR_MODE
->>>>>>> parent of 2cb4815... 빌드 세팅 수정
-=======
-#if VR_MODE
-        Ray ray = new Ray(CSH_ModeChange.Instance.leftControllerAnchor.position, CSH_ModeChange.Instance.leftControllerAnchor.forward * rayLength);
-#elif  UNITY_STANDALONE_WIN
->>>>>>> parent of f94817f... 빌드 수정
+
         Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
 #endif
         RaycastHit hit_L;
@@ -141,19 +130,11 @@ public class CSH_RayManager : MonoBehaviour
     private void RayManager_R()
     {
         // 플레이어 카메라가 보는 방향으로 레이 쏘기
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
 #if VR_MODE
         Ray ray = new Ray(CSH_ModeChange.Instance.rightControllerAnchor.position, CSH_ModeChange.Instance.rightControllerAnchor.forward * rayLength);
 #elif EDITOR_MODE
->>>>>>> parent of 2cb4815... 빌드 세팅 수정
-=======
-#if VR_MODE
-        Ray ray = new Ray(CSH_ModeChange.Instance.rightControllerAnchor.position, CSH_ModeChange.Instance.rightControllerAnchor.forward * rayLength);
-#elif  UNITY_STANDALONE_WIN
->>>>>>> parent of f94817f... 빌드 수정
+
         Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
 #endif
         RaycastHit hit;
