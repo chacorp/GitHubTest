@@ -98,11 +98,8 @@ public class MoveObjectController : MonoBehaviour
 
                     bool isOpen = anim.GetBool(animBoolNameNum);    //need current state for message.
                     msg = getGuiMsg(isOpen);
-#if EDITOR_MODE
+
                     if (Input.GetKeyUp(KeyCode.E))
-#elif VR_MODE
-                    if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
-#endif
                     {
                         anim.SetBool(animBoolNameNum, !isOpen);
                         msg = getGuiMsg(!isOpen);
