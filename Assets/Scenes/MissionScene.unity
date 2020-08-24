@@ -1283,8 +1283,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnFx: {fileID: 2115120723}
-  hoverFX: {fileID: 0}
-  clickFX: {fileID: 0}
+  hoverFX: {fileID: 8300000, guid: b1b2032f4325acb4cb4577ce19882dac, type: 3}
+  clickFX: {fileID: 8300000, guid: 29a0786d67fdec04b87f6ba3d0da3859, type: 3}
+  restartButton: {fileID: 0}
 --- !u!114 &2115120722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1313,7 +1314,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 1
+  - eventID: 2
     callback:
       m_PersistentCalls:
         m_Calls:
