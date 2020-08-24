@@ -1217,7 +1217,7 @@ MonoBehaviour:
   distanceLimit: 2
   raycastHitObject_R: {fileID: 0}
   raycastHitObject_L: {fileID: 0}
-  player: {fileID: 344192079}
+  player: {fileID: 0}
   isNear: 0
   crossHair_R: {fileID: 1327159529}
   crossHair_L: {fileID: 1226857497}

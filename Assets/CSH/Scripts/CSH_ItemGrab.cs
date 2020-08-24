@@ -259,6 +259,10 @@ public class CSH_ItemGrab : MonoBehaviour
 
     void Spin_item()
     {
+<<<<<<< HEAD
+=======
+#if EDITOR_MODE
+>>>>>>> parent of 2cb4815... 빌드 세팅 수정
         // 마우스 인풋 가져오기
         float mx = Input.GetAxis("Mouse X");
         float my = Input.GetAxis("Mouse Y");

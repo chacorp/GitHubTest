@@ -46,20 +46,33 @@ public class CSH_RayManager : MonoBehaviour
 
     private void Awake()
     {
-        if (player == null)
-        { player = GameObject.FindGameObjectWithTag("Player"); }
-
+        player = GameObject.FindGameObjectWithTag("Player");
         crossHairSize = crossHair_R.localScale * crossHairScale;
         // 카메라 가져오기
+<<<<<<< HEAD
 
         crossHair_L.gameObject.SetActive(false);
         Cam = Camera.main.GetComponent<Camera>();
+=======
+#if VR_MODE
+        Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
+#elif EDITOR_MODE
+        crossHair_L.gameObject.SetActive(false);
+        Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
+#endif
+>>>>>>> parent of 2cb4815... 빌드 세팅 수정
     }
 
     // 왼손 트리거의 조준점
     private void RayManager_L()
     {
+<<<<<<< HEAD
 
+=======
+#if VR_MODE
+        Ray ray = new Ray(CSH_ModeChange.Instance.leftControllerAnchor.position, CSH_ModeChange.Instance.leftControllerAnchor.forward * rayLength);
+#elif EDITOR_MODE
+>>>>>>> parent of 2cb4815... 빌드 세팅 수정
         Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
 
         RaycastHit hit_L;
@@ -112,7 +125,13 @@ public class CSH_RayManager : MonoBehaviour
     private void RayManager_R()
     {
         // 플레이어 카메라가 보는 방향으로 레이 쏘기
+<<<<<<< HEAD
 
+=======
+#if VR_MODE
+        Ray ray = new Ray(CSH_ModeChange.Instance.rightControllerAnchor.position, CSH_ModeChange.Instance.rightControllerAnchor.forward * rayLength);
+#elif EDITOR_MODE
+>>>>>>> parent of 2cb4815... 빌드 세팅 수정
         Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
 
         RaycastHit hit;

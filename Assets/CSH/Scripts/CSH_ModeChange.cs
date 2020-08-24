@@ -32,6 +32,38 @@ public class CSH_ModeChange : MonoBehaviour
 
     private void Awake()
     {
+<<<<<<< HEAD
+=======
+#if VR_MODE
+        // OVRCamera 활성화
+        OVRCamera.SetActive(true);
+
+        // Editor의 MainCamera 비활성화
+        mainCamera.SetActive(false);
+
+
+        // 위치 이동
+        // 카메라
+        WeaponCamera.position = centerEyeAnchor.position;
+        WeaponCamera.SetParent(centerEyeAnchor);
+        // VR에선 카메라 두개 운용이 안되는 듯!
+        WeaponCamera.gameObject.SetActive(false);
+
+        playerInventroy.position = centerEyeAnchor.position;
+        playerInventroy.SetParent(centerEyeAnchor);
+        
+        // 왼손
+        itemGrab.position = leftControllerAnchor.position;
+        itemGrab.SetParent(leftControllerAnchor);
+
+        // 오른손
+        Holder.position = rightControllerAnchor.position;
+        Holder.SetParent(rightControllerAnchor);
+
+        inventory_UICanvas.SetParent(crossHair_R);
+
+#elif EDITOR_MODE
+>>>>>>> parent of 2cb4815... 빌드 세팅 수정
         // OVRCamera 비활성화
         OVRCamera.SetActive(false);
         // EditorCamera 활성화
@@ -45,5 +77,6 @@ public class CSH_ModeChange : MonoBehaviour
 
         inventory_UICanvas.SetParent(mainCamera.transform);
         inventory_UICanvas.localPosition = new Vector3(0, 0, 10f);
+#endif
     }
 }
