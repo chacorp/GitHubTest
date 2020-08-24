@@ -54,11 +54,15 @@ public class CSH_ItemSelect : MonoBehaviour
         }
         else
         {
-
+#if VR_MODE
+            // 일반 아이템 외곽선 = 노란색
+            outliner.OutlineColor = new Color(1f, 1f, 0f);
+            outliner.OutlineWidth = 8f;
+#elif EDITOR_MODE
             // 특수 아이템 외곽선 = 초록색
             outliner.OutlineColor = new Color(0.3f, 1f, 0.3f);
             outliner.OutlineWidth = 8f;
-
+#endif
         }
 
         // 아웃라인은 기본으로 꺼놓기

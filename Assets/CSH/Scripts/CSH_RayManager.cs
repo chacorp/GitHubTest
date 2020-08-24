@@ -50,8 +50,15 @@ public class CSH_RayManager : MonoBehaviour
         crossHairSize = crossHair_R.localScale * crossHairScale;
         // 카메라 가져오기
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#if VR_MODE
+        Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
+>>>>>>> parent of f94817f... 빌드 수정
 
+#endif
         crossHair_L.gameObject.SetActive(false);
+<<<<<<< HEAD
         Cam = Camera.main.GetComponent<Camera>();
 =======
 #if VR_MODE
@@ -61,11 +68,15 @@ public class CSH_RayManager : MonoBehaviour
         Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
 #endif
 >>>>>>> parent of 2cb4815... 빌드 세팅 수정
+=======
+        Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
+>>>>>>> parent of f94817f... 빌드 수정
     }
 
     // 왼손 트리거의 조준점
     private void RayManager_L()
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 =======
@@ -73,8 +84,13 @@ public class CSH_RayManager : MonoBehaviour
         Ray ray = new Ray(CSH_ModeChange.Instance.leftControllerAnchor.position, CSH_ModeChange.Instance.leftControllerAnchor.forward * rayLength);
 #elif EDITOR_MODE
 >>>>>>> parent of 2cb4815... 빌드 세팅 수정
+=======
+#if VR_MODE
+        Ray ray = new Ray(CSH_ModeChange.Instance.leftControllerAnchor.position, CSH_ModeChange.Instance.leftControllerAnchor.forward * rayLength);
+#elif  UNITY_STANDALONE_WIN
+>>>>>>> parent of f94817f... 빌드 수정
         Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
-
+#endif
         RaycastHit hit_L;
 
         // 레이어 마스크             crossHair 레이어                       플레이어의 레이어                  플레이어가 갖고 있는 무기의 레이어
@@ -126,14 +142,20 @@ public class CSH_RayManager : MonoBehaviour
     {
         // 플레이어 카메라가 보는 방향으로 레이 쏘기
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 #if VR_MODE
         Ray ray = new Ray(CSH_ModeChange.Instance.rightControllerAnchor.position, CSH_ModeChange.Instance.rightControllerAnchor.forward * rayLength);
 #elif EDITOR_MODE
 >>>>>>> parent of 2cb4815... 빌드 세팅 수정
+=======
+#if VR_MODE
+        Ray ray = new Ray(CSH_ModeChange.Instance.rightControllerAnchor.position, CSH_ModeChange.Instance.rightControllerAnchor.forward * rayLength);
+#elif  UNITY_STANDALONE_WIN
+>>>>>>> parent of f94817f... 빌드 수정
         Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
-
+#endif
         RaycastHit hit;
 
         // 레이어 마스크             crossHair 레이어                       플레이어의 레이어                  플레이어가 갖고 있는 무기의 레이어
@@ -181,11 +203,22 @@ public class CSH_RayManager : MonoBehaviour
         }
     }
 
+#if VR_MODE
+#elif EDITOR_MODE
+    // 에디터에서 Ray 그리기
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.magenta;
+    //    //Ray ray = new Ray(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0f)), Camera.main.transform.forward * rayLength);
+    //    Gizmos.DrawRay(Cam.transform.position, Cam.transform.forward * rayLength);
+    //}
+#endif
+
     void Update()
     {
         //Ray 관련 모든 것
         RayManager_R();
-        // RayManager_L();
+        RayManager_L();
     }
 
 }

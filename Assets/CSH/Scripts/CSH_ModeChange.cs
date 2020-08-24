@@ -33,7 +33,10 @@ public class CSH_ModeChange : MonoBehaviour
     private void Awake()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of f94817f... 빌드 수정
 #if VR_MODE
         // OVRCamera 활성화
         OVRCamera.SetActive(true);
@@ -61,9 +64,15 @@ public class CSH_ModeChange : MonoBehaviour
         Holder.SetParent(rightControllerAnchor);
 
         inventory_UICanvas.SetParent(crossHair_R);
+<<<<<<< HEAD
 
 #elif EDITOR_MODE
 >>>>>>> parent of 2cb4815... 빌드 세팅 수정
+=======
+#endif
+
+
+>>>>>>> parent of f94817f... 빌드 수정
         // OVRCamera 비활성화
         OVRCamera.SetActive(false);
         // EditorCamera 활성화

@@ -43,16 +43,21 @@ public class ClipboardAttack : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
+#if EDITOR_MODE
         if (Input.GetMouseButtonDown(0) && !isSwinging && clipboard.activeSelf && !QuestManager.Instance.quests[3].goal.IsReached())
+#elif VR_MODE
+        if (OVRInput.GetDown(iTrigger_R) && !isSwinging && clipboard.activeSelf)
+#endif
         {
             isSwinging = true;
 
             clipboardAudio = GetComponentInChildren<AudioSource>();// ----- 추가
             clipboardAudio.PlayOneShot(swingSound);
-
+#if EDITOR_MODE
             ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-
+#elif VR_MODE
+            ray = new Ray(rightControllerAnchor.position, rightControllerAnchor.forward);
+#endif
             int layer = LayerMask.NameToLayer("Player");
             layer = 1 << layer;
 

@@ -70,7 +70,10 @@ public class CSH_ItemGrab : MonoBehaviour
     // 스크립트 가져옴
     public CSH_ItemSwitch itemSwitch;
 
-
+#if EDITOR_MODE
+    public FirstPersonController fpcController;
+#elif VR_MODE
+#endif
 
 
     public HandgunScriptLPFP handGun;
@@ -88,6 +91,12 @@ public class CSH_ItemGrab : MonoBehaviour
     bool grabing_R;
     bool grabing_L;
 
+#if EDITOR_MODE
+#elif VR_MODE
+    // VR에서 던질때 위치
+    Vector3 afterPos;
+    Vector3 beforePos;
+#endif
 
     private void Start()
     {
@@ -167,7 +176,7 @@ public class CSH_ItemGrab : MonoBehaviour
                 {
                     selectedIcon.localPosition = iconBoxRT.localPosition;
                     selectedIcon.localRotation = iconBoxRT.localRotation;
-                    selectedIcon.localScale = iconBoxRT.localScale;
+                    selectedIcon.localScale    = iconBoxRT.localScale;
                 }
             }
 
@@ -260,13 +269,23 @@ public class CSH_ItemGrab : MonoBehaviour
     void Spin_item()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #if EDITOR_MODE
 >>>>>>> parent of 2cb4815... 빌드 세팅 수정
+=======
+#if  UNITY_STANDALONE_WIN
+>>>>>>> parent of f94817f... 빌드 수정
         // 마우스 인풋 가져오기
         float mx = Input.GetAxis("Mouse X");
         float my = Input.GetAxis("Mouse Y");
 
+#elif VR_MODE
+        // 오른 손 조이스틱의 좌표 가져오기
+        Vector2 control = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
+        float mx = control.x;
+        float my = control.y;
+#endif
 
         // 마우스 인풋값으로 [아이템] 돌리기
         pointingItem_L.transform.localEulerAngles += new Vector3(my, -mx);
@@ -292,10 +311,13 @@ public class CSH_ItemGrab : MonoBehaviour
         // [아이템]의 부모를 [null]로 설정하기
         // => 현재 갖고 있던 자식 비우기
         pointingItem_L.transform.SetParent(null);
-
+#if EDITOR_MODE
         // 보고 있는 방향의 정면으로 던져버리기!!!!!!
         itemRB_L.AddForce(Camera.main.transform.forward * throwSpeed, ForceMode.Impulse);
-
+#elif VR_MODE
+        Vector3 dir = (afterPos - beforePos);
+        itemRB_L.AddForce(dir.normalized * (throwSpeed / (float)3), ForceMode.Impulse);
+#endif
         // 위에서 고정했던 pointingItem을 다시 비워두기!!!
         pointingItem_L = null;
 
@@ -387,9 +409,11 @@ public class CSH_ItemGrab : MonoBehaviour
             if (pointingItem_R != null && CSH_RayManager.Instance.isNear)
             {
                 // 2. [E] 키를 눌러서 아이템 가져오기    ||    오른손 VR 컨트롤러 중지 버튼
-
+#if EDITOR_MODE
                 if (Input.GetKeyDown(KeyCode.E))
-
+#elif VR_MODE
+                if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
+#endif
                 {
                     // 커서로 가리킨 [아이템]을 선택한 [아이템]으로 설정한다
                     selectedItem_R = pointingItem_R;
@@ -401,9 +425,12 @@ public class CSH_ItemGrab : MonoBehaviour
             // C. 왼손으로 가리키는 물체
             if (pointingItem_L != null && CSH_RayManager.Instance.isNear)
             {
-
+                // 2. [E] 키를 눌러서 아이템 가져오기    ||    오른손 VR 컨트롤러 중지 버튼
+#if EDITOR_MODE
                 if (Input.GetKeyDown(KeyCode.E))
-
+#elif VR_MODE
+                if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
+#endif
                 {
                     // 커서로 가리킨 [아이템]을 선택한 [아이템]으로 설정한다
                     selectedItem_L = pointingItem_L;
@@ -420,6 +447,10 @@ public class CSH_ItemGrab : MonoBehaviour
         if (hasItem)
         {
             // 위치 넣기
+#if EDITOR_MODE
+#elif VR_MODE
+            afterPos = CSH_ModeChange.Instance.leftControllerAnchor.position;
+#endif
 
             // 갖고 있는 무기 공격 못하게 만들기
             if (handGun)
@@ -441,7 +472,7 @@ public class CSH_ItemGrab : MonoBehaviour
 
             // -------------------------------------< 마우스 우클릭을 한 채로 움직이면 아이템 회전하기 >
             // 1. 마우스 우클릭을 지속하는 중이고
-
+#if EDITOR_MODE
             if (Input.GetMouseButton(1))
             {
                 // 2. 마우스를 움직이면 아이템 회전하기
@@ -457,23 +488,33 @@ public class CSH_ItemGrab : MonoBehaviour
             //    if (fpcController != null)
             //        fpcController.hasGrabed = false;
             //}
-
+#elif VR_MODE
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
+            {
+                // 2. 왼손 VR 중지 버튼을 누른 상태라면,
+                Spin_item();
+            }
+#endif
 
 
             // -------------------------------------< 마우스 좌클릭을 하면 아이템 던져버리기!! >
             // 1. 마우스 좌클릭을 했다면,
             // VR. 오른손 VR 검지 버튼
-
+#if EDITOR_MODE
             if (Input.GetMouseButtonDown(0))
-
+#elif VR_MODE
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
+#endif
             {
                 // 2. 보고 있는 방향으로 아이템 던지기
                 Throw_item();
             }
 
 
-
-
+#if EDITOR_MODE
+#elif VR_MODE
+            beforePos = afterPos;
+#endif
         }
     }
 }
