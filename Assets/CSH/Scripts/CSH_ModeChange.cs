@@ -60,7 +60,6 @@ public class CSH_ModeChange : MonoBehaviour
         Holder.SetParent(rightControllerAnchor);
 
         inventory_UICanvas.SetParent(crossHair_R);
-<<<<<<< HEAD
 
 #elif EDITOR_MODE
 
@@ -76,7 +75,7 @@ public class CSH_ModeChange : MonoBehaviour
 
 
         inventory_UICanvas.SetParent(mainCamera.transform);
-        inventory_UICanvas.localPosition = new Vector3(0, 0, 10f);
+        inventory_UICanvas.transform.localPosition = new Vector3(0, 0, 10f);
 #endif
     }
 }

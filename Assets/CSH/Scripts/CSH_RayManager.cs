@@ -7,7 +7,7 @@ public class CSH_RayManager : MonoBehaviour
 {
     public static CSH_RayManager Instance;
 
-    CSH_RayManager()
+    private void Awake()
     {
         Instance = this;
     }
@@ -42,32 +42,38 @@ public class CSH_RayManager : MonoBehaviour
     public Transform crossHair_L;
     public float crossHairScale = 0.1f;
     Vector3 crossHairSize;
-    Camera Cam;
+    public Camera Cam;
 
     private void Start()
     {
         //player = GameObject.FindGameObjectWithTag("Player");
-        crossHairSize = crossHair_R.localScale * crossHairScale;
+        crossHairSize = new Vector3(0.1f, 0.1f, 0.1f);
         // 카메라 가져오기
 
-#if VR_MODE
-        Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
-
-
-#endif
-        crossHair_L.gameObject.SetActive(false);
-
-        Cam = Camera.main.GetComponent<Camera>();
 
 #if VR_MODE
         Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
 #elif EDITOR_MODE
-        crossHair_L.gameObject.SetActive(false);
-        Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
+        if (!crossHair_L)
+        {
+            Debug.Log("크로스 헤어 L 연결 안됨  && 못 가져옴");
+        }
+        else 
+        { 
+            Debug.Log("크로스 헤어 L 연결 됨 ㅎㅎ");
+            crossHair_L.gameObject.SetActive(false);
+        }
+        
+        if (!crossHair_R)
+        {
+            Debug.Log("크로스 헤어 R 연결 안됨  && 못 가져옴");
+        }
+        else
+        {
+            Debug.Log("크로스 헤어 R 연결 됨 ㅎㅎ");
+
+        }
 #endif
-
-        Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
-
     }
 
     // 왼손 트리거의 조준점
@@ -135,7 +141,7 @@ public class CSH_RayManager : MonoBehaviour
         Ray ray = new Ray(CSH_ModeChange.Instance.rightControllerAnchor.position, CSH_ModeChange.Instance.rightControllerAnchor.forward * rayLength);
 #elif EDITOR_MODE
 
-        Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
+        //Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
 #endif
         RaycastHit hit;
 
@@ -143,7 +149,8 @@ public class CSH_RayManager : MonoBehaviour
         int layerMask = (1 << LayerMask.NameToLayer("Water")) | (1 << LayerMask.NameToLayer("Player")) | (1 << LayerMask.NameToLayer("Weapon"));
 
         // 레이 쏘기
-        if (Physics.Raycast(ray, out hit, rayLength, ~layerMask))
+        //if (Physics.Raycast(ray, out hit, rayLength, ~layerMask))
+        if(Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, rayLength, ~layerMask))
         {
             // 1. hit 지점에 crossHair 두기
             crossHair_R.position = hit.point;

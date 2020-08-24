@@ -50,7 +50,7 @@ public class MoveObjectController : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("EditorOnly"))     //player has collided with trigger
+        if (other.CompareTag("Finish"))     //player has collided with trigger
         {
             playerEntered = true;
         }
@@ -58,7 +58,7 @@ public class MoveObjectController : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("EditorOnly"))     //player has exited trigger
+        if (other.CompareTag("Finish"))     //player has exited trigger
         {
             playerEntered = false;
             //hide interact message as player may not have been looking at object when they left

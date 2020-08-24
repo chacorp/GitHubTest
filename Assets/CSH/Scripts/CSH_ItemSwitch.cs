@@ -12,8 +12,8 @@ public class CSH_ItemSwitch : MonoBehaviour
     // 무기 잡고 있는 곳
     public Transform Holder;
 
-   public int select_current = 0;
-    int select_before = 9;
+    public int select_current = 0;
+    int select_before = 0;
 
     // 갖고 있는 아이템 갯수
     public int HolderCount = 1;
@@ -50,7 +50,7 @@ public class CSH_ItemSwitch : MonoBehaviour
         //만약 스크롤한 범위가
         //    아이템 리스트의 범위보다 크다면,
         // = 아이템 선택하면 안됨
-        if(select_current >= CSH_ItemGrab.Instance.activeItems.Count)
+        if (select_current >= CSH_ItemGrab.Instance.activeItems.Count)
         {
             select_current = select_before;
         }
@@ -73,12 +73,12 @@ public class CSH_ItemSwitch : MonoBehaviour
             select_current = 1;
         }
         // 3번 누를때
-        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             select_current = 2;
         }
         // 4번 누를때
-        else if(Input.GetKeyDown(KeyCode.Alpha4))
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             select_current = 3;
         }
@@ -87,19 +87,18 @@ public class CSH_ItemSwitch : MonoBehaviour
         {
             select_current = 4;
         }
-        else
+
+        float wheel = Input.GetAxis("Mouse ScrollWheel");
+        if (wheel > 0)
         {
-            float wheel = Input.GetAxis("Mouse ScrollWheel");
-            if(wheel > 0)
-            {
-                select_current--;
-            }
-            else if (wheel < 0)
-            {
-                select_current++;
-            }
-            select_current = Mathf.Clamp(select_current, 0, 4);
+            select_current--;
         }
+        else if (wheel < 0)
+        {
+            select_current++;
+        }
+        select_current = Mathf.Clamp(select_current, 0, 4);
+
 
         Compare();
 
