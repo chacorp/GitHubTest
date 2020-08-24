@@ -65,6 +65,7 @@ public class CSH_SceneManager : MonoBehaviour
         else if (QuestManager.Instance.quests[3].goal.IsReached())
         {
             StartCoroutine(FinishGame());
+
         }
     }
 
@@ -113,10 +114,12 @@ public class CSH_SceneManager : MonoBehaviour
             fadeOutImage.gameObject.SetActive(true);
             fadeOutImage.color = new Color(0, 0, 0, alphaC);
             enndingText.SetActive(true);
-            //iTween.ScaleTo(restartButton, iTween.Hash("scale", Vector3.one, "time", 1.0f, "easetype", iTween.EaseType.easeInOutBack));
-            //iTween.ScaleTo(exitButton, iTween.Hash("scale", Vector3.one, "time", 1.0f, "easetype", iTween.EaseType.easeInOutBack));
             restartButton.SetActive(true);
             exitButton.SetActive(true);
+            iTween.ScaleTo(restartButton, iTween.Hash("scale", Vector3.one, "time", 0.3f, "easetype", iTween.EaseType.easeInOutBack));
+            iTween.ScaleTo(exitButton, iTween.Hash("scale", Vector3.one, "time", 0.3f, "easetype", iTween.EaseType.easeInOutBack));
+
+
             alphaC += Time.deltaTime * fadeSpeed;
             if (alphaC >= 0.5f)
             {
@@ -130,17 +133,6 @@ public class CSH_SceneManager : MonoBehaviour
         }
     }
 
-    public void OnClickRestart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Debug.Log("OnClickRestart");
-    }
-
-    public void OnClickEnding()
-    {
-        Application.Quit();
-        Debug.Log("OnClickEnding");
-    }
 
     void ButtonAnim()
     {
