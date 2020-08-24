@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-#if VR_MODE
 public class PlayerMove : MonoBehaviour
 {
+#if VR_MODE
     [SerializeField] OVRInput.Axis2D iThumbstick_L;
     [SerializeField] CharacterController cc;
     [SerializeField] float moveSpeed = 2.5f;
@@ -45,5 +45,5 @@ public class PlayerMove : MonoBehaviour
 
         cc.Move(dir * moveSpeed * Time.deltaTime);
     }
-}
 #endif
+}

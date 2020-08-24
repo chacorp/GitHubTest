@@ -44,9 +44,9 @@ public class CSH_RayManager : MonoBehaviour
     Vector3 crossHairSize;
     Camera Cam;
 
-    private void Awake()
+    private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
         crossHairSize = crossHair_R.localScale * crossHairScale;
         // 카메라 가져오기
 

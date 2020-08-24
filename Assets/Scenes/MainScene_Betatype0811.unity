@@ -1223,7 +1223,7 @@ MonoBehaviour:
   distanceLimit: 2
   raycastHitObject_R: {fileID: 0}
   raycastHitObject_L: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 344192079}
   isNear: 0
   crossHair_R: {fileID: 1327159529}
   crossHair_L: {fileID: 1226857497}
@@ -2306,15 +2306,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344192079}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: -2.03, y: 0.93, z: 6.982}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1712453697}
   - {fileID: 444919215}
   - {fileID: 344221805}
-  m_Father: {fileID: 2082452955}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!20 &345831023
 Camera:
@@ -15411,8 +15411,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 344221807}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
