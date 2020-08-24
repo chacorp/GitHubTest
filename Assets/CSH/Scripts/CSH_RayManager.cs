@@ -46,15 +46,17 @@ public class CSH_RayManager : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        { player = GameObject.FindGameObjectWithTag("Player"); }
+
         crossHairSize = crossHair_R.localScale * crossHairScale;
         // 카메라 가져오기
 #if VR_MODE
         Cam = CSH_ModeChange.Instance.centerEyeAnchor.GetComponent<Camera>();
-#elif EDITOR_MODE
+
+#endif
         crossHair_L.gameObject.SetActive(false);
         Cam = CSH_ModeChange.Instance.mainCamera.GetComponent<Camera>();
-#endif
     }
 
     // 왼손 트리거의 조준점
@@ -62,7 +64,7 @@ public class CSH_RayManager : MonoBehaviour
     {
 #if VR_MODE
         Ray ray = new Ray(CSH_ModeChange.Instance.leftControllerAnchor.position, CSH_ModeChange.Instance.leftControllerAnchor.forward * rayLength);
-#elif EDITOR_MODE
+#elif  UNITY_STANDALONE_WIN
         Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
 #endif
         RaycastHit hit_L;
@@ -117,7 +119,7 @@ public class CSH_RayManager : MonoBehaviour
         // 플레이어 카메라가 보는 방향으로 레이 쏘기
 #if VR_MODE
         Ray ray = new Ray(CSH_ModeChange.Instance.rightControllerAnchor.position, CSH_ModeChange.Instance.rightControllerAnchor.forward * rayLength);
-#elif EDITOR_MODE
+#elif  UNITY_STANDALONE_WIN
         Ray ray = new Ray(Cam.transform.position, Cam.transform.forward * rayLength);
 #endif
         RaycastHit hit;

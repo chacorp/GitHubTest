@@ -59,8 +59,9 @@ public class CSH_ModeChange : MonoBehaviour
         Holder.SetParent(rightControllerAnchor);
 
         inventory_UICanvas.SetParent(crossHair_R);
+#endif
 
-#elif EDITOR_MODE
+
         // OVRCamera 비활성화
         OVRCamera.SetActive(false);
         // EditorCamera 활성화
@@ -74,6 +75,5 @@ public class CSH_ModeChange : MonoBehaviour
 
         inventory_UICanvas.SetParent(mainCamera.transform);
         inventory_UICanvas.localPosition = new Vector3(0, 0, 10f);
-#endif
     }
 }
